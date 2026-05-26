@@ -1,0 +1,24 @@
+@if (showLoader()) {
+  <app-loader #loader />
+}
+
+<canvas id="bg-canvas" #bgCanvas></canvas>
+
+<div class="progress" [style.width.%]="progress()"></div>
+<div class="cursor" id="cursor" #cursor></div>
+
+<app-nav [active]="activeSection()" (navigate)="goTo($event)" (langChange)="setLang($event)" />
+
+<main>
+  <app-hero />
+  <app-about />
+  <app-skills />
+  <app-work />
+  <app-experience />
+  <app-blog />
+  <app-contact />
+</main>
+
+<app-footer />
+
+<app-totop [visible]="totopVisible()" (click)="goTop()" />
