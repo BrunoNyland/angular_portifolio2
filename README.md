@@ -1,59 +1,47 @@
-# Portifolio2
+# Angular Portfólio 2
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.12.
+Portfólio pessoal desenvolvido com Angular para apresentar perfil profissional, experiência, projetos selecionados, stack e formas de contato. A interface combina animações com GSAP, navegação suave com Lenis e uma cena de fundo em 3D.
 
-## Development server
+## Destaques
 
-To start a local development server, run:
+- Conteúdo bilíngue em português e inglês.
+- Seções para sobre, skills, projetos, experiência, blog e contato.
+- Loader inicial, indicador de progresso, cursor customizado e botão de voltar ao topo.
+- Layout responsivo com foco em apresentação visual e animações de scroll.
 
-```bash
-ng serve
-```
+## Stack
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- Angular 21
+- TypeScript
+- GSAP
+- Lenis
+- Three.js
+- RxJS
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Como rodar localmente
 
 ```bash
-ng generate --help
+npm install
+npm start
 ```
 
-## Building
+Depois disso, abra `http://localhost:4200/`.
 
-To build the project run:
+## Scripts
 
-```bash
-ng build
-```
+- `npm start`: inicia o servidor de desenvolvimento.
+- `npm run build`: gera a versão de produção em `dist/`.
+- `npm test`: executa os testes com Vitest.
+- `npm run watch`: recompila em modo observação durante o desenvolvimento.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Estrutura
 
-## Running unit tests
+- `src/app/sections`: seções principais do portfólio.
+- `src/app/chrome`: componentes de interface, como navegação, loader e rodapé.
+- `src/app/content`: dados e serviços de conteúdo bilíngue.
+- `src/app/scene`: lógica da cena de fundo.
+- `src/app/tweaks`: ajustes finos de comportamento visual e de animação.
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## Observações
 
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+O projeto foi criado com Angular CLI e usa a estrutura padrão de uma aplicação standalone moderna. O conteúdo exibido na interface está centralizado nos arquivos de conteúdo em `src/app/content`.
