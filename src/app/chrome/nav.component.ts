@@ -15,6 +15,7 @@ const ACCENT_OPTIONS = ['#7c5cff', '#00e6a8', '#ff5b3a', '#3aa0ff', '#f0f0f0'];
         <a href="#sec-skills" (click)="scrollTo($event, 'sec-skills')" [class.is-active]="active() === 'sec-skills'">{{ dict().nav.skills }}</a>
         <a href="#sec-work" (click)="scrollTo($event, 'sec-work')" [class.is-active]="active() === 'sec-work'">{{ dict().nav.work }}</a>
         <a href="#sec-xp" (click)="scrollTo($event, 'sec-xp')" [class.is-active]="active() === 'sec-xp'">{{ dict().nav.xp }}</a>
+        <a href="#sec-edu" (click)="scrollTo($event, 'sec-edu')" [class.is-active]="active() === 'sec-edu'">{{ dict().nav.edu }}</a>
         <a href="#sec-blog" (click)="scrollTo($event, 'sec-blog')" [class.is-active]="active() === 'sec-blog'">{{ dict().nav.blog }}</a>
         <a href="#sec-contact" (click)="scrollTo($event, 'sec-contact')" [class.is-active]="active() === 'sec-contact'">{{ dict().nav.contact }}</a>
       </div>

@@ -7,6 +7,7 @@ export interface NavDict {
   skills: string;
   work: string;
   xp: string;
+  edu: string;
   blog: string;
   contact: string;
 }
@@ -69,18 +70,54 @@ export interface WorkDict {
   items: WorkItem[];
 }
 
-export interface XpItem {
+export interface XpRole {
   from: string;
   to: string;
-  co: string;
   role: string;
-  desc: string;
+}
+
+export interface XpCompany {
+  name: string;
+  cnpj: string;
+  from: string;
+  to: string;
+  roles: XpRole[];
 }
 
 export interface XpDict {
   num: string;
   title: string;
-  items: XpItem[];
+  totalLabel: string;
+  cnpjLabel: string;
+  presentLabel: string;
+  companies: XpCompany[];
+}
+
+export interface EduItem {
+  status: 'ongoing' | 'done';
+  title: string;
+  kind: string;
+  institution: string;
+  cnpj: string;
+  date: string;
+  workload: string;
+  validation?: string;
+  url?: string;
+}
+
+export interface EduDict {
+  num: string;
+  title: string;
+  statusOngoing: string;
+  statusDone: string;
+  dateOngoingLabel: string;
+  dateDoneLabel: string;
+  kindLabel: string;
+  workloadLabel: string;
+  cnpjLabel: string;
+  validationLabel: string;
+  documentLabel: string;
+  items: EduItem[];
 }
 
 export interface BlogItem {
@@ -129,6 +166,7 @@ export interface Dict {
   skills: SkillsDict;
   work: WorkDict;
   xp: XpDict;
+  edu: EduDict;
   blog: BlogDict;
   contact: ContactDict;
   foot: FootDict;

@@ -27,6 +27,7 @@ import { AboutComponent } from './sections/about.component';
 import { SkillsComponent } from './sections/skills.component';
 import { WorkComponent } from './sections/work.component';
 import { ExperienceComponent } from './sections/experience.component';
+import { EducationComponent } from './sections/education.component';
 import { BlogComponent } from './sections/blog.component';
 import { ContactComponent } from './sections/contact.component';
 
@@ -38,6 +39,7 @@ const HUE_MAP: Array<{ id: string; h: number }> = [
   { id: '#sec-skills', h: 0.55 },
   { id: '#sec-work', h: 0.85 },
   { id: '#sec-xp', h: 0.68 },
+  { id: '#sec-edu', h: 0.5 },
   { id: '#sec-blog', h: 0.92 },
   { id: '#sec-contact', h: 0.72 }
 ];
@@ -56,6 +58,7 @@ const HUE_MAP: Array<{ id: string; h: number }> = [
     SkillsComponent,
     WorkComponent,
     ExperienceComponent,
+    EducationComponent,
     BlogComponent,
     ContactComponent
   ],
@@ -199,11 +202,16 @@ export class App implements AfterViewInit, OnDestroy {
       autoAlpha: 0, y: 50, duration: 0.8, stagger: 0.1, ease: 'power2.out'
     });
 
-    gsap.utils.toArray<HTMLElement>('#sec-xp .tl-item').forEach((item) => {
+    gsap.utils.toArray<HTMLElement>('#sec-xp .xp-co').forEach((item) => {
       gsap.from(item, {
         scrollTrigger: { trigger: item, start: 'top 85%' },
         autoAlpha: 0, x: -30, duration: 0.8, ease: 'power2.out'
       });
+    });
+
+    gsap.from('#sec-edu .edu-item', {
+      scrollTrigger: { trigger: '#sec-edu', start: 'top 80%' },
+      autoAlpha: 0, y: 40, duration: 0.8, stagger: 0.12, ease: 'power2.out'
     });
 
     gsap.from('#sec-blog .post', {
