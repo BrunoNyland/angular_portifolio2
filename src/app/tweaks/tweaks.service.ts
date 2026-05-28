@@ -12,13 +12,13 @@ export interface Tweaks {
 }
 
 export const TWEAK_DEFAULTS: Tweaks = {
-  accent: '#ff5b3a',
+  accent: '#00e6a8',
   lockAccent: true,
   showB: true,
   particles: 400,
   scrollSpeed: 0.5,
-  sectionBlur: 1,
-  cursor: true
+  sectionBlur: 10,
+  cursor: true,
 };
 
 @Injectable({ providedIn: 'root' })

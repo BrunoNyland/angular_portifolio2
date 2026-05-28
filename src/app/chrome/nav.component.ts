@@ -1,9 +1,19 @@
-import { ChangeDetectionStrategy, Component, ElementRef, HostListener, inject, input, output, signal, viewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  HostListener,
+  inject,
+  input,
+  output,
+  signal,
+  viewChild,
+} from '@angular/core';
 import { ContentService } from '../content/content.service';
 import { Lang } from '../content/content.types';
 import { TweaksService } from '../tweaks/tweaks.service';
 
-const ACCENT_OPTIONS = ['#7c5cff', '#00e6a8', '#ff5b3a', '#3aa0ff', '#f0f0f0'];
+const ACCENT_OPTIONS = ['#00e6a8', '#7c5cff', '#ff5b3a', '#3aa0ff', '#fc5bff', '#ff3333'];
 
 @Component({
   selector: 'app-nav',
@@ -11,13 +21,48 @@ const ACCENT_OPTIONS = ['#7c5cff', '#00e6a8', '#ff5b3a', '#3aa0ff', '#f0f0f0'];
     <nav class="nav">
       <div class="nav__brand">BN <b>///</b> NYLAND</div>
       <div class="nav__menu">
-        <a href="#sec-about" (click)="scrollTo($event, 'sec-about')" [class.is-active]="active() === 'sec-about'">{{ dict().nav.about }}</a>
-        <a href="#sec-skills" (click)="scrollTo($event, 'sec-skills')" [class.is-active]="active() === 'sec-skills'">{{ dict().nav.skills }}</a>
-        <a href="#sec-work" (click)="scrollTo($event, 'sec-work')" [class.is-active]="active() === 'sec-work'">{{ dict().nav.work }}</a>
-        <a href="#sec-xp" (click)="scrollTo($event, 'sec-xp')" [class.is-active]="active() === 'sec-xp'">{{ dict().nav.xp }}</a>
-        <a href="#sec-edu" (click)="scrollTo($event, 'sec-edu')" [class.is-active]="active() === 'sec-edu'">{{ dict().nav.edu }}</a>
-        <a href="#sec-blog" (click)="scrollTo($event, 'sec-blog')" [class.is-active]="active() === 'sec-blog'">{{ dict().nav.blog }}</a>
-        <a href="#sec-contact" (click)="scrollTo($event, 'sec-contact')" [class.is-active]="active() === 'sec-contact'">{{ dict().nav.contact }}</a>
+        <a
+          href="#sec-about"
+          (click)="scrollTo($event, 'sec-about')"
+          [class.is-active]="active() === 'sec-about'"
+          >{{ dict().nav.about }}</a
+        >
+        <a
+          href="#sec-skills"
+          (click)="scrollTo($event, 'sec-skills')"
+          [class.is-active]="active() === 'sec-skills'"
+          >{{ dict().nav.skills }}</a
+        >
+        <a
+          href="#sec-work"
+          (click)="scrollTo($event, 'sec-work')"
+          [class.is-active]="active() === 'sec-work'"
+          >{{ dict().nav.work }}</a
+        >
+        <a
+          href="#sec-xp"
+          (click)="scrollTo($event, 'sec-xp')"
+          [class.is-active]="active() === 'sec-xp'"
+          >{{ dict().nav.xp }}</a
+        >
+        <a
+          href="#sec-edu"
+          (click)="scrollTo($event, 'sec-edu')"
+          [class.is-active]="active() === 'sec-edu'"
+          >{{ dict().nav.edu }}</a
+        >
+        <a
+          href="#sec-blog"
+          (click)="scrollTo($event, 'sec-blog')"
+          [class.is-active]="active() === 'sec-blog'"
+          >{{ dict().nav.blog }}</a
+        >
+        <a
+          href="#sec-contact"
+          (click)="scrollTo($event, 'sec-contact')"
+          [class.is-active]="active() === 'sec-contact'"
+          >{{ dict().nav.contact }}</a
+        >
       </div>
       <div class="nav__right">
         <div class="accent-picker" #picker>
@@ -51,7 +96,7 @@ const ACCENT_OPTIONS = ['#7c5cff', '#00e6a8', '#ff5b3a', '#3aa0ff', '#f0f0f0'];
       </div>
     </nav>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavComponent {
   readonly content = inject(ContentService);
