@@ -268,7 +268,7 @@ export class App implements AfterViewInit, OnDestroy {
         scrollTrigger: {
           trigger: item,
           start: 'top 85%',
-          toggleActions: 'play none none reverse',
+          toggleActions: 'play reverse play reverse',
         },
         autoAlpha: 0,
         x: -30,
@@ -282,7 +282,7 @@ export class App implements AfterViewInit, OnDestroy {
       scrollTrigger: {
         trigger: '#sec-edu',
         start: 'top 80%',
-        toggleActions: 'play none none reverse',
+        toggleActions: 'play reverse play reverse',
       },
       autoAlpha: 0,
       y: 40,
@@ -296,7 +296,7 @@ export class App implements AfterViewInit, OnDestroy {
       scrollTrigger: {
         trigger: '#sec-blog',
         start: 'top 80%',
-        toggleActions: 'play none none reverse',
+        toggleActions: 'play reverse play reverse',
       },
       autoAlpha: 0,
       y: 40,
@@ -310,7 +310,7 @@ export class App implements AfterViewInit, OnDestroy {
       scrollTrigger: {
         trigger: '#sec-contact',
         start: 'top 75%',
-        toggleActions: 'play none none reverse',
+        toggleActions: 'play reverse play reverse',
       },
       autoAlpha: 0,
       y: 60,
@@ -322,7 +322,7 @@ export class App implements AfterViewInit, OnDestroy {
       scrollTrigger: {
         trigger: '#sec-contact',
         start: 'top 70%',
-        toggleActions: 'play none none reverse',
+        toggleActions: 'play reverse play reverse',
       },
       autoAlpha: 0,
       y: 20,
