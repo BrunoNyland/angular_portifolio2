@@ -81,6 +81,11 @@ export class App implements AfterViewInit, OnDestroy {
 
   private lenis?: Lenis;
   private mouseMoveHandler?: (e: MouseEvent) => void;
+  private resizeHandler?: () => void;
+
+  // Métricas de layout cacheadas para evitar leituras (forced reflow) a cada evento de scroll.
+  private winH = window.innerHeight;
+  private maxScroll = 1;
 
   ngAfterViewInit(): void {
     this.scene.init(this.bgCanvas().nativeElement);
@@ -118,7 +123,17 @@ export class App implements AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     this.lenis?.destroy();
     if (this.mouseMoveHandler) window.removeEventListener('mousemove', this.mouseMoveHandler);
+    if (this.resizeHandler) {
+      window.removeEventListener('resize', this.resizeHandler);
+      ScrollTrigger.removeEventListener('refresh', this.resizeHandler);
+    }
     ScrollTrigger.killAll();
+  }
+
+  // Lê o layout uma única vez e guarda os valores usados no handler de scroll.
+  private recomputeMetrics(): void {
+    this.winH = window.innerHeight;
+    this.maxScroll = document.documentElement.scrollHeight - this.winH || 1;
   }
 
   setLang(lang: Lang): void {
@@ -159,14 +174,22 @@ export class App implements AfterViewInit, OnDestroy {
       this.lenis.on('scroll', (e: { scroll: number }) => {
         this.scene.setScroll(e.scroll);
         ScrollTrigger.update();
-        const pct = e.scroll / (document.documentElement.scrollHeight - window.innerHeight);
+        // Usa métricas cacheadas em vez de ler scrollHeight/innerHeight a cada frame (evita forced reflow).
+        const pct = e.scroll / this.maxScroll;
         this.progress.set(pct * 100);
-        this.totopVisible.set(e.scroll > window.innerHeight * 0.6);
+        this.totopVisible.set(e.scroll > this.winH * 0.6);
       });
       // Sincroniza o loop do Lenis com o ticker de frames do GSAP para manter o scroll suave.
       gsap.ticker.add((t) => this.lenis?.raf(t * 1000));
       // Desativa o ajuste automático de lag do ticker para evitar comportamentos estranhos na animação de scroll.
       gsap.ticker.lagSmoothing(0);
+
+      // Mede o layout uma vez agora e só recalcula quando ele realmente muda.
+      this.recomputeMetrics();
+      this.resizeHandler = () => this.recomputeMetrics();
+      window.addEventListener('resize', this.resizeHandler);
+      // O refresh do ScrollTrigger acontece após mudanças de layout — bom momento para reler as métricas.
+      ScrollTrigger.addEventListener('refresh', this.resizeHandler);
     });
   }
 

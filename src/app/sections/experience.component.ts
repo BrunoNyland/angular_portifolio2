@@ -32,7 +32,9 @@ import { ContentService } from '../content/content.service';
               @for (r of co.roles; track r.from + r.to + r.role; let ri = $index) {
                 <li class="xp-role">
                   <div class="xp-role__when">
-                    <span class="xp-role__range">{{ formatDate(r.from) }} — {{ formatTo(r.to) }}</span>
+                    <span class="xp-role__range"
+                      >{{ formatDate(r.from) }} — {{ formatTo(r.to) }}</span
+                    >
                     <b>{{ duration(r.from, r.to) }}</b>
                   </div>
                   <div class="xp-role__name">
@@ -86,9 +88,16 @@ export class ExperienceComponent {
 
     const pt = this.content.lang() === 'pt';
     const parts: string[] = [];
-    if (years > 0) parts.push(years + ' ' + (pt ? (years === 1 ? 'ano' : 'anos') : years === 1 ? 'year' : 'years'));
-    if (months > 0) parts.push(months + ' ' + (pt ? (months === 1 ? 'mês' : 'meses') : months === 1 ? 'month' : 'months'));
-    if (days > 0 || parts.length === 0) parts.push(days + ' ' + (pt ? (days === 1 ? 'dia' : 'dias') : days === 1 ? 'day' : 'days'));
+    if (years > 0)
+      parts.push(
+        years + ' ' + (pt ? (years === 1 ? 'ano' : 'anos') : years === 1 ? 'year' : 'years'),
+      );
+    if (months > 0)
+      parts.push(
+        months + ' ' + (pt ? (months === 1 ? 'mês' : 'meses') : months === 1 ? 'month' : 'months'),
+      );
+    if (days > 0 || parts.length === 0)
+      parts.push(days + ' ' + (pt ? (days === 1 ? 'dia' : 'dias') : days === 1 ? 'day' : 'days'));
 
     if (parts.length === 1) return parts[0];
     const last = parts.pop() as string;

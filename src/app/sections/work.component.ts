@@ -11,7 +11,7 @@ import { ContentService } from '../content/content.service';
       </div>
       <div class="projects">
         @for (p of w().items; track p.t; let i = $index) {
-          <div class="project" (mousemove)="tilt($event)">
+          <div class="project" (mouseenter)="cacheRect($event)" (mousemove)="tilt($event)">
             <div class="project__head">
               <span>{{ pad(i + 1) }} · {{ p.k }}</span>
               <span class="yr">{{ p.y }}</span>
@@ -41,9 +41,17 @@ export class WorkComponent {
 
   pad(n: number): string { return String(n).padStart(2, '0'); }
 
+  // Rect do card sob o cursor, medido uma vez no mouseenter para evitar reflow a cada mousemove.
+  private rect?: DOMRect;
+
+  cacheRect(e: MouseEvent): void {
+    this.rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+  }
+
   tilt(e: MouseEvent): void {
+    const r = this.rect;
+    if (!r) return;
     const el = e.currentTarget as HTMLElement;
-    const r = el.getBoundingClientRect();
     el.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
     el.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
   }
