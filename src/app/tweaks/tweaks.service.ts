@@ -1,5 +1,6 @@
-import { Injectable, effect, signal, inject } from '@angular/core';
+import { DOCUMENT, Injectable, effect, inject, signal } from '@angular/core';
 import { SceneService } from '../scene/scene.service';
+import { StorageService } from '../core/storage.service';
 
 export interface Tweaks {
   accent: string;
@@ -7,7 +8,6 @@ export interface Tweaks {
   showB: boolean;
   particles: number;
   scrollSpeed: number;
-  sectionBlur: number;
   cursor: boolean;
 }
 
@@ -17,26 +17,30 @@ export const TWEAK_DEFAULTS: Tweaks = {
   showB: true,
   particles: 400,
   scrollSpeed: 0.5,
-  sectionBlur: 10,
   cursor: true,
 };
+
+const ACCENT_KEY = 'accent';
 
 @Injectable({ providedIn: 'root' })
 export class TweaksService {
   private readonly scene = inject(SceneService);
-  private readonly _tweaks = signal<Tweaks>({ ...TWEAK_DEFAULTS });
+  private readonly storage = inject(StorageService);
+  private readonly document = inject(DOCUMENT);
+  private readonly _tweaks = signal<Tweaks>(this.readInitial());
   readonly tweaks = this._tweaks.asReadonly();
 
   constructor() {
     // Apply scene-side effects whenever tweaks change.
     effect(() => {
       const t = this._tweaks();
-      document.documentElement.style.setProperty('--accent', t.accent);
+      this.document.documentElement.style.setProperty('--accent', t.accent);
       this.scene.setAccentColor(t.accent);
       this.scene.setBVisible(t.showB);
       this.scene.setParticleDensity(t.particles);
-      const c = document.getElementById('cursor');
-      if (c) c.style.display = t.cursor === false ? 'none' : '';
+      const cursor = this.document.getElementById('cursor');
+      if (cursor) cursor.style.display = t.cursor === false ? 'none' : '';
+      this.storage.set(ACCENT_KEY, t.accent);
     });
   }
 
@@ -46,5 +50,10 @@ export class TweaksService {
 
   patch(edits: Partial<Tweaks>): void {
     this._tweaks.update((prev) => ({ ...prev, ...edits }));
+  }
+
+  private readInitial(): Tweaks {
+    const accent = this.storage.get(ACCENT_KEY);
+    return accent ? { ...TWEAK_DEFAULTS, accent } : { ...TWEAK_DEFAULTS };
   }
 }

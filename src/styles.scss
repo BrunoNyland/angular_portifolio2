@@ -191,6 +191,11 @@ body.is-loaded .loader {
   text-transform: uppercase;
   mix-blend-mode: difference;
   color: #fff;
+
+  /* Initial states for intro animation */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
 }
 .nav__brand {
   font-weight: 600;
@@ -414,6 +419,11 @@ section.section:first-of-type {
   text-transform: uppercase;
   color: var(--fg-dim);
   text-align: right;
+
+  /* Initial states for intro animation */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
 }
 .hero__meta-top b {
   color: var(--fg);
@@ -425,9 +435,15 @@ section.section:first-of-type {
   align-self: center;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(72px, 17.5vw, 320px);
+  font-size: clamp(60px, 17.5vw, 320px);
   line-height: 0.82;
   letter-spacing: -0.055em;
+}
+.hero .eyebrow {
+  /* Initial states for intro animation */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(15px);
 }
 .hero__title span.line {
   display: block;
@@ -437,6 +453,9 @@ section.section:first-of-type {
   display: inline-block;
   font-style: normal;
   will-change: transform;
+
+  /* Initial state for intro animation */
+  transform: translateY(110%);
 }
 .hero__title .accent {
   color: var(--accent);
@@ -459,6 +478,12 @@ section.section:first-of-type {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--fg-dim);
+}
+.hero__foot > * {
+  /* Initial states for intro animation */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(18px);
 }
 .hero__foot b {
   color: var(--fg);

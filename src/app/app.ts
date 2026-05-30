@@ -143,7 +143,7 @@ export class App implements AfterViewInit, OnDestroy {
       const lines = document.querySelectorAll<HTMLElement>('.hero__title .line > i');
       gsap.fromTo(
         lines,
-        { yPercent: 110 },
+        { y: 0, yPercent: 110 },
         { yPercent: 0, duration: 0.9, ease: 'expo.out', stagger: 0.05 },
       );
       ScrollTrigger.refresh();
@@ -195,17 +195,17 @@ export class App implements AfterViewInit, OnDestroy {
 
   private initIntro(): void {
     const lines = document.querySelectorAll('.hero__title .line > i');
-    // Define o estado inicial dos caracteres do título do hero fora da tela, prontos para entrar.
-    gsap.set(lines, { yPercent: 110 });
     const tl = gsap.timeline();
-    // Anima as linhas do título para a posição original, em cascata.
-    tl.to(lines, { yPercent: 0, duration: 1.1, ease: 'expo.out', stagger: 0.08 })
-      // Faz o subtítulo/meta do hero aparecer com fade e movimento sutil.
-      .from('.hero__meta-top', { autoAlpha: 0, y: 10, duration: 0.6 }, '-=0.6')
-      // Anima cada item do rodapé hero com fade-in e espaçamento entre eles.
-      .from('.hero__foot > *', { autoAlpha: 0, y: 18, duration: 0.6, stagger: 0.06 }, '-=0.6')
-      // Deixa a navegação aparecer deslizando de cima com fade-in.
-      .from('.nav', { autoAlpha: 0, y: -10, duration: 0.5 }, '-=0.8');
+    tl.fromTo(
+      lines,
+      { y: 0, yPercent: 110 },
+      { yPercent: 0, duration: 1.0, ease: 'expo.out', stagger: 0.2 },
+      '-=0.2',
+    )
+      .to('.hero__meta-top', { autoAlpha: 1, y: 0, duration: 0.6 }, '-=0.8')
+      .to('.hero__foot > *', { autoAlpha: 1, y: 0, duration: 0.6 }, '-=0.8')
+      .to('.nav', { autoAlpha: 1, y: 0, duration: 0.5 }, '-=0.8')
+      .to('.hero .eyebrow', { autoAlpha: 1, y: 0, duration: 0.6, ease: 'expo.out' });
   }
 
   private initScroll(): void {
@@ -214,7 +214,7 @@ export class App implements AfterViewInit, OnDestroy {
       if (head) {
         // Anima os elementos do cabeçalho da seção com fade-in e deslocamento vertical leve.
         gsap.from((head as HTMLElement).children, {
-          scrollTrigger: { trigger: sec, start: 'top 80%' },
+          scrollTrigger: { trigger: sec, start: 'top 70%' },
           autoAlpha: 0,
           y: 20,
           duration: 0.7,
@@ -238,7 +238,7 @@ export class App implements AfterViewInit, OnDestroy {
       autoAlpha: 0,
       y: 30,
       duration: 0.7,
-      stagger: 0.1,
+      stagger: 0.2,
       ease: 'power2.out',
     });
 
@@ -265,7 +265,11 @@ export class App implements AfterViewInit, OnDestroy {
     gsap.utils.toArray<HTMLElement>('#sec-xp .xp-co').forEach((item) => {
       // Anima cada item de experiência vindo da esquerda quando entra na tela.
       gsap.from(item, {
-        scrollTrigger: { trigger: item, start: 'top 85%' },
+        scrollTrigger: {
+          trigger: item,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse',
+        },
         autoAlpha: 0,
         x: -30,
         duration: 0.8,
@@ -275,7 +279,11 @@ export class App implements AfterViewInit, OnDestroy {
 
     // Anima os itens da seção Education com um deslocamento vertical suave.
     gsap.from('#sec-edu .edu-item', {
-      scrollTrigger: { trigger: '#sec-edu', start: 'top 80%' },
+      scrollTrigger: {
+        trigger: '#sec-edu',
+        start: 'top 80%',
+        toggleActions: 'play none none reverse',
+      },
       autoAlpha: 0,
       y: 40,
       duration: 0.8,
@@ -285,7 +293,11 @@ export class App implements AfterViewInit, OnDestroy {
 
     // Anima os posts do blog com fade-in em cascata.
     gsap.from('#sec-blog .post', {
-      scrollTrigger: { trigger: '#sec-blog', start: 'top 80%' },
+      scrollTrigger: {
+        trigger: '#sec-blog',
+        start: 'top 80%',
+        toggleActions: 'play none none reverse',
+      },
       autoAlpha: 0,
       y: 40,
       duration: 0.8,
@@ -295,7 +307,11 @@ export class App implements AfterViewInit, OnDestroy {
 
     // Anima o bloco principal de contato com uma entrada mais lenta e ampla.
     gsap.from('#sec-contact .contact__big', {
-      scrollTrigger: { trigger: '#sec-contact', start: 'top 75%' },
+      scrollTrigger: {
+        trigger: '#sec-contact',
+        start: 'top 75%',
+        toggleActions: 'play none none reverse',
+      },
       autoAlpha: 0,
       y: 60,
       duration: 1,
@@ -303,7 +319,11 @@ export class App implements AfterViewInit, OnDestroy {
     });
     // Anima os itens do grid de contato com fade e espaçamento entre os elementos.
     gsap.from('#sec-contact .contact__grid > *', {
-      scrollTrigger: { trigger: '#sec-contact', start: 'top 70%' },
+      scrollTrigger: {
+        trigger: '#sec-contact',
+        start: 'top 70%',
+        toggleActions: 'play none none reverse',
+      },
       autoAlpha: 0,
       y: 20,
       duration: 0.6,
@@ -312,17 +332,14 @@ export class App implements AfterViewInit, OnDestroy {
     });
 
     document.querySelectorAll<HTMLElement>('section.section').forEach((sec) => {
-      const blurMax = this.tweaks.tweaks().sectionBlur || 8;
-      const blurOut = Math.max(0, blurMax - 2);
-      // Define o estado inicial das seções como desfocado e invisível.
-      gsap.set(sec, { filter: `blur(${blurMax}px)`, opacity: 0 });
+      // Define o estado inicial das seções como invisível.
+      gsap.set(sec, { opacity: 0 });
 
-      // Remove o blur e aumenta a opacidade quando a seção entra no viewport.
+      // Aumenta a opacidade quando a seção entra no viewport.
       gsap.fromTo(
         sec,
-        { filter: `blur(${blurMax}px)`, opacity: 0 },
+        { opacity: 0 },
         {
-          filter: 'blur(0px)',
           opacity: 1,
           ease: 'power2.out',
           scrollTrigger: {
@@ -335,12 +352,11 @@ export class App implements AfterViewInit, OnDestroy {
         },
       );
 
-      // Reaplica um leve blur e faz a seção desaparecer quando ela está saindo do viewport.
+      // Faz a seção desaparecer quando ela está saindo do viewport.
       gsap.fromTo(
         sec,
-        { filter: 'blur(0px)', opacity: 1 },
+        { opacity: 1 },
         {
-          filter: `blur(${blurOut}px)`,
           opacity: 0,
           ease: 'power2.out',
           scrollTrigger: {
