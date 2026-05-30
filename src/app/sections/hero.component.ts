@@ -1,10 +1,12 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ContentService } from '../content/content.service';
+import { SectionFadeDirective } from '../shared/section-fade.directive';
 
 @Component({
   selector: 'app-hero',
+  imports: [SectionFadeDirective],
   template: `
-    <section class="section hero" id="sec-hero" data-screen-label="01 Hero">
+    <section class="section hero" id="sec-hero" data-screen-label="01 Hero" sectionFade>
       <div class="hero__meta-top">
         <div>{{ h().metaTitle }}</div>
         <b>{{ h().metaSub }}</b>

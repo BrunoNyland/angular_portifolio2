@@ -1,10 +1,13 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ContentService } from '../content/content.service';
+import { AnimateInDirective, type AnimateInConfig } from '../shared/animate-in.directive';
+import { SectionFadeDirective } from '../shared/section-fade.directive';
 
 @Component({
   selector: 'app-work',
+  imports: [AnimateInDirective, SectionFadeDirective],
   template: `
-    <section class="section" id="sec-work" data-screen-label="04 Projetos">
+    <section class="section" id="sec-work" data-screen-label="04 Projetos" sectionFade [animateIn]="anims">
       <div class="section__head">
         <span class="num">{{ w().num }}</span>
         <span class="ttl">{{ w().title }}</span>
@@ -38,6 +41,11 @@ import { ContentService } from '../content/content.service';
 export class WorkComponent {
   private readonly content = inject(ContentService);
   readonly w = () => this.content.dict().work;
+
+  readonly anims: AnimateInConfig[] = [
+    { target: '.section__head > *' },
+    { target: '.project', from: { autoAlpha: 0, y: 50 }, stagger: 0.1, duration: 0.8, start: 'top 80%' },
+  ];
 
   pad(n: number): string { return String(n).padStart(2, '0'); }
 

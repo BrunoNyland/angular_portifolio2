@@ -1,10 +1,13 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ContentService } from '../content/content.service';
+import { AnimateInDirective, type AnimateInConfig } from '../shared/animate-in.directive';
+import { SectionFadeDirective } from '../shared/section-fade.directive';
 
 @Component({
   selector: 'app-education',
+  imports: [AnimateInDirective, SectionFadeDirective],
   template: `
-    <section class="section" id="sec-edu" data-screen-label="06 Educação">
+    <section class="section" id="sec-edu" data-screen-label="06 Educação" sectionFade [animateIn]="anims">
       <div class="section__head">
         <span class="num">{{ e().num }}</span>
         <span class="ttl">{{ e().title }}</span>
@@ -69,6 +72,18 @@ import { ContentService } from '../content/content.service';
 export class EducationComponent {
   private readonly content = inject(ContentService);
   readonly e = () => this.content.dict().edu;
+
+  readonly anims: AnimateInConfig[] = [
+    { target: '.section__head > *' },
+    {
+      target: '.edu-item',
+      from: { autoAlpha: 0, y: 40 },
+      stagger: 0.12,
+      duration: 0.8,
+      start: 'top 80%',
+      toggle: 'play reverse play reverse',
+    },
+  ];
 
   pad(n: number): string {
     return String(n).padStart(2, '0');

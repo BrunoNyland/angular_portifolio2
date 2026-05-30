@@ -1,12 +1,14 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ContentService } from '../content/content.service';
 import { FragComponent } from '../content/frag.component';
+import { AnimateInDirective, type AnimateInConfig } from '../shared/animate-in.directive';
+import { SectionFadeDirective } from '../shared/section-fade.directive';
 
 @Component({
   selector: 'app-contact',
-  imports: [FragComponent],
+  imports: [FragComponent, AnimateInDirective, SectionFadeDirective],
   template: `
-    <section class="section contact" id="sec-contact" data-screen-label="07 Contato">
+    <section class="section contact" id="sec-contact" data-screen-label="07 Contato" sectionFade [animateIn]="anims">
       <div class="section__head">
         <span class="num">{{ c().num }}</span>
         <span class="ttl">{{ c().title }}</span>
@@ -27,4 +29,24 @@ import { FragComponent } from '../content/frag.component';
 export class ContactComponent {
   private readonly content = inject(ContentService);
   readonly c = () => this.content.dict().contact;
+
+  readonly anims: AnimateInConfig[] = [
+    { target: '.section__head > *' },
+    {
+      target: '.contact__big',
+      from: { autoAlpha: 0, y: 60 },
+      duration: 1,
+      start: 'top 75%',
+      ease: 'power3.out',
+      toggle: 'play reverse play reverse',
+    },
+    {
+      target: '.contact__grid > *',
+      from: { autoAlpha: 0, y: 20 },
+      stagger: 0.08,
+      duration: 0.6,
+      start: 'top 70%',
+      toggle: 'play reverse play reverse',
+    },
+  ];
 }
