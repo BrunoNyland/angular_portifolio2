@@ -1,0 +1,667 @@
+{
+  "courses": [
+    {
+      "name": "Ameaças digitais",
+      "nameEn": "Digital threats",
+      "platform": "AdaTech",
+      "workload": "5h",
+      "language": "Português",
+      "topics": [
+        "Digital Security"
+      ],
+      "specializations": [],
+      "validationUrl": "https://ada.tech/certificado?code=3d1de9f2-f99c-af3b-3d4c-f4ffa8acb667",
+      "date": "06-2025",
+      "pdf": "AdaTech - Ameaças digitais - 06-2025 - 5h.pdf"
+    },
+    {
+      "name": "Angular Avançado",
+      "nameEn": "Advanced Angular",
+      "platform": "AdaTech",
+      "workload": "5h",
+      "language": "Português",
+      "topics": [
+        "TypeScript",
+        "Angular"
+      ],
+      "specializations": [],
+      "validationUrl": "https://ada.tech/certificado?code=3d1817b6-36bd-a48b-9bd3-d8a85be3f92b",
+      "date": "04-2026",
+      "pdf": "AdaTech - Angular Avançado - 04-2026 - 5h.pdf"
+    },
+    {
+      "name": "CAIXAVERSO - Dev Front-end - Nível I",
+      "nameEn": "CAIXAVERSO - Dev Front-end - Level I",
+      "platform": "AdaTech",
+      "workload": "15h",
+      "language": "Português",
+      "topics": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "specializations": [],
+      "validationUrl": "https://ada.tech/certificado?code=eff650b3-99ad-870a-33fd-cac747662d78",
+      "date": "06-2025",
+      "pdf": "AdaTech - CAIXAVERSO - Dev Front-end - Nível I - 06-2025 - 15h.pdf"
+    },
+    {
+      "name": "CAIXAVERSO - Dev Front-end - Nível II",
+      "nameEn": "CAIXAVERSO - Dev Front-end - Level II",
+      "platform": "AdaTech",
+      "workload": "22h",
+      "language": "Português",
+      "topics": [
+        "APIs",
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "specializations": [],
+      "validationUrl": "https://ada.tech/certificado?code=da50c22b-e141-8336-298c-68020477b5a0",
+      "date": "09-2025",
+      "pdf": "AdaTech - CAIXAVERSO - Dev Front-end - Nível II - 09-2025 - 22h.pdf"
+    },
+    {
+      "name": "CAIXAVERSO - Dev Front-end - Nível III",
+      "nameEn": "CAIXAVERSO - Dev Front-end - Level III",
+      "platform": "AdaTech",
+      "workload": "11h",
+      "language": "Português",
+      "topics": [
+        "Angular",
+        "TypeScript",
+        "APIs"
+      ],
+      "specializations": [],
+      "validationUrl": "https://ada.tech/certificado?code=c6e79f6a-03ed-85c3-277b-43d6927008fb",
+      "date": "04-2026",
+      "pdf": "AdaTech - CAIXAVERSO - Dev Front-end - Nível III - 04-2026 - 11h.pdf.pdf"
+    },
+    {
+      "name": "CAIXAVERSO - Programação Orientada a Objetos e Front End Dinâmico com JS",
+      "nameEn": "CAIXAVERSO - Object-Oriented Programming and Dynamic Front End with JS",
+      "platform": "AdaTech",
+      "workload": "48h",
+      "language": "Português",
+      "topics": [
+        "JavaScript",
+        "OOP"
+      ],
+      "specializations": [],
+      "validationUrl": "https://ada.tech/certificado?code=f7d05e8d-6c7e-4467-aff8-ea69f8655b82",
+      "date": "10-2025",
+      "pdf": "AdaTech - CAIXAVERSO - Programação Orientada a Objetos e Front End Dinâmico com JS - 10-2025 - 48h.pdf"
+    },
+    {
+      "name": "CSS",
+      "nameEn": "CSS",
+      "platform": "AdaTech",
+      "workload": "6h",
+      "language": "Português",
+      "topics": [
+        "CSS"
+      ],
+      "specializations": [],
+      "validationUrl": "https://ada.tech/certificado?code=9a732cb1-7ff9-8554-2838-ece470f7548f",
+      "date": "06-2025",
+      "pdf": "AdaTech - CSS - 06-2025 - 6h.pdf"
+    },
+    {
+      "name": "Desenvolvimento Web básico com JavaScript",
+      "nameEn": "Basic web development with JavaScript",
+      "platform": "AdaTech",
+      "workload": "14h",
+      "language": "Português",
+      "topics": [
+        "JavaScript"
+      ],
+      "specializations": [],
+      "validationUrl": "https://ada.tech/certificado?code=3d13e3c3-4775-a12b-4d75-28fe46c5de4f",
+      "date": "09-2025",
+      "pdf": "AdaTech - Desenvolvimento Web básico com JavaScript - 09-2025 - 14h.pdf"
+    },
+    {
+      "name": "Desenvolvimento Web intermediário com JavaScript",
+      "nameEn": "Intermediate Web Development with JavaScript",
+      "platform": "AdaTech",
+      "workload": "4h",
+      "language": "Português",
+      "topics": [
+        "JavaScript"
+      ],
+      "specializations": [],
+      "validationUrl": "https://ada.tech/certificado?code=3d18f03f-f562-a99b-7d30-f11a6865b889",
+      "date": "09-2025",
+      "pdf": "AdaTech - Desenvolvimento Web intermediário com JavaScript - 09-2025 - 4h.pdf"
+    },
+    {
+      "name": "Fundamentos matemáticos",
+      "nameEn": "Mathematical foundations",
+      "platform": "AdaTech",
+      "workload": "3h",
+      "language": "Português",
+      "topics": [
+        "Mathematics"
+      ],
+      "specializations": [],
+      "validationUrl": "https://ada.tech/certificado?code=2b8190fe-aee8-83e7-21d7-a39461cf26ce",
+      "date": "06-2025",
+      "pdf": "AdaTech - Fundamentos matemáticos - 06-2025 - 3h.pdf"
+    },
+    {
+      "name": "Git e Versionamento",
+      "nameEn": "Git and Version Control",
+      "platform": "AdaTech",
+      "workload": "2h",
+      "language": "Português",
+      "topics": [
+        "Git"
+      ],
+      "specializations": [],
+      "validationUrl": "https://ada.tech/certificado?code=56129346-c426-8940-22aa-38b68c1672af",
+      "date": "09-2025",
+      "pdf": "AdaTech - Git e Versionamento - 09-2025 - 2h.pdf"
+    },
+    {
+      "name": "Governança de dados",
+      "nameEn": "Data governance",
+      "platform": "AdaTech",
+      "workload": "2h",
+      "language": "Português",
+      "topics": [
+        "LGPD",
+        "Compliance"
+      ],
+      "specializations": [],
+      "validationUrl": "https://ada.tech/certificado?code=3d11d02c-34b9-a06b-2e7e-e1e2b3175f3e",
+      "date": "09-2025",
+      "pdf": "AdaTech - Governança de dados - 09-2025 - 2h.pdf"
+    },
+    {
+      "name": "HTML",
+      "nameEn": "HTML",
+      "platform": "AdaTech",
+      "workload": "3h",
+      "language": "Português",
+      "topics": [
+        "HTML"
+      ],
+      "specializations": [],
+      "validationUrl": "https://ada.tech/certificado?code=a1b83618-41fc-8e0a-0f73-d448ceb6b54c",
+      "date": "06-2025",
+      "pdf": "AdaTech - HTML - 06-2025 - 3h.pdf"
+    },
+    {
+      "name": "Introdução ao Angular",
+      "nameEn": "Introduction to Angular",
+      "platform": "AdaTech",
+      "workload": "2h",
+      "language": "Português",
+      "topics": [
+        "Angular"
+      ],
+      "specializations": [],
+      "validationUrl": "https://ada.tech/certificado?code=b952e9a0-9491-8498-260a-c59b51145ab7",
+      "date": "10-2025",
+      "pdf": "AdaTech - Introdução ao Angular - 10-2025 - 2h.pdf"
+    },
+    {
+      "name": "Introdução à Infraestrutura Web",
+      "nameEn": " Introduction to Web Infrastructure",
+      "platform": "AdaTech",
+      "workload": "3h",
+      "language": "Português",
+      "topics": [
+        "Web"
+      ],
+      "specializations": [],
+      "validationUrl": "https://ada.tech/certificado?code=5b4c7052-184e-8f13-4d10-1df6dbeed264",
+      "date": "06-2025",
+      "pdf": "AdaTech - Introdução à Infraestrutura Web - 06-2025 - 3h.pdf"
+    },
+    {
+      "name": "Lógica de programação avançada com Javascript",
+      "nameEn": "Advanced programming logic with Javascript",
+      "platform": "AdaTech",
+      "workload": "4h",
+      "language": "Português",
+      "topics": [
+        "JavaScript"
+      ],
+      "specializations": [],
+      "validationUrl": "https://ada.tech/certificado?code=3d180f7f-7e9e-ae8b-e9ed-0f8d4329a24d",
+      "date": "09-2025",
+      "pdf": "AdaTech - Lógica de programação avançada com Javascript - 09-2025 - 4h.pdf"
+    },
+    {
+      "name": "Lógica de programação básica com Javascript",
+      "nameEn": "Basic programming logic with Javascript",
+      "platform": "AdaTech",
+      "workload": "3h",
+      "language": "Português",
+      "topics": [
+        "JavaScript"
+      ],
+      "specializations": [],
+      "validationUrl": "https://ada.tech/certificado?code=3d0c41ab-e0a9-aeeb-7aa3-226c027d253f",
+      "date": "06-2025",
+      "pdf": "AdaTech - Lógica de programação básica com Javascript - 06-2025 - 3h.pdf"
+    },
+    {
+      "name": "Lógica de programação intermediária com Javascript",
+      "nameEn": "Intermediate programming logic with Javascript",
+      "platform": "AdaTech",
+      "workload": "2h",
+      "language": "Português",
+      "topics": [
+        "JavaScript"
+      ],
+      "specializations": [],
+      "validationUrl": "https://ada.tech/certificado?code=3d1014a1-85dc-ae0b-2f25-1a122cc46631",
+      "date": "08-2025",
+      "pdf": "AdaTech - Lógica de programação intermediária com Javascript - 08-2025 - 2h.pdf"
+    },
+    {
+      "name": "Metodologias Ágeis de Projeto",
+      "nameEn": "Agile Project Methodologies",
+      "platform": "AdaTech",
+      "workload": "2h",
+      "language": "Português",
+      "topics": [
+        "Agile"
+      ],
+      "specializations": [],
+      "validationUrl": "https://ada.tech/certificado?code=0d58f343-8b42-8dfe-269a-e1cf748652e3",
+      "date": "06-2025",
+      "pdf": "AdaTech - Metodologias Ágeis de Projeto - 06-2025 - 2h.pdf"
+    },
+    {
+      "name": "Board Infinity - Angular Advanced Enterprise Patterns - SSR & Performance",
+      "nameEn": "Board Infinity - Angular Advanced Enterprise Patterns - SSR & Performance",
+      "platform": "Coursera - Board Infinity",
+      "workload": "20h",
+      "language": "Inglês",
+      "topics": [
+        "Angular",
+        "SSR",
+        "TypeScript"
+      ],
+      "specializations": [
+        "Board Infinity - Angular 21 Specialization"
+      ],
+      "validationUrl": "https://coursera.org/verify/BAYR9IQFLWMD",
+      "date": "05-2026",
+      "pdf": "Coursera - Board Infinity - Angular Advanced Enterprise Patterns - SSR & Performance - 05-2026 - 20h.pdf"
+    },
+    {
+      "name": "Board Infinity - Angular 21 Specialization",
+      "nameEn": "Board Infinity - Angular 21 Specialization",
+      "platform": "Coursera - Board Infinity",
+      "workload": "60h",
+      "language": "Inglês",
+      "topics": [
+        "Angular",
+        "TypeScript"
+      ],
+      "specializations": [],
+      "validationUrl": "https://coursera.org/verify/specialization/PX2PFPEZEUHA",
+      "date": "05-2026",
+      "pdf": "Coursera - Board Infinity - Angular 21 Specialization - 05-2026 - 60h (3 Courses).pdf"
+    },
+    {
+      "name": "Board Infinity - Angular Foundation & Application Architecture",
+      "nameEn": "Board Infinity - Angular Foundation & Application Architecture",
+      "platform": "Coursera - Board Infinity",
+      "workload": "19h",
+      "language": "Inglês",
+      "topics": [
+        "Angular",
+        "TypeScript"
+      ],
+      "specializations": [],
+      "validationUrl": "https://coursera.org/verify/1EU301N99I5H",
+      "date": "04-2026",
+      "pdf": "Coursera - Board Infinity - Angular Foundation & Application Architecture - 04-2026 - 19h.pdf"
+    },
+    {
+      "name": "Board Infinity - Angular Intermediate",
+      "nameEn": "",
+      "platform": "Coursera",
+      "workload": "20h",
+      "language": "Inglês",
+      "topics": [
+        "Angular",
+        "TypeScript"
+      ],
+      "specializations": [],
+      "validationUrl": "https://coursera.org/verify/VOG7KLDTZNAF",
+      "date": "05-2026",
+      "pdf": "Coursera - Board Infinity - Angular Intermediate - 05-2026 - 20h.pdf"
+    },
+    {
+      "name": "Aprenda roteamento em Angular criando um aplicativo de coquetéis",
+      "nameEn": "Learn Angular Routing by building a Cocktails Application",
+      "platform": "Coursera",
+      "workload": "1h",
+      "language": "Inglês",
+      "topics": [
+        "Angular"
+      ],
+      "specializations": [],
+      "validationUrl": "https://coursera.org/verify/683N099HRD1Q",
+      "date": "05-2026",
+      "pdf": "Coursera - Learn Angular Routing by building a Cocktails Application - 05-2026 - 1h.pdf"
+    },
+    {
+      "name": "LearnQuest - Advanced Angular Development",
+      "nameEn": "LearnQuest - Advanced Angular Development",
+      "platform": "Coursera - LearnQuest",
+      "workload": "13h",
+      "language": "Inglês",
+      "topics": [
+        "Angular"
+      ],
+      "specializations": [
+        "LearnQuest - Angular 17 Specialization"
+      ],
+      "validationUrl": "https://coursera.org/verify/30P5LB4G5DQL",
+      "date": "05-2026",
+      "pdf": "Coursera - LearnQuest - Advanced Angular Development - 05-2026 - 13h.pdf"
+    },
+    {
+      "name": "LearnQuest - Advanced Angular Topics",
+      "nameEn": "LearnQuest - Advanced Angular Topics",
+      "platform": "Coursera",
+      "workload": "13h",
+      "language": "Inglês",
+      "topics": [
+        "Angular"
+      ],
+      "specializations": [
+        "LearnQuest - Angular 17 Specialization"
+      ],
+      "validationUrl": "",
+      "date": "04-2026",
+      "pdf": "Coursera - LearnQuest - Advanced Angular Topics - 04-2026 - 13h.pdf"
+    },
+    {
+      "name": "LearnQuest - Angular 17 Overview & Basics",
+      "nameEn": "",
+      "platform": "Coursera",
+      "workload": "12h",
+      "language": "Português",
+      "topics": [],
+      "specializations": [],
+      "validationUrl": "",
+      "date": "04-2026",
+      "pdf": "Coursera - LearnQuest - Angular 17 Overview & Basics - 04-2026 - 12h.pdf"
+    },
+    {
+      "name": "LearnQuest - Angular 17 Specialization",
+      "nameEn": "",
+      "platform": "Coursera",
+      "workload": "38h (3 Courses)",
+      "language": "Português",
+      "topics": [
+        "Angular"
+      ],
+      "specializations": [],
+      "validationUrl": "",
+      "date": "05-2026",
+      "pdf": "Coursera - LearnQuest - Angular 17 Specialization - 05-2026 - 38h (3 Courses).pdf"
+    },
+    {
+      "name": "Meta - Advanced React",
+      "nameEn": "",
+      "platform": "Coursera",
+      "workload": "",
+      "language": "Português",
+      "topics": [],
+      "specializations": [],
+      "validationUrl": "",
+      "date": "",
+      "pdf": "Coursera - Meta - Advanced React.pdf"
+    },
+    {
+      "name": "Meta - HTML and CSS in depth",
+      "nameEn": "",
+      "platform": "Coursera",
+      "workload": "",
+      "language": "Português",
+      "topics": [],
+      "specializations": [],
+      "validationUrl": "",
+      "date": "",
+      "pdf": "Coursera - Meta - HTML and CSS in depth.pdf"
+    },
+    {
+      "name": "Meta - Intrudução-Back-End",
+      "nameEn": "",
+      "platform": "Coursera",
+      "workload": "",
+      "language": "Português",
+      "topics": [],
+      "specializations": [],
+      "validationUrl": "",
+      "date": "",
+      "pdf": "Coursera - Meta - Intrudução-Back-End.pdf"
+    },
+    {
+      "name": "Meta - Intrudução-Front-End",
+      "nameEn": "",
+      "platform": "Coursera",
+      "workload": "",
+      "language": "Português",
+      "topics": [],
+      "specializations": [],
+      "validationUrl": "",
+      "date": "",
+      "pdf": "Coursera - Meta - Intrudução-Front-End.pdf"
+    },
+    {
+      "name": "Meta - Programming with JavaScript",
+      "nameEn": "",
+      "platform": "Coursera",
+      "workload": "",
+      "language": "Português",
+      "topics": [],
+      "specializations": [],
+      "validationUrl": "",
+      "date": "",
+      "pdf": "Coursera - Meta - Programming with JavaScript.pdf"
+    },
+    {
+      "name": "Meta - React Basics",
+      "nameEn": "",
+      "platform": "Coursera",
+      "workload": "",
+      "language": "Português",
+      "topics": [],
+      "specializations": [],
+      "validationUrl": "",
+      "date": "",
+      "pdf": "Coursera - Meta - React Basics.pdf"
+    },
+    {
+      "name": "Meta - Specialization React",
+      "nameEn": "",
+      "platform": "Coursera",
+      "workload": "",
+      "language": "Português",
+      "topics": [],
+      "specializations": [],
+      "validationUrl": "",
+      "date": "",
+      "pdf": "Coursera - Meta - Specialization React.pdf"
+    },
+    {
+      "name": "Meta - Version Control",
+      "nameEn": "",
+      "platform": "Coursera",
+      "workload": "",
+      "language": "Português",
+      "topics": [],
+      "specializations": [],
+      "validationUrl": "",
+      "date": "",
+      "pdf": "Coursera - Meta - Version Control.pdf"
+    },
+    {
+      "name": "Scrimba - JavaScript Deep Dive",
+      "nameEn": "",
+      "platform": "Coursera",
+      "workload": "",
+      "language": "Português",
+      "topics": [],
+      "specializations": [],
+      "validationUrl": "",
+      "date": "",
+      "pdf": "Coursera - Scrimba - JavaScript Deep Dive.pdf"
+    },
+    {
+      "name": "Scrimba - JavaScript Interview Prep Real Coding Questions",
+      "nameEn": "",
+      "platform": "Coursera",
+      "workload": "",
+      "language": "Português",
+      "topics": [],
+      "specializations": [],
+      "validationUrl": "",
+      "date": "",
+      "pdf": "Coursera - Scrimba - JavaScript Interview Prep Real Coding Questions.pdf"
+    },
+    {
+      "name": "Scrimba - Learn HTML and CSS",
+      "nameEn": "",
+      "platform": "Coursera",
+      "workload": "13h",
+      "language": "Português",
+      "topics": [],
+      "specializations": [],
+      "validationUrl": "",
+      "date": "05-2026",
+      "pdf": "Coursera - Scrimba - Learn HTML and CSS - 05-2026 - 13h.pdf"
+    },
+    {
+      "name": "Scrimba - React",
+      "nameEn": "",
+      "platform": "Coursera",
+      "workload": "",
+      "language": "Português",
+      "topics": [],
+      "specializations": [],
+      "validationUrl": "",
+      "date": "",
+      "pdf": "Coursera - Scrimba - React.pdf"
+    },
+    {
+      "name": "Aprendendo com Python",
+      "nameEn": "",
+      "platform": "ENAP",
+      "workload": "20h",
+      "language": "Português",
+      "topics": [],
+      "specializations": [],
+      "validationUrl": "",
+      "date": "08-2025",
+      "pdf": "ENAP - Aprendendo com Python - 08-2025 - 20h.pdf"
+    },
+    {
+      "name": "Automação de Processo Através de RPA para Transformação Digital",
+      "nameEn": "",
+      "platform": "ENAP",
+      "workload": "25h",
+      "language": "Português",
+      "topics": [],
+      "specializations": [],
+      "validationUrl": "",
+      "date": "06-2025",
+      "pdf": "ENAP - Automação de Processo Através de RPA para Transformação Digital - 06-2025 - 25h.pdf"
+    },
+    {
+      "name": "Excel Avançado",
+      "nameEn": "",
+      "platform": "ENAP",
+      "workload": "30h",
+      "language": "Português",
+      "topics": [],
+      "specializations": [],
+      "validationUrl": "",
+      "date": "09-2025",
+      "pdf": "ENAP - Excel Avançado - 09-2025 - 30h.pdf"
+    },
+    {
+      "name": "Excel Intermediário",
+      "nameEn": "",
+      "platform": "ENAP",
+      "workload": "30h",
+      "language": "Português",
+      "topics": [],
+      "specializations": [],
+      "validationUrl": "",
+      "date": "09-2025",
+      "pdf": "ENAP - Excel Intermediário - 09-2025 - 30h.pdf"
+    },
+    {
+      "name": "Introdução ao Excel",
+      "nameEn": "",
+      "platform": "ENAP",
+      "workload": "25h",
+      "language": "Português",
+      "topics": [],
+      "specializations": [],
+      "validationUrl": "",
+      "date": "09-2025",
+      "pdf": "ENAP - Introdução ao Excel - 09-2025 - 25h.pdf"
+    },
+    {
+      "name": "Curso Redes e Montagem de Computadores",
+      "nameEn": "",
+      "platform": "Microlins",
+      "workload": "48hs",
+      "language": "Português",
+      "topics": [],
+      "specializations": [],
+      "validationUrl": "",
+      "date": "2009",
+      "pdf": "Microlins - Curso Redes e Montagem de Computadores - 2009 - 48hs.pdf"
+    },
+    {
+      "name": "Sustentabilidade Game Experience",
+      "nameEn": "",
+      "platform": "Mundi Game Experiences",
+      "workload": "6h",
+      "language": "Português",
+      "topics": [],
+      "specializations": [],
+      "validationUrl": "",
+      "date": "09-2025",
+      "pdf": "Mundi Game Experiences - Sustentabilidade Game Experience - 09-2025 - 6h.pdf"
+    },
+    {
+      "name": "Discover Conectar",
+      "nameEn": "",
+      "platform": "Rocketseat",
+      "workload": "2h",
+      "language": "Português",
+      "topics": [],
+      "specializations": [],
+      "validationUrl": "",
+      "date": "09-2022",
+      "pdf": "Rocketseat - Discover Conectar - 09-2022 - 2h.pdf"
+    },
+    {
+      "name": "Introdução à Blockchain",
+      "nameEn": "",
+      "platform": "Universidade CAIXA",
+      "workload": "3h",
+      "language": "Português",
+      "topics": [],
+      "specializations": [],
+      "validationUrl": "",
+      "date": "08-2025",
+      "pdf": "Universidade CAIXA - Introdução à Blockchain - 08-2025 - 3h.pdf"
+    }
+  ]
+}
