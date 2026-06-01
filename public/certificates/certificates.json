@@ -381,285 +381,347 @@
       "specializations": [
         "LearnQuest - Angular 17 Specialization"
       ],
-      "validationUrl": "",
+      "validationUrl": "https://coursera.org/verify/8P5CKDQO16QI",
       "date": "04-2026",
       "pdf": "Coursera - LearnQuest - Advanced Angular Topics - 04-2026 - 13h.pdf"
     },
     {
       "name": "LearnQuest - Angular 17 Overview & Basics",
-      "nameEn": "",
-      "platform": "Coursera",
+      "nameEn": "LearnQuest - Angular 17 Overview & Basics",
+      "platform": "Coursera - LearnQuest",
       "workload": "12h",
-      "language": "Português",
-      "topics": [],
-      "specializations": [],
-      "validationUrl": "",
+      "language": "Inglês",
+      "topics": [
+        "Angular"
+      ],
+      "specializations": [
+        "LearnQuest - Angular 17 Specialization"
+      ],
+      "validationUrl": "https://coursera.org/verify/0DTMG7ZL9M2B",
       "date": "04-2026",
       "pdf": "Coursera - LearnQuest - Angular 17 Overview & Basics - 04-2026 - 12h.pdf"
     },
     {
       "name": "LearnQuest - Angular 17 Specialization",
-      "nameEn": "",
+      "nameEn": "LearnQuest - Angular 17 Specialization",
       "platform": "Coursera",
       "workload": "38h (3 Courses)",
-      "language": "Português",
+      "language": "Inglês",
       "topics": [
         "Angular"
       ],
       "specializations": [],
-      "validationUrl": "",
+      "validationUrl": "https://coursera.org/verify/specialization/URNX7N3QA5T0",
       "date": "05-2026",
       "pdf": "Coursera - LearnQuest - Angular 17 Specialization - 05-2026 - 38h (3 Courses).pdf"
     },
     {
       "name": "Meta - Advanced React",
-      "nameEn": "",
-      "platform": "Coursera",
-      "workload": "",
-      "language": "Português",
-      "topics": [],
-      "specializations": [],
-      "validationUrl": "",
-      "date": "",
+      "nameEn": "Meta - Advanced React",
+      "platform": "Coursera - Meta",
+      "workload": "26h",
+      "language": "Inglês",
+      "topics": [
+        "React"
+      ],
+      "specializations": [
+        "Meta - Specialization React"
+      ],
+      "validationUrl": "https://coursera.org/verify/PM3PTY56CSWM",
+      "date": "04-2026",
       "pdf": "Coursera - Meta - Advanced React.pdf"
     },
     {
       "name": "Meta - HTML and CSS in depth",
-      "nameEn": "",
-      "platform": "Coursera",
-      "workload": "",
-      "language": "Português",
-      "topics": [],
+      "nameEn": "Meta - HTML and CSS in depth",
+      "platform": "Coursera - Meta",
+      "workload": "30h",
+      "language": "Inglês",
+      "topics": [
+        "HTML",
+        "CSS"
+      ],
       "specializations": [],
-      "validationUrl": "",
-      "date": "",
+      "validationUrl": "https://coursera.org/verify/V2EXOYWOYJTY",
+      "date": "03-2026",
       "pdf": "Coursera - Meta - HTML and CSS in depth.pdf"
     },
     {
       "name": "Meta - Intrudução-Back-End",
-      "nameEn": "",
-      "platform": "Coursera",
-      "workload": "",
-      "language": "Português",
-      "topics": [],
+      "nameEn": "Meta - Intrudução-Back-End",
+      "platform": "Coursera - Meta",
+      "workload": "18h",
+      "language": "Inglês",
+      "topics": [
+        "HTML",
+        "CSS",
+        "APIs"
+      ],
       "specializations": [],
-      "validationUrl": "",
-      "date": "",
+      "validationUrl": "https://coursera.org/verify/4VE02ATMKB2E",
+      "date": "02-2026",
       "pdf": "Coursera - Meta - Intrudução-Back-End.pdf"
     },
     {
       "name": "Meta - Intrudução-Front-End",
-      "nameEn": "",
-      "platform": "Coursera",
-      "workload": "",
-      "language": "Português",
-      "topics": [],
+      "nameEn": "Meta - Intrudução-Front-End",
+      "platform": "Coursera - Meta",
+      "workload": "18h",
+      "language": "Inglês",
+      "topics": [
+        "HTML",
+        "CSS"
+      ],
       "specializations": [],
-      "validationUrl": "",
-      "date": "",
+      "validationUrl": "https://coursera.org/verify/LA3JOAAO48EC",
+      "date": "01-2026",
       "pdf": "Coursera - Meta - Intrudução-Front-End.pdf"
     },
     {
       "name": "Meta - Programming with JavaScript",
-      "nameEn": "",
-      "platform": "Coursera",
-      "workload": "",
-      "language": "Português",
-      "topics": [],
+      "nameEn": "Meta - Programming with JavaScript",
+      "platform": "Coursera - Meta",
+      "workload": "47h",
+      "language": "Inglês",
+      "topics": [
+        "JavaScript"
+      ],
       "specializations": [],
-      "validationUrl": "",
-      "date": "",
+      "validationUrl": "https://coursera.org/verify/VHA3TRA59EAI",
+      "date": "02-2026",
       "pdf": "Coursera - Meta - Programming with JavaScript.pdf"
     },
     {
       "name": "Meta - React Basics",
-      "nameEn": "",
+      "nameEn": "Meta - React Basics",
       "platform": "Coursera",
-      "workload": "",
-      "language": "Português",
-      "topics": [],
-      "specializations": [],
-      "validationUrl": "",
-      "date": "",
+      "workload": "29h",
+      "language": "Inglês",
+      "topics": [
+        "React"
+      ],
+      "specializations": [
+        "Meta - Specialization React"
+      ],
+      "validationUrl": "https://coursera.org/verify/YICPNWLW5QX7",
+      "date": "03-2026",
       "pdf": "Coursera - Meta - React Basics.pdf"
     },
     {
       "name": "Meta - Specialization React",
-      "nameEn": "",
+      "nameEn": "Meta - Specialization React",
       "platform": "Coursera",
-      "workload": "",
-      "language": "Português",
-      "topics": [],
-      "specializations": [],
-      "validationUrl": "",
-      "date": "",
+      "workload": "55h",
+      "language": "Inglês",
+      "topics": [
+        "React"
+      ],
+      "specializations": [
+        "Meta - Specialization React"
+      ],
+      "validationUrl": "https://coursera.org/verify/specialization/5DL8NG01GLVS",
+      "date": "04-2026",
       "pdf": "Coursera - Meta - Specialization React.pdf"
     },
     {
       "name": "Meta - Version Control",
-      "nameEn": "",
-      "platform": "Coursera",
-      "workload": "",
-      "language": "Português",
-      "topics": [],
+      "nameEn": "Meta - Version Control",
+      "platform": "Coursera - Meta",
+      "workload": "15h",
+      "language": "Inglês",
+      "topics": [
+        "Git"
+      ],
       "specializations": [],
-      "validationUrl": "",
-      "date": "",
+      "validationUrl": "https://coursera.org/verify/OBLELQ1RLEDC",
+      "date": "02-2026",
       "pdf": "Coursera - Meta - Version Control.pdf"
     },
     {
       "name": "Scrimba - JavaScript Deep Dive",
-      "nameEn": "",
-      "platform": "Coursera",
-      "workload": "",
-      "language": "Português",
-      "topics": [],
+      "nameEn": "Scrimba - JavaScript Deep Dive",
+      "platform": "Coursera - Scrimba",
+      "workload": "15h",
+      "language": "Inglês",
+      "topics": [
+        "JavaScript"
+      ],
       "specializations": [],
-      "validationUrl": "",
-      "date": "",
+      "validationUrl": "https://coursera.org/verify/I0GVI5BSNHQU",
+      "date": "02-2026",
       "pdf": "Coursera - Scrimba - JavaScript Deep Dive.pdf"
     },
     {
       "name": "Scrimba - JavaScript Interview Prep Real Coding Questions",
-      "nameEn": "",
-      "platform": "Coursera",
-      "workload": "",
-      "language": "Português",
-      "topics": [],
+      "nameEn": "Scrimba - JavaScript Interview Prep Real Coding Questions",
+      "platform": "Coursera - Scrimba",
+      "workload": "3h",
+      "language": "Inglês",
+      "topics": [
+        "JavaScript"
+      ],
       "specializations": [],
-      "validationUrl": "",
-      "date": "",
+      "validationUrl": "https://coursera.org/verify/2WHP4PU4WOZ3",
+      "date": "02-2026",
       "pdf": "Coursera - Scrimba - JavaScript Interview Prep Real Coding Questions.pdf"
     },
     {
       "name": "Scrimba - Learn HTML and CSS",
-      "nameEn": "",
-      "platform": "Coursera",
+      "nameEn": "Scrimba - Learn HTML and CSS",
+      "platform": "Coursera - Scrimba",
       "workload": "13h",
-      "language": "Português",
-      "topics": [],
+      "language": "Inglês",
+      "topics": [
+        "HTML",
+        "CSS"
+      ],
       "specializations": [],
-      "validationUrl": "",
+      "validationUrl": "https://coursera.org/verify/TR4O7AWH9KP1",
       "date": "05-2026",
       "pdf": "Coursera - Scrimba - Learn HTML and CSS - 05-2026 - 13h.pdf"
     },
     {
       "name": "Scrimba - React",
-      "nameEn": "",
-      "platform": "Coursera",
-      "workload": "",
-      "language": "Português",
-      "topics": [],
+      "nameEn": "Scrimba - React",
+      "platform": "Coursera - Scrimba",
+      "workload": "17h",
+      "language": "Inglês",
+      "topics": [
+        "React"
+      ],
       "specializations": [],
-      "validationUrl": "",
-      "date": "",
+      "validationUrl": "https://coursera.org/verify/7U7BFR2PZZ35",
+      "date": "01-2026",
       "pdf": "Coursera - Scrimba - React.pdf"
     },
     {
       "name": "Aprendendo com Python",
-      "nameEn": "",
+      "nameEn": "Learning with Python",
       "platform": "ENAP",
       "workload": "20h",
       "language": "Português",
-      "topics": [],
+      "topics": [
+        "Python"
+      ],
       "specializations": [],
-      "validationUrl": "",
+      "validationUrl": "https://www.escolavirtual.gov.br/documentos/validacao",
       "date": "08-2025",
       "pdf": "ENAP - Aprendendo com Python - 08-2025 - 20h.pdf"
     },
     {
       "name": "Automação de Processo Através de RPA para Transformação Digital",
-      "nameEn": "",
+      "nameEn": "Process Automation Through RPA for Digital Transformation",
       "platform": "ENAP",
       "workload": "25h",
       "language": "Português",
-      "topics": [],
+      "topics": [
+        "Automation"
+      ],
       "specializations": [],
-      "validationUrl": "",
+      "validationUrl": "https://www.escolavirtual.gov.br/documentos/validacao",
       "date": "06-2025",
       "pdf": "ENAP - Automação de Processo Através de RPA para Transformação Digital - 06-2025 - 25h.pdf"
     },
     {
       "name": "Excel Avançado",
-      "nameEn": "",
+      "nameEn": "Advanced Excel",
       "platform": "ENAP",
       "workload": "30h",
       "language": "Português",
-      "topics": [],
+      "topics": [
+        "Excel",
+        "VBA"
+      ],
       "specializations": [],
-      "validationUrl": "",
+      "validationUrl": "https://www.escolavirtual.gov.br/documentos/validacao",
       "date": "09-2025",
       "pdf": "ENAP - Excel Avançado - 09-2025 - 30h.pdf"
     },
     {
       "name": "Excel Intermediário",
-      "nameEn": "",
+      "nameEn": "Intermediate Excel",
       "platform": "ENAP",
       "workload": "30h",
       "language": "Português",
-      "topics": [],
+      "topics": [
+        "Excel",
+        "VBA"
+      ],
       "specializations": [],
-      "validationUrl": "",
+      "validationUrl": "https://www.escolavirtual.gov.br/documentos/validacao",
       "date": "09-2025",
       "pdf": "ENAP - Excel Intermediário - 09-2025 - 30h.pdf"
     },
     {
       "name": "Introdução ao Excel",
-      "nameEn": "",
+      "nameEn": "Introduction to Excel",
       "platform": "ENAP",
       "workload": "25h",
       "language": "Português",
-      "topics": [],
+      "topics": [
+        "Excel"
+      ],
       "specializations": [],
-      "validationUrl": "",
+      "validationUrl": "https://www.escolavirtual.gov.br/documentos/validacao",
       "date": "09-2025",
       "pdf": "ENAP - Introdução ao Excel - 09-2025 - 25h.pdf"
     },
     {
       "name": "Curso Redes e Montagem de Computadores",
-      "nameEn": "",
+      "nameEn": "Computer Networks and Assembly Course",
       "platform": "Microlins",
-      "workload": "48hs",
+      "workload": "48h",
       "language": "Português",
-      "topics": [],
+      "topics": [
+        "Hardware",
+        "Network"
+      ],
       "specializations": [],
-      "validationUrl": "",
+      "validationUrl": "https://microlins.com.br/",
       "date": "2009",
       "pdf": "Microlins - Curso Redes e Montagem de Computadores - 2009 - 48hs.pdf"
     },
     {
       "name": "Sustentabilidade Game Experience",
-      "nameEn": "",
+      "nameEn": "Sustainability Game Experience",
       "platform": "Mundi Game Experiences",
       "workload": "6h",
       "language": "Português",
-      "topics": [],
+      "topics": [
+        "Sustainability"
+      ],
       "specializations": [],
-      "validationUrl": "",
+      "validationUrl": "https://certificates.startupmundi.com/verify/NmMzZTFjYjUtMDhlMi00MjVmLWJkMjUtYzNkNzFjNzliOWYx",
       "date": "09-2025",
       "pdf": "Mundi Game Experiences - Sustentabilidade Game Experience - 09-2025 - 6h.pdf"
     },
     {
       "name": "Discover Conectar",
-      "nameEn": "",
+      "nameEn": "Discover Conectar",
       "platform": "Rocketseat",
       "workload": "2h",
       "language": "Português",
-      "topics": [],
+      "topics": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
       "specializations": [],
-      "validationUrl": "",
+      "validationUrl": "https://app.rocketseat.com.br/certificates/996208db-782b-4b36-aa5d-90e9a1582f82",
       "date": "09-2022",
       "pdf": "Rocketseat - Discover Conectar - 09-2022 - 2h.pdf"
     },
     {
       "name": "Introdução à Blockchain",
-      "nameEn": "",
+      "nameEn": "Introdução ao Blockchain",
       "platform": "Universidade CAIXA",
       "workload": "3h",
       "language": "Português",
-      "topics": [],
+      "topics": [
+        "Blockchain"
+      ],
       "specializations": [],
-      "validationUrl": "",
+      "validationUrl": "https://universidade.caixa.gov.br/poderpublico/",
       "date": "08-2025",
       "pdf": "Universidade CAIXA - Introdução à Blockchain - 08-2025 - 3h.pdf"
     }
