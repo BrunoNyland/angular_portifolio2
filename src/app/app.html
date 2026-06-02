@@ -1,4 +1,4 @@
-﻿@if (showLoader()) {
+@if (showLoader()) {
   <app-loader #loader />
 }
 
@@ -7,17 +7,10 @@
 <div class="progress" [style.width.%]="progress()"></div>
 <div class="cursor" id="cursor" #cursor></div>
 
-<app-nav [active]="activeSection()" (navigate)="goTo($event)" (langChange)="setLang($event)" />
+<app-nav (navigate)="goTo($event)" (langChange)="setLang($event)" />
 
 <main>
-  <app-hero />
-  <app-about />
-  <app-skills />
-  <app-work />
-  <app-experience />
-  <app-education />
-  <app-blog />
-  <app-contact />
+  <router-outlet />
 </main>
 
 <app-footer />

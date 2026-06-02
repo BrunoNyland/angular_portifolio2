@@ -10,6 +10,7 @@ export interface NavDict {
   edu: string;
   blog: string;
   contact: string;
+  certs: string;
 }
 
 export interface HeroDict {
@@ -147,6 +148,26 @@ export interface ContactDict {
   items: ContactItem[];
 }
 
+export interface CertsDict {
+  num: string;
+  title: string;
+  lead: string;
+  back: string;
+  statHours: string;
+  statCourses: string;
+  statTopics: string;
+  byTopicTitle: string;
+  searchPlaceholder: string;
+  allPlatforms: string;
+  allTopics: string;
+  allLanguages: string;
+  results: string;
+  empty: string;
+  loading: string;
+  viewPdf: string;
+  validate: string;
+}
+
 export interface FootDict {
   l: string;
   r: string;
@@ -169,6 +190,7 @@ export interface Dict {
   edu: EduDict;
   blog: BlogDict;
   contact: ContactDict;
+  certs: CertsDict;
   foot: FootDict;
   loader: LoaderDict;
 }

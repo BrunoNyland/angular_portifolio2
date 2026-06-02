@@ -6,8 +6,9 @@
   --bg: #0a0a0a;
   --bg-2: #111111;
   --fg: #f0f0f0;
-  --fg-dim: #8a8a8a;
-  --fg-mute: #555;
+  /* Tons clareados para contraste WCAG AA sobre --bg (#0a0a0a). */
+  --fg-dim: #a3a3a3;
+  --fg-mute: #7a7a7a;
   --line: #1c1c1c;
   --line-2: #2a2a2a;
   --accent: #7c5cff;

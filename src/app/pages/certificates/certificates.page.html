@@ -1,0 +1,129 @@
+<section class="section certs" [animateIn]="anims">
+  <div class="certs__intro">
+    <a class="certs__back" routerLink="/">{{ t().back }}</a>
+    <div class="section__head">
+      <span class="num">{{ t().num }}</span>
+      <span class="ttl">{{ t().title }}</span>
+    </div>
+    <h1 class="certs__title h-lg">{{ t().title }}</h1>
+    <p class="body dim certs__lead">{{ t().lead }}</p>
+  </div>
+
+  @if (!loaded()) {
+    <p class="certs__state">{{ t().loading }}</p>
+  } @else {
+    <div class="certs__stats">
+      <div class="certs__stat">
+        <span class="certs__stat-n">{{ totalHours() }}<sup>h</sup></span>
+        <span class="certs__stat-l">{{ t().statHours }}</span>
+      </div>
+      <div class="certs__stat">
+        <span class="certs__stat-n">{{ totalCourses() }}</span>
+        <span class="certs__stat-l">{{ t().statCourses }}</span>
+      </div>
+      <div class="certs__stat">
+        <span class="certs__stat-n">{{ totalTopics() }}</span>
+        <span class="certs__stat-l">{{ t().statTopics }}</span>
+      </div>
+    </div>
+
+    <div class="certs__topics">
+      <h2 class="eyebrow certs__topics-title">{{ t().byTopicTitle }}</h2>
+      <ul class="certs__bars">
+        @for (row of topTopics(); track row.topic) {
+          <li class="certs__bar">
+            <span class="certs__bar-label">{{ row.topic }}</span>
+            <span class="certs__bar-track">
+              <span
+                class="certs__bar-fill"
+                [style.width.%]="(row.hours / maxTopicHours()) * 100"
+              ></span>
+            </span>
+            <span class="certs__bar-val">{{ row.hours }}h</span>
+          </li>
+        }
+      </ul>
+    </div>
+
+    <div class="certs__filters">
+      <input
+        class="certs__search"
+        type="search"
+        [value]="searchTerm()"
+        (input)="searchTerm.set(val($event))"
+        [placeholder]="t().searchPlaceholder"
+        [attr.aria-label]="t().searchPlaceholder"
+      />
+      <select
+        class="certs__select"
+        [value]="selectedPlatform()"
+        (change)="selectedPlatform.set(val($event))"
+        [attr.aria-label]="t().allPlatforms"
+      >
+        <option value="">{{ t().allPlatforms }}</option>
+        @for (p of platforms(); track p) {
+          <option [value]="p">{{ p }}</option>
+        }
+      </select>
+      <select
+        class="certs__select"
+        [value]="selectedTopic()"
+        (change)="selectedTopic.set(val($event))"
+        [attr.aria-label]="t().allTopics"
+      >
+        <option value="">{{ t().allTopics }}</option>
+        @for (tp of topics(); track tp) {
+          <option [value]="tp">{{ tp }}</option>
+        }
+      </select>
+      <select
+        class="certs__select"
+        [value]="selectedLanguage()"
+        (change)="selectedLanguage.set(val($event))"
+        [attr.aria-label]="t().allLanguages"
+      >
+        <option value="">{{ t().allLanguages }}</option>
+        @for (l of languages(); track l) {
+          <option [value]="l">{{ l }}</option>
+        }
+      </select>
+    </div>
+
+    <p class="eyebrow certs__results">{{ filtered().length }} {{ t().results }}</p>
+
+    @if (filtered().length === 0) {
+      <p class="certs__state">{{ t().empty }}</p>
+    } @else {
+      <div class="certs__grid">
+        @for (c of filtered(); track c.pdf) {
+          <article class="cert-card">
+            <header class="cert-card__head">
+              <span class="cert-card__platform">{{ c.platform }}</span>
+              <span class="cert-card__date">{{ formatDate(c.date) }}</span>
+            </header>
+            <h3 class="cert-card__title">{{ displayName(c) }}</h3>
+            <div class="cert-card__meta">
+              <span class="cert-card__hours">{{ c.workload }}</span>
+              <span class="cert-card__lang">{{ c.language }}</span>
+            </div>
+            @if (c.topics.length) {
+              <div class="cert-card__tags">
+                @for (tp of c.topics; track tp) {
+                  <span>{{ tp }}</span>
+                }
+              </div>
+            }
+            <footer class="cert-card__links">
+              <a class="cert-card__link" [href]="pdfHref(c)" target="_blank" rel="noopener">
+                {{ t().viewPdf }} ↗
+              </a>
+              <a class="cert-card__link" [href]="c.validationUrl" target="_blank" rel="noopener">
+                {{ t().validate }} ↗
+              </a>
+            </footer>
+          </article>
+        }
+      </div>
+    }
+  }
+</section>

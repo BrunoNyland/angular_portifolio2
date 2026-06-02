@@ -9,6 +9,9 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { filter } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
@@ -17,51 +20,20 @@ import { ContentService } from './content/content.service';
 import { Lang } from './content/content.types';
 import { SceneService } from './scene/scene.service';
 import { TweaksService } from './tweaks/tweaks.service';
+import { LayoutService } from './core/layout.service';
 
 import { LoaderComponent } from './chrome/loader.component';
 import { NavComponent } from './chrome/nav.component';
 import { TotopComponent } from './chrome/totop.component';
 import { FooterComponent } from './chrome/footer.component';
-import { HeroComponent } from './sections/hero.component';
-import { AboutComponent } from './sections/about.component';
-import { SkillsComponent } from './sections/skills.component';
-import { WorkComponent } from './sections/work.component';
-import { ExperienceComponent } from './sections/experience.component';
-import { EducationComponent } from './sections/education.component';
-import { BlogComponent } from './sections/blog.component';
-import { ContactComponent } from './sections/contact.component';
 
 gsap.registerPlugin(ScrollTrigger);
-
-const HUE_MAP: Array<{ id: string; h: number }> = [
-  { id: '#sec-hero', h: 0.72 },
-  { id: '#sec-about', h: 0.78 },
-  { id: '#sec-skills', h: 0.55 },
-  { id: '#sec-work', h: 0.85 },
-  { id: '#sec-xp', h: 0.68 },
-  { id: '#sec-edu', h: 0.5 },
-  { id: '#sec-blog', h: 0.92 },
-  { id: '#sec-contact', h: 0.72 },
-];
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.html',
   styleUrl: './app.scss',
-  imports: [
-    LoaderComponent,
-    NavComponent,
-    TotopComponent,
-    FooterComponent,
-    HeroComponent,
-    AboutComponent,
-    SkillsComponent,
-    WorkComponent,
-    ExperienceComponent,
-    EducationComponent,
-    BlogComponent,
-    ContactComponent,
-  ],
+  imports: [RouterOutlet, LoaderComponent, NavComponent, TotopComponent, FooterComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App implements AfterViewInit, OnDestroy {
@@ -69,6 +41,8 @@ export class App implements AfterViewInit, OnDestroy {
   private readonly content = inject(ContentService);
   private readonly scene = inject(SceneService);
   private readonly tweaks = inject(TweaksService);
+  private readonly layout = inject(LayoutService);
+  private readonly router = inject(Router);
 
   readonly bgCanvas = viewChild.required<ElementRef<HTMLCanvasElement>>('bgCanvas');
   readonly cursorEl = viewChild.required<ElementRef<HTMLDivElement>>('cursor');
@@ -77,11 +51,13 @@ export class App implements AfterViewInit, OnDestroy {
   readonly showLoader = signal(true);
   readonly progress = signal(0);
   readonly totopVisible = signal(false);
-  readonly activeSection = signal('sec-hero');
 
   private lenis?: Lenis;
   private mouseMoveHandler?: (e: MouseEvent) => void;
+  private mouseOverHandler?: (e: MouseEvent) => void;
+  private mouseOutHandler?: (e: MouseEvent) => void;
   private resizeHandler?: () => void;
+  private routerSub?: Subscription;
 
   // Métricas de layout cacheadas para evitar leituras (forced reflow) a cada evento de scroll.
   private winH = window.innerHeight;
@@ -90,6 +66,12 @@ export class App implements AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     this.scene.init(this.bgCanvas().nativeElement);
     document.documentElement.lang = this.content.lang();
+
+    // Reage a mudanças de rota: reseta o scroll, atualiza os gatilhos do GSAP e,
+    // se houver uma seção pendente (volta cross-route à home), rola até ela.
+    this.routerSub = this.router.events
+      .pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
+      .subscribe((e) => this.onRouteChange(e.urlAfterRedirects));
 
     queueMicrotask(async () => {
       const loaderEl = await this.loader()?.run();
@@ -112,9 +94,9 @@ export class App implements AfterViewInit, OnDestroy {
       }
 
       this.initLenis();
-      this.initIntro();
-      this.initScroll();
       this.initInteractions();
+      // Libera as animações específicas da página (Home) agora que o shell está pronto.
+      this.layout.appReady.set(true);
     });
 
     document.body.classList.add('is-loading');
@@ -122,7 +104,10 @@ export class App implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.lenis?.destroy();
+    this.routerSub?.unsubscribe();
     if (this.mouseMoveHandler) window.removeEventListener('mousemove', this.mouseMoveHandler);
+    if (this.mouseOverHandler) document.removeEventListener('mouseover', this.mouseOverHandler);
+    if (this.mouseOutHandler) document.removeEventListener('mouseout', this.mouseOutHandler);
     if (this.resizeHandler) {
       window.removeEventListener('resize', this.resizeHandler);
       ScrollTrigger.removeEventListener('refresh', this.resizeHandler);
@@ -136,25 +121,51 @@ export class App implements AfterViewInit, OnDestroy {
     this.maxScroll = document.documentElement.scrollHeight - this.winH || 1;
   }
 
+  private onRouteChange(url: string): void {
+    const path = url.split('?')[0].split('#')[0];
+    const frag = this.layout.pendingFragment();
+    // Aguarda a nova view renderizar antes de medir/rolar.
+    setTimeout(() => {
+      this.recomputeMetrics();
+      ScrollTrigger.refresh();
+      if (frag && path === '/') {
+        const target = document.getElementById(frag);
+        if (target && this.lenis) this.lenis.scrollTo(target, { offset: 0, duration: 1.2 });
+        this.layout.pendingFragment.set(null);
+      } else {
+        this.lenis?.scrollTo(0, { immediate: true });
+      }
+    }, 80);
+  }
+
   setLang(lang: Lang): void {
     this.content.setLang(lang);
     this.scene.pulse();
     queueMicrotask(() => {
       const lines = document.querySelectorAll<HTMLElement>('.hero__title .line > i');
-      gsap.fromTo(
-        lines,
-        { y: 0, yPercent: 110 },
-        { yPercent: 0, duration: 0.9, ease: 'expo.out', stagger: 0.05 },
-      );
+      if (lines.length) {
+        gsap.fromTo(
+          lines,
+          { y: 0, yPercent: 110 },
+          { yPercent: 0, duration: 0.9, ease: 'expo.out', stagger: 0.05 },
+        );
+      }
       ScrollTrigger.refresh();
     });
   }
 
   goTo(id: string): void {
-    const target = document.getElementById(id);
-    if (!target || !this.lenis) return;
-    this.scene.pulse();
-    this.lenis.scrollTo(target, { offset: 0, duration: 1.4 });
+    const onHome = this.router.url.split('?')[0].split('#')[0] === '/';
+    if (onHome) {
+      const target = document.getElementById(id);
+      if (!target || !this.lenis) return;
+      this.scene.pulse();
+      this.lenis.scrollTo(target, { offset: 0, duration: 1.4 });
+    } else {
+      // Em outra rota: navega para a home e deixa o handler de rota rolar até a seção.
+      this.layout.pendingFragment.set(id);
+      this.router.navigateByUrl('/');
+    }
   }
 
   goTop(): void {
@@ -193,53 +204,6 @@ export class App implements AfterViewInit, OnDestroy {
     });
   }
 
-  private initIntro(): void {
-    const lines = document.querySelectorAll('.hero__title .line > i');
-    const tl = gsap.timeline();
-    tl.fromTo(
-      lines,
-      { y: 0, yPercent: 110 },
-      { yPercent: 0, duration: 1.0, ease: 'expo.out', stagger: 0.2 },
-      '-=0.2',
-    )
-      .to('.hero__meta-top', { autoAlpha: 1, y: 0, duration: 0.6 }, '-=0.8')
-      .to('.hero__foot > *', { autoAlpha: 1, y: 0, duration: 0.6 }, '-=0.8')
-      .to('.nav', { autoAlpha: 1, y: 0, duration: 0.5 }, '-=0.8')
-      .to('.hero .eyebrow', { autoAlpha: 1, y: 0, duration: 0.6, ease: 'expo.out' });
-  }
-
-  private initScroll(): void {
-    // As animações de entrada e o fade por scrub de cada seção agora vivem dentro
-    // dos componentes (diretivas animateIn / sectionFade). Aqui ficam apenas as
-    // orquestrações globais: troca de matiz da cena e seção ativa do menu.
-    HUE_MAP.forEach((m) => {
-      const el = document.querySelector(m.id);
-      if (!el) return;
-      ScrollTrigger.create({
-        trigger: el,
-        start: 'top 60%',
-        end: 'bottom 40%',
-        onEnter: () => {
-          if (!this.tweaks.tweaks().lockAccent) this.scene.setHue(m.h);
-        },
-        onEnterBack: () => {
-          if (!this.tweaks.tweaks().lockAccent) this.scene.setHue(m.h);
-        },
-      });
-    });
-
-    document.querySelectorAll<HTMLElement>('section.section').forEach((sec) => {
-      ScrollTrigger.create({
-        trigger: sec,
-        start: 'top 40%',
-        end: 'bottom 40%',
-        onToggle: (self) => {
-          if (self.isActive) this.activeSection.set(sec.id);
-        },
-      });
-    });
-  }
-
   private initInteractions(): void {
     const cursor = this.cursorEl().nativeElement;
     this.mouseMoveHandler = (e: MouseEvent) => {
@@ -255,9 +219,17 @@ export class App implements AfterViewInit, OnDestroy {
     };
     window.addEventListener('mousemove', this.mouseMoveHandler);
 
-    document.querySelectorAll('a, button, .project, .post').forEach((el) => {
-      el.addEventListener('mouseenter', () => cursor.classList.add('is-hover'));
-      el.addEventListener('mouseleave', () => cursor.classList.remove('is-hover'));
-    });
+    // Delegação de eventos: funciona para conteúdo de qualquer rota (home, certificados),
+    // inclusive elementos adicionados após a navegação.
+    const isInteractive = (t: EventTarget | null) =>
+      t instanceof Element && t.closest('a, button, .project, .post, .cert-card');
+    this.mouseOverHandler = (e) => {
+      if (isInteractive(e.target)) cursor.classList.add('is-hover');
+    };
+    this.mouseOutHandler = (e) => {
+      if (isInteractive(e.target)) cursor.classList.remove('is-hover');
+    };
+    document.addEventListener('mouseover', this.mouseOverHandler);
+    document.addEventListener('mouseout', this.mouseOutHandler);
   }
 }

@@ -4,22 +4,24 @@ import {
   ElementRef,
   HostListener,
   inject,
-  input,
   output,
   signal,
   viewChild,
 } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { ContentService } from '../content/content.service';
 import { Lang } from '../content/content.types';
 import { TweaksService } from '../tweaks/tweaks.service';
+import { LayoutService } from '../core/layout.service';
 
 const ACCENT_OPTIONS = ['#00e6a8', '#7c5cff', '#ff5b3a', '#3aa0ff', '#fc5bff', '#ff3333'];
 
 @Component({
   selector: 'app-nav',
+  imports: [RouterLink, RouterLinkActive],
   template: `
     <nav class="nav">
-      <div class="nav__brand">BN <b>///</b> NYLAND</div>
+      <a class="nav__brand" routerLink="/">BN <b>///</b> NYLAND</a>
       <div class="nav__menu">
         <a
           href="#sec-about"
@@ -63,6 +65,7 @@ const ACCENT_OPTIONS = ['#00e6a8', '#7c5cff', '#ff5b3a', '#3aa0ff', '#fc5bff', '
           [class.is-active]="active() === 'sec-contact'"
           >{{ dict().nav.contact }}</a
         >
+        <a routerLink="/certificados" routerLinkActive="is-active">{{ dict().nav.certs }}</a>
       </div>
       <div class="nav__right">
         <div class="accent-picker" #picker>
@@ -101,8 +104,10 @@ const ACCENT_OPTIONS = ['#00e6a8', '#7c5cff', '#ff5b3a', '#3aa0ff', '#fc5bff', '
 export class NavComponent {
   readonly content = inject(ContentService);
   readonly tweaks = inject(TweaksService);
+  private readonly layout = inject(LayoutService);
   readonly dict = this.content.dict;
-  readonly active = input('');
+  /** Seção ativa na home, publicada pela HomeComponent via LayoutService. */
+  readonly active = this.layout.activeSection;
   readonly navigate = output<string>();
   readonly langChange = output<Lang>();
 
