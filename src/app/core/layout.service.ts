@@ -15,4 +15,11 @@ export class LayoutService {
 
   /** Verdadeiro quando o loader inicial terminou e o shell está pronto. */
   readonly appReady = signal(false);
+
+  /**
+   * Verdadeiro enquanto a página de certificados está montada. Permite ao Nav
+   * destacar o item correto sem depender do slug da URL — que muda conforme o
+   * idioma (/certificados ⇄ /certificates) via replaceState, sem renavegar.
+   */
+  readonly onCertificates = signal(false);
 }

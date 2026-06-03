@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   ElementRef,
   HostListener,
   inject,
@@ -8,7 +9,7 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { ContentService } from '../content/content.service';
 import { Lang } from '../content/content.types';
 import { TweaksService } from '../tweaks/tweaks.service';
@@ -18,10 +19,10 @@ const ACCENT_OPTIONS = ['#00e6a8', '#7c5cff', '#ff5b3a', '#3aa0ff', '#fc5bff', '
 
 @Component({
   selector: 'app-nav',
-  imports: [RouterLink, RouterLinkActive],
+  imports: [RouterLink],
   template: `
     <nav class="nav">
-      <a class="nav__brand" routerLink="/">BN <b>///</b> NYLAND</a>
+      <a class="nav__brand" href="/" (click)="goHome($event)">BN <b>///</b> NYLAND</a>
       <div class="nav__menu">
         <a
           href="#sec-about"
@@ -65,7 +66,7 @@ const ACCENT_OPTIONS = ['#00e6a8', '#7c5cff', '#ff5b3a', '#3aa0ff', '#fc5bff', '
           [class.is-active]="active() === 'sec-contact'"
           >{{ dict().nav.contact }}</a
         >
-        <a routerLink="/certificados" routerLinkActive="is-active">{{ dict().nav.certs }}</a>
+        <a [routerLink]="certsPath()" [class.is-active]="layout.onCertificates()">{{ dict().nav.certs }}</a>
       </div>
       <div class="nav__right">
         <div class="accent-picker" #picker>
@@ -104,12 +105,18 @@ const ACCENT_OPTIONS = ['#00e6a8', '#7c5cff', '#ff5b3a', '#3aa0ff', '#fc5bff', '
 export class NavComponent {
   readonly content = inject(ContentService);
   readonly tweaks = inject(TweaksService);
-  private readonly layout = inject(LayoutService);
+  readonly layout = inject(LayoutService);
   readonly dict = this.content.dict;
-  /** Seção ativa na home, publicada pela HomeComponent via LayoutService. */
-  readonly active = this.layout.activeSection;
+  /** Slug localizado da página de certificados conforme o idioma atual. */
+  readonly certsPath = computed(() => (this.content.lang() === 'en' ? '/certificates' : '/certificados'));
+  /**
+   * Seção ativa na home (publicada pela HomeComponent via LayoutService). Fora da
+   * home — ex.: na página de certificados — nenhuma seção deve ficar destacada.
+   */
+  readonly active = computed(() => (this.layout.onCertificates() ? '' : this.layout.activeSection()));
   readonly navigate = output<string>();
   readonly langChange = output<Lang>();
+  readonly home = output<void>();
 
   readonly options = ACCENT_OPTIONS;
   readonly open = signal(false);
@@ -118,6 +125,11 @@ export class NavComponent {
   scrollTo(event: MouseEvent, id: string): void {
     event.preventDefault();
     this.navigate.emit(id);
+  }
+
+  goHome(event: MouseEvent): void {
+    event.preventDefault();
+    this.home.emit();
   }
 
   setLang(lang: Lang): void {

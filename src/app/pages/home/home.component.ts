@@ -119,7 +119,8 @@ export class HomeComponent {
     )
       .to('.hero__meta-top', { autoAlpha: 1, y: 0, duration: 0.6 }, '-=0.8')
       .to('.hero__foot > *', { autoAlpha: 1, y: 0, duration: 0.6 }, '-=0.8')
-      .to('.nav', { autoAlpha: 1, y: 0, duration: 0.5 }, '-=0.8')
+      // O nav é revelado pelo shell (App) após o loader, pois é compartilhado
+      // entre todas as rotas; aqui só animamos os elementos da Home.
       .to('.hero .eyebrow', { autoAlpha: 1, y: 0, duration: 0.6, ease: 'expo.out' });
   }
 

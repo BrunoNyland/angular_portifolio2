@@ -7,7 +7,7 @@
 <div class="progress" [style.width.%]="progress()"></div>
 <div class="cursor" id="cursor" #cursor></div>
 
-<app-nav (navigate)="goTo($event)" (langChange)="setLang($event)" />
+<app-nav (navigate)="goTo($event)" (langChange)="setLang($event)" (home)="goHome()" />
 
 <main>
   <router-outlet />

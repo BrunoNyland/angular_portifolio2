@@ -1,7 +1,18 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { Location } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  computed,
+  effect,
+  inject,
+  signal,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { ContentService } from '../../content/content.service';
+import { Lang } from '../../content/content.types';
+import { LayoutService } from '../../core/layout.service';
 import { SeoService } from '../../core/seo.service';
 import { AnimateInDirective, type AnimateInConfig } from '../../shared/animate-in.directive';
 import { CertificatesService } from './certificates.service';
@@ -12,6 +23,9 @@ const MONTHS: Record<'pt' | 'en', string[]> = {
   en: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
 };
 
+/** Slug da URL por idioma (links localizados e compartilháveis). */
+const CERT_SLUG: Record<Lang, string> = { pt: '/certificados', en: '/certificates' };
+
 @Component({
   selector: 'app-certificates',
   imports: [RouterLink, AnimateInDirective],
@@ -19,10 +33,12 @@ const MONTHS: Record<'pt' | 'en', string[]> = {
   styleUrl: './certificates.page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CertificatesPage {
+export class CertificatesPage implements OnDestroy {
   private readonly content = inject(ContentService);
   private readonly service = inject(CertificatesService);
   private readonly seo = inject(SeoService);
+  private readonly layout = inject(LayoutService);
+  private readonly location = inject(Location);
 
   readonly t = computed(() => this.content.dict().certs);
   readonly lang = this.content.lang;
@@ -94,6 +110,24 @@ export class CertificatesPage {
   ];
 
   constructor() {
+    // Define o idioma a partir do slug pelo qual a página foi aberta, para que
+    // links localizados/compartilhados (/certificates → EN, /certificados → PT)
+    // mostrem o conteúdo na língua certa. Como os links do menu já apontam para o
+    // slug do idioma atual, navegações internas chegam com o slug coerente.
+    const entry = this.currentPath();
+    if (entry === CERT_SLUG.en) this.content.setLang('en');
+    else if (entry === CERT_SLUG.pt) this.content.setLang('pt');
+
+    this.layout.onCertificates.set(true);
+
+    // Mantém a URL do navegador refletindo o idioma selecionado: ao trocar a
+    // língua, troca o slug (/certificados ⇄ /certificates). Usa replaceState para
+    // não renavegar — preserva filtros e posição de scroll da página.
+    effect(() => {
+      const target = CERT_SLUG[this.content.lang()];
+      if (this.currentPath() !== target) this.location.replaceState(target);
+    });
+
     this.seo.setMeta({
       titlePt: 'Certificados — Bruno Nyland',
       titleEn: 'Certificates — Bruno Nyland',
@@ -116,6 +150,15 @@ export class CertificatesPage {
     const m = date.match(/^(\d{2})-(\d{4})$/);
     if (!m) return date;
     return `${MONTHS[this.lang()][parseInt(m[1], 10) - 1]} ${m[2]}`;
+  }
+
+  ngOnDestroy(): void {
+    this.layout.onCertificates.set(false);
+  }
+
+  /** Caminho atual sem query string nem fragmento (ex.: '/certificados'). */
+  private currentPath(): string {
+    return this.location.path().split('?')[0].split('#')[0];
   }
 
   /** Lê o valor de um input/select para alimentar os signals de filtro. */

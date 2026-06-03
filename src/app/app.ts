@@ -93,6 +93,10 @@ export class App implements AfterViewInit, OnDestroy {
         });
       }
 
+      // Revela o nav: ele vive no shell, então deve aparecer em qualquer rota
+      // (inclusive acesso direto a /certificados), não só na intro da Home.
+      gsap.to('.nav', { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out' });
+
       this.initLenis();
       this.initInteractions();
       // Libera as animações específicas da página (Home) agora que o shell está pronto.
@@ -171,6 +175,18 @@ export class App implements AfterViewInit, OnDestroy {
   goTop(): void {
     this.scene.pulse();
     this.lenis?.scrollTo(0, { duration: 1.6 });
+  }
+
+  goHome(): void {
+    const onHome = this.router.url.split('?')[0].split('#')[0] === '/';
+    if (onHome) {
+      // Já na home: apenas rola suavemente até o topo.
+      this.goTop();
+    } else {
+      // Em outra rota (ex.: certificados): volta para a home; o handler de rota
+      // posiciona no topo.
+      this.router.navigateByUrl('/');
+    }
   }
 
   private initLenis(): void {
