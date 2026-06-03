@@ -97,8 +97,39 @@ const ACCENT_OPTIONS = ['#00e6a8', '#7c5cff', '#ff5b3a', '#3aa0ff', '#fc5bff', '
           <span>/</span>
           <button [class.is-on]="content.lang() === 'en'" (click)="setLang('en')">EN</button>
         </div>
+        <button
+          type="button"
+          class="nav__burger"
+          [class.is-open]="menuOpen()"
+          [attr.aria-expanded]="menuOpen()"
+          aria-controls="mobile-menu"
+          aria-label="Menu"
+          (click)="toggleMenu()"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </div>
     </nav>
+
+    <div id="mobile-menu" class="mobile-menu" [class.is-open]="menuOpen()">
+      <nav class="mobile-menu__nav">
+        <a (click)="goSection($event, 'sec-about')">{{ dict().nav.about }}</a>
+        <a (click)="goSection($event, 'sec-skills')">{{ dict().nav.skills }}</a>
+        <a (click)="goSection($event, 'sec-work')">{{ dict().nav.work }}</a>
+        <a (click)="goSection($event, 'sec-xp')">{{ dict().nav.xp }}</a>
+        <a (click)="goSection($event, 'sec-edu')">{{ dict().nav.edu }}</a>
+        <a (click)="goSection($event, 'sec-blog')">{{ dict().nav.blog }}</a>
+        <a (click)="goSection($event, 'sec-contact')">{{ dict().nav.contact }}</a>
+        <a
+          [routerLink]="certsPath()"
+          [class.is-active]="layout.onCertificates()"
+          (click)="closeMenu()"
+          >{{ dict().nav.certs }}</a
+        >
+      </nav>
+    </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -117,9 +148,13 @@ export class NavComponent {
   readonly navigate = output<string>();
   readonly langChange = output<Lang>();
   readonly home = output<void>();
+  /** Avisa o shell para travar/liberar o scroll (Lenis) enquanto o menu móvel abre/fecha. */
+  readonly menuOpenChange = output<boolean>();
 
   readonly options = ACCENT_OPTIONS;
   readonly open = signal(false);
+  /** Estado do menu móvel em tela cheia (hambúrguer). */
+  readonly menuOpen = signal(false);
   readonly picker = viewChild<ElementRef<HTMLDivElement>>('picker');
 
   scrollTo(event: MouseEvent, id: string): void {
@@ -129,7 +164,25 @@ export class NavComponent {
 
   goHome(event: MouseEvent): void {
     event.preventDefault();
+    this.closeMenu();
     this.home.emit();
+  }
+
+  toggleMenu(): void {
+    this.menuOpen.update((v) => !v);
+    this.menuOpenChange.emit(this.menuOpen());
+  }
+
+  closeMenu(): void {
+    if (!this.menuOpen()) return;
+    this.menuOpen.set(false);
+    this.menuOpenChange.emit(false);
+  }
+
+  /** Item de seção no menu móvel: fecha o overlay e dispara o scroll suave. */
+  goSection(event: MouseEvent, id: string): void {
+    this.closeMenu();
+    this.scrollTo(event, id);
   }
 
   setLang(lang: Lang): void {
@@ -151,5 +204,12 @@ export class NavComponent {
     if (!this.open()) return;
     const root = this.picker()?.nativeElement;
     if (root && !root.contains(event.target as Node)) this.open.set(false);
+  }
+
+  @HostListener('window:resize')
+  onResize(): void {
+    // Ao voltar para a largura de desktop, o overlay é escondido por CSS — então
+    // garantimos que o estado feche e o scroll seja liberado.
+    if (this.menuOpen() && window.innerWidth >= 1094) this.closeMenu();
   }
 }

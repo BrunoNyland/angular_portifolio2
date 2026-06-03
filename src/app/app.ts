@@ -177,6 +177,12 @@ export class App implements AfterViewInit, OnDestroy {
     this.lenis?.scrollTo(0, { duration: 1.6 });
   }
 
+  onMenuToggle(open: boolean): void {
+    // Trava o scroll suave de fundo enquanto o menu móvel em tela cheia está aberto.
+    if (open) this.lenis?.stop();
+    else this.lenis?.start();
+  }
+
   goHome(): void {
     const onHome = this.router.url.split('?')[0].split('#')[0] === '/';
     if (onHome) {
