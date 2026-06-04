@@ -66,7 +66,9 @@ const ACCENT_OPTIONS = ['#00e6a8', '#7c5cff', '#ff5b3a', '#3aa0ff', '#fc5bff', '
           [class.is-active]="active() === 'sec-contact'"
           >{{ dict().nav.contact }}</a
         >
-        <a [routerLink]="certsPath()" [class.is-active]="layout.onCertificates()">{{ dict().nav.certs }}</a>
+        <a [routerLink]="certsPath()" [class.is-active]="layout.onCertificates()">{{
+          dict().nav.certs
+        }}</a>
       </div>
       <div class="nav__right">
         <div class="accent-picker" #picker>
@@ -115,13 +117,15 @@ const ACCENT_OPTIONS = ['#00e6a8', '#7c5cff', '#ff5b3a', '#3aa0ff', '#fc5bff', '
 
     <div id="mobile-menu" class="mobile-menu" [class.is-open]="menuOpen()">
       <nav class="mobile-menu__nav">
-        <a (click)="goSection($event, 'sec-about')">{{ dict().nav.about }}</a>
-        <a (click)="goSection($event, 'sec-skills')">{{ dict().nav.skills }}</a>
-        <a (click)="goSection($event, 'sec-work')">{{ dict().nav.work }}</a>
-        <a (click)="goSection($event, 'sec-xp')">{{ dict().nav.xp }}</a>
-        <a (click)="goSection($event, 'sec-edu')">{{ dict().nav.edu }}</a>
-        <a (click)="goSection($event, 'sec-blog')">{{ dict().nav.blog }}</a>
-        <a (click)="goSection($event, 'sec-contact')">{{ dict().nav.contact }}</a>
+        <a href="#sec-about" (click)="goSection($event, 'sec-about')">{{ dict().nav.about }}</a>
+        <a href="#sec-skills" (click)="goSection($event, 'sec-skills')">{{ dict().nav.skills }}</a>
+        <a href="#sec-work" (click)="goSection($event, 'sec-work')">{{ dict().nav.work }}</a>
+        <a href="#sec-xp" (click)="goSection($event, 'sec-xp')">{{ dict().nav.xp }}</a>
+        <a href="#sec-edu" (click)="goSection($event, 'sec-edu')">{{ dict().nav.edu }}</a>
+        <a href="#sec-blog" (click)="goSection($event, 'sec-blog')">{{ dict().nav.blog }}</a>
+        <a href="#sec-contact" (click)="goSection($event, 'sec-contact')">{{
+          dict().nav.contact
+        }}</a>
         <a
           [routerLink]="certsPath()"
           [class.is-active]="layout.onCertificates()"
@@ -139,12 +143,16 @@ export class NavComponent {
   readonly layout = inject(LayoutService);
   readonly dict = this.content.dict;
   /** Slug localizado da página de certificados conforme o idioma atual. */
-  readonly certsPath = computed(() => (this.content.lang() === 'en' ? '/certificates' : '/certificados'));
+  readonly certsPath = computed(() =>
+    this.content.lang() === 'en' ? '/certificates' : '/certificados',
+  );
   /**
    * Seção ativa na home (publicada pela HomeComponent via LayoutService). Fora da
    * home — ex.: na página de certificados — nenhuma seção deve ficar destacada.
    */
-  readonly active = computed(() => (this.layout.onCertificates() ? '' : this.layout.activeSection()));
+  readonly active = computed(() =>
+    this.layout.onCertificates() ? '' : this.layout.activeSection(),
+  );
   readonly navigate = output<string>();
   readonly langChange = output<Lang>();
   readonly home = output<void>();

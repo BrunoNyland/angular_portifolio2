@@ -2,6 +2,22 @@
    BRUNO NYLAND — portfolio
    ============================================================ */
 
+@font-face {
+  font-family: 'Space Grotesk';
+  src: url('/fonts/space-grotesk.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/jetbrains-mono.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+}
+
 :root {
   --bg: #0a0a0a;
   --bg-2: #111111;
@@ -77,8 +93,6 @@ svg {
   background: var(--accent-2);
 }
 html {
-  scrollbar-color: var(--accent) #050505;
-  scrollbar-width: thin;
 }
 
 /* ---------- Selection ---------- */

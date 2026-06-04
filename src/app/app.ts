@@ -96,6 +96,7 @@ export class App implements AfterViewInit, OnDestroy {
               loaderEl.style.display = 'none';
               this.showLoader.set(false);
               document.body.classList.add('is-loaded');
+              document.body.classList.remove('is-loading');
               res();
             },
           });
