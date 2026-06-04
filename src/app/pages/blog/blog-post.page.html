@@ -1,0 +1,20 @@
+<section class="section blog-post">
+  <a class="blog-post__back" routerLink="/blog">{{ t().backToBlog }}</a>
+
+  @if (state().post; as post) {
+    <article class="blog-post__article">
+      <div class="blog-post__meta">
+        <span class="tag">{{ post.meta.tag[lang()] }}</span>
+        <span>{{ date(post.meta.date) }}</span>
+      </div>
+      <h1 class="blog-post__title">{{ post.meta.title[lang()] }}</h1>
+      <div class="blog-post__body" [innerHTML]="post.html"></div>
+    </article>
+  } @else if (state().error) {
+    <p class="blog-post__state">{{ t().error }}</p>
+  } @else if (state().post === null) {
+    <p class="blog-post__state">{{ t().notFound }}</p>
+  } @else {
+    <p class="blog-post__state">{{ t().loading }}</p>
+  }
+</section>

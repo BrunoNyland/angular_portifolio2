@@ -46,19 +46,13 @@ As melhorias de arquitetura hoje foram excelentes (com roteamento, Lazy Loading 
 - **Problema:** O `gsap.ticker.add(...)` é registrado no init e não é removido no `ngOnDestroy()`. Em hot reload ou navegação com o shell recriado, isso pode gerar listeners duplicados.
 - **Refatoração Sênior:** Armazenar a função do ticker e chamar `gsap.ticker.remove(handler)` no destroy. Idem para handlers do Lenis/ScrollTrigger quando aplicável.
 
-### E. A11y: Respeitar `prefers-reduced-motion`
-
-- **Onde:** Inicialização de animações no [app.ts](file:///c:/Users/Usuario/Desktop/portifolio2/src/app/app.ts) e componentes da home.
-- **Problema:** Usuários com preferência por redução de movimento ainda recebem animações/scroll suave.
-- **Refatoração Sênior:** Consultar `matchMedia('(prefers-reduced-motion: reduce)')` e desativar Lenis/GSAP quando necessário (ou reduzir duração e easing).
-
-### F. SEO Completo (OG/Twitter/Canonical/Hreflang)
+### E. SEO Completo (OG/Twitter/Canonical/Hreflang)
 
 - **Onde:** [seo.service.ts](file:///c:/Users/Usuario/Desktop/portifolio2/src/app/core/seo.service.ts) e conteúdo central.
 - **Problema:** Metadados básicos estão ok, mas faltam OpenGraph/Twitter cards, canonical e alternates por idioma.
 - **Refatoração Sênior:** Expandir o `SeoService` para tags OG/Twitter, `link rel="canonical"` e `hreflang`, usando o dicionário por idioma.
 
-### G. Performance de Imagens (LCP)
+### F. Performance de Imagens (LCP)
 
 - **Onde:** Seções com imagens relevantes (Work/Certificates/Blog).
 - **Problema:** Imagens sem otimização podem prejudicar LCP e Lighthouse.
@@ -80,19 +74,18 @@ graph TD
 - [x] **Estabilizar Scroll de Rotas:** Trocar o `setTimeout` no controle de rota do App shell por um hook de ciclo de vida seguro (`afterNextRender`).
 - [x] **Internacionalizar SEO:** Migrar as descrições do `SeoService` de [home.component.ts](file:///c:/Users/Usuario/Desktop/portifolio2/src/app/pages/home/home.component.ts) e [certificates.page.ts](file:///c:/Users/Usuario/Desktop/portifolio2/src/app/pages/certificates/certificates.page.ts) para o arquivo global [content.data.ts](file:///c:/Users/Usuario/Desktop/portifolio2/src/app/content/content.data.ts) (`dict().seo.{home,certs}`).
 - [x] **Limpar Tickers/Listeners:** Remover handlers do `gsap.ticker` e outros listeners no `ngOnDestroy()` do shell.
-- [ ] **A11y Motion:** Respeitar `prefers-reduced-motion`. _(Tentativa inicial com `MotionService` foi revertida a pedido: desligar o Lenis e usar scroll nativo piorava muito a sensação de scroll. Reavaliar futuramente uma abordagem que apenas **reduza duração/easing** do Lenis e das animações, sem desativar o scroll suave.)_
 - [x] **SEO Completo:** Adicionar OG/Twitter, canonical e `hreflang` no `SeoService`.
 
 ### Fase 2: Refinamento de Dados e Blog com Markdown (.md)
 
-- [ ] **Atualização de Projetos:** Alterar a tipagem do projeto em [content.types.ts](file:///c:/Users/Usuario/Desktop/portifolio2/src/app/content/content.types.ts) para incluir links e substituir os textos descritivos temporários por dados reais no [content.data.ts](file:///c:/Users/Usuario/Desktop/portifolio2/src/app/content/content.data.ts).
-- [ ] **Infraestrutura e Índice do Blog:** Criar a pasta `/public/blog/`, adicionar os arquivos `.md` e criar o arquivo de índice `/public/blog/posts.json` contendo o array de metadados dos posts (slug, título, data, tag, resumo e marcador `featured` de destaque).
-- [ ] **Seleção de Destaques na Home:** Atualizar a seção do blog na home (`BlogComponent`) para baixar o arquivo `posts.json` via `BlogService` e mostrar apenas posts marcados com `featured: true` (evitando requisições excessivas de arquivos `.md`).
-- [ ] **Página Geral do Blog (`/blog`):** Desenvolver uma página de índice geral do blog contendo:
-  - Filtro por tags e busca por palavra-chave utilizando reatividade com _Angular Signals_ (`computed`).
-  - Infinite Loader (Scroll Infinito) automatizado utilizando a API do navegador `IntersectionObserver` para carregar novos itens dinamicamente à medida que o usuário rola o rodapé da página.
-- [ ] **Serviço e Tela de Detalhes do Post:** Implementar o método `getPost(slug)` no `BlogService` para baixar o arquivo `.md` sob demanda e renderizá-lo na rota dinâmica `/blog/:slug` de forma segura (usando `DomSanitizer`), adicionando realce de sintaxe de código (syntax highlighting) para desenvolvedores.
-- [ ] **Estados de UI:** Adicionar estados de loading/erro/vazio para certificados e blog (evitar tela sem feedback).
+- [ ] **Atualização de Projetos:** Alterar a tipagem do projeto em [content.types.ts](file:///c:/Users/Usuario/Desktop/portifolio2/src/app/content/content.types.ts) para incluir links e substituir os textos descritivos temporários por dados reais no [content.data.ts](file:///c:/Users/Usuario/Desktop/portifolio2/src/app/content/content.data.ts). _(Pendente: aguardando os dados reais dos projetos.)_
+- [x] **Infraestrutura e Índice do Blog:** `/public/blog/` com os `.md` bilíngues (`{slug}.{pt,en}.md`) e o índice `/public/blog/posts.json` (slug, data, tag, título, resumo, `featured`). _Conteúdo dos posts pendente do autor — corpos com placeholder._
+- [x] **Seleção de Destaques na Home:** [`BlogComponent`](file:///c:/Users/Usuario/Desktop/portifolio2/src/app/sections/blog.component.ts) consome `posts.json` via [`BlogService`](file:///c:/Users/Usuario/Desktop/portifolio2/src/app/pages/blog/blog.service.ts) e mostra só os `featured`, com CTA para `/blog`.
+- [x] **Página Geral do Blog (`/blog`):** [blog.page.ts](file:///c:/Users/Usuario/Desktop/portifolio2/src/app/pages/blog/blog.page.ts) com:
+  - Filtro por tags e busca por palavra-chave com _Angular Signals_ (`computed`).
+  - Scroll infinito via `IntersectionObserver` (carrega +6 posts ao se aproximar do rodapé).
+- [x] **Serviço e Tela de Detalhes do Post:** `BlogService.getPost(slug, lang)` baixa o `.md` sob demanda e renderiza em `/blog/:slug` de forma segura (`DomSanitizer`), com realce de sintaxe (marked + highlight.js, carregados sob demanda).
+- [x] **Estados de UI:** Loading/erro/vazio para certificados e blog (índice e detalhe).
 
 ### Fase 3: Otimizações Visuais e Testes Finais
 

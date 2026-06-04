@@ -1361,6 +1361,128 @@ section.section:first-of-type {
   }
 }
 
+/* CTA "ver todos" e estado vazio da seção de blog na home */
+.blog__all {
+  margin-top: 26px;
+  display: flex;
+  justify-content: flex-end;
+}
+.blog__all a {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid var(--line-2);
+  padding-bottom: 4px;
+  transition:
+    color 0.2s,
+    border-color 0.2s;
+}
+.blog__all a:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+.blog__all .arr {
+  color: var(--accent);
+}
+.blog__empty {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--fg-dim);
+  padding: 30px 0;
+}
+
+/* ============================================================
+   BLOG — prosa renderizada do Markdown (/blog/:slug)
+   Estilos globais: o conteúdo vem de [innerHTML] e não recebe o
+   atributo de encapsulamento do componente.
+   ============================================================ */
+.blog-post__body > :first-child {
+  margin-top: 0;
+}
+.blog-post__body h1,
+.blog-post__body h2,
+.blog-post__body h3,
+.blog-post__body h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--fg);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin: 1.8em 0 0.6em;
+}
+.blog-post__body h1 {
+  font-size: clamp(26px, 3.4vw, 36px);
+}
+.blog-post__body h2 {
+  font-size: clamp(23px, 2.8vw, 31px);
+}
+.blog-post__body h3 {
+  font-size: clamp(19px, 2.2vw, 25px);
+}
+.blog-post__body p {
+  margin: 0 0 1.1em;
+}
+.blog-post__body a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.blog-post__body ul,
+.blog-post__body ol {
+  margin: 0 0 1.1em;
+  padding-left: 1.4em;
+}
+.blog-post__body li {
+  margin: 0.35em 0;
+}
+.blog-post__body strong {
+  color: var(--fg);
+}
+.blog-post__body blockquote {
+  margin: 1.4em 0;
+  padding: 6px 0 6px 20px;
+  border-left: 2px solid var(--accent);
+  color: var(--fg);
+}
+.blog-post__body :not(pre) > code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  background: var(--bg-2);
+  border: 1px solid var(--line-2);
+  padding: 1px 6px;
+  border-radius: 3px;
+}
+.blog-post__body pre {
+  margin: 1.5em 0;
+  padding: 20px 22px;
+  overflow-x: auto;
+  border: 1px solid var(--line-2);
+  background: #0d1117;
+}
+.blog-post__body pre code {
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+  line-height: 1.6;
+  background: none;
+  border: 0;
+  padding: 0;
+}
+.blog-post__body img {
+  max-width: 100%;
+  height: auto;
+  margin: 1.5em 0;
+}
+.blog-post__body hr {
+  border: 0;
+  border-top: 1px solid var(--line-2);
+  margin: 2em 0;
+}
+
 /* ============================================================
    CONTATO
    ============================================================ */

@@ -1,0 +1,65 @@
+:host {
+  display: block;
+  position: relative;
+  z-index: 2;
+}
+
+.blog-post {
+  min-height: 100vh;
+}
+
+.blog-post__back {
+  display: inline-block;
+  margin-bottom: clamp(28px, 5vh, 48px);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+  transition: color 0.2s;
+}
+.blog-post__back:hover {
+  color: var(--accent);
+}
+
+.blog-post__article {
+  max-width: 760px;
+}
+.blog-post__meta {
+  display: flex;
+  gap: 16px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+  margin-bottom: 18px;
+}
+.blog-post__meta .tag {
+  color: var(--accent);
+}
+.blog-post__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(32px, 5vw, 60px);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  color: var(--fg);
+  margin-bottom: clamp(28px, 5vh, 44px);
+}
+
+.blog-post__state {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--fg-dim);
+  padding: 60px 0;
+}
+
+/* Container da prosa; a tipografia dos filhos (vindos de [innerHTML]) é global
+   em styles.scss, pois o conteúdo injetado não recebe o atributo de encapsulamento. */
+.blog-post__body {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--fg-dim);
+}

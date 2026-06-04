@@ -1,0 +1,62 @@
+<section class="section blog-page" [animateIn]="anims">
+  <div class="blog-page__intro">
+    <a class="blog-page__back" routerLink="/">{{ t().backToHome }}</a>
+    <div class="section__head">
+      <span class="num">(06)</span>
+      <span class="ttl">{{ t().title }}</span>
+    </div>
+    <h1 class="blog-page__title h-lg">{{ t().title }}</h1>
+    <p class="body dim blog-page__lead">{{ t().lead }}</p>
+  </div>
+
+  @if (!loaded()) {
+    <p class="blog-page__state">{{ t().loading }}</p>
+  } @else if (error()) {
+    <p class="blog-page__state">{{ t().error }}</p>
+  } @else {
+    <div class="blog-page__filters">
+      <input
+        class="blog-page__search"
+        type="search"
+        [value]="searchTerm()"
+        (input)="onSearch(val($event))"
+        [placeholder]="t().searchPlaceholder"
+        [attr.aria-label]="t().searchPlaceholder"
+      />
+      <select
+        class="blog-page__select"
+        [value]="selectedTag()"
+        (change)="onTag(val($event))"
+        [attr.aria-label]="t().allTags"
+      >
+        <option value="">{{ t().allTags }}</option>
+        @for (tag of tags(); track tag) {
+          <option [value]="tag">{{ tag }}</option>
+        }
+      </select>
+      <span class="eyebrow blog-page__count">{{ filtered().length }} {{ t().results }}</span>
+    </div>
+
+    @if (filtered().length) {
+      <div class="blog-page__grid">
+        @for (p of visible(); track p.slug) {
+          <a class="post post--card" [routerLink]="['/blog', p.slug]">
+            <div class="post__meta">
+              <span class="tag">{{ p.tag[lang()] }}</span>
+              <span>{{ date(p.date) }}</span>
+            </div>
+            <div class="post__title">{{ p.title[lang()] }}</div>
+            <div class="post__excerpt">{{ p.excerpt[lang()] }}</div>
+            <div class="post__cta">
+              <span>{{ t().readMore }}</span>
+              <span class="arr">→</span>
+            </div>
+          </a>
+        }
+      </div>
+      <div #sentinel class="blog-page__sentinel" aria-hidden="true"></div>
+    } @else {
+      <p class="blog-page__state">{{ t().empty }}</p>
+    }
+  }
+</section>

@@ -1,0 +1,60 @@
+{
+  "posts": [
+    {
+      "slug": "automation-patterns-that-survive-time",
+      "date": "2026-05",
+      "featured": true,
+      "tag": { "pt": "Python", "en": "Python" },
+      "title": {
+        "pt": "Padrões de automação que sobrevivem ao tempo",
+        "en": "Automation patterns that survive time"
+      },
+      "excerpt": {
+        "pt": "Por que a maioria dos seus scripts quebram em 6 meses — e como estruturá-los para durar anos sem manutenção.",
+        "en": "Why most scripts break in 6 months — and how to structure them so they last for years untouched."
+      }
+    },
+    {
+      "slug": "back-to-django-after-spa",
+      "date": "2026-04",
+      "featured": true,
+      "tag": { "pt": "Frontend", "en": "Frontend" },
+      "title": {
+        "pt": "Por que voltei a usar Django depois de 2 anos só em SPA",
+        "en": "Why I came back to Django after 2 years of pure SPA"
+      },
+      "excerpt": {
+        "pt": "Sobre a falsa promessa do JS no servidor e quando o monolito com templates ainda vence.",
+        "en": "On the false promise of JS on the server and when the monolith with templates still wins."
+      }
+    },
+    {
+      "slug": "pandas-is-a-language",
+      "date": "2026-03",
+      "featured": false,
+      "tag": { "pt": "Dados", "en": "Data" },
+      "title": {
+        "pt": "Pandas é uma linguagem, não uma biblioteca",
+        "en": "Pandas is a language, not a library"
+      },
+      "excerpt": {
+        "pt": "Aprendi mais sobre programação resolvendo CSVs no Pandas do que em qualquer livro de algoritmos.",
+        "en": "I learned more about programming solving CSVs in Pandas than in any algorithms book."
+      }
+    },
+    {
+      "slug": "focus-bank-and-code",
+      "date": "2026-02",
+      "featured": false,
+      "tag": { "pt": "Carreira", "en": "Career" },
+      "title": {
+        "pt": "11 anos no banco, 15 programando. O que aprendi sobre foco",
+        "en": "11 years at the bank, 15 coding. What I learned about focus"
+      },
+      "excerpt": {
+        "pt": "Conciliar uma carreira pública estável com desenvolvimento independente exige um sistema, não disciplina.",
+        "en": "Balancing a stable public-sector career with independent dev work demands a system — not discipline."
+      }
+    }
+  ]
+}

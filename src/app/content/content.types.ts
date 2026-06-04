@@ -121,18 +121,31 @@ export interface EduDict {
   items: EduItem[];
 }
 
-export interface BlogItem {
-  tag: string;
-  date: string;
-  t: string;
-  x: string;
-}
-
 export interface BlogDict {
   num: string;
   title: string;
-  items: BlogItem[];
+  /** CTA de cada post ("Ler"). */
   cta: string;
+  /** CTA para a página geral do blog ("Ver todos os posts"). */
+  all: string;
+  /** Estado vazio (sem posts em destaque). */
+  empty: string;
+}
+
+/** Textos da página geral do blog (`/blog`) e da tela de detalhe do post. */
+export interface BlogPageDict {
+  title: string;
+  lead: string;
+  searchPlaceholder: string;
+  allTags: string;
+  results: string;
+  empty: string;
+  loading: string;
+  error: string;
+  readMore: string;
+  backToBlog: string;
+  backToHome: string;
+  notFound: string;
 }
 
 export interface ContactItem {
@@ -164,6 +177,7 @@ export interface CertsDict {
   results: string;
   empty: string;
   loading: string;
+  error: string;
   viewPdf: string;
   validate: string;
 }
@@ -189,6 +203,7 @@ export interface SeoEntry {
 export interface SeoDict {
   home: SeoEntry;
   certs: SeoEntry;
+  blog: SeoEntry;
 }
 
 export interface Dict {
@@ -200,6 +215,7 @@ export interface Dict {
   xp: XpDict;
   edu: EduDict;
   blog: BlogDict;
+  blogPage: BlogPageDict;
   contact: ContactDict;
   certs: CertsDict;
   foot: FootDict;

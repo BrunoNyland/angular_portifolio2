@@ -18,6 +18,7 @@ export class CertificatesService {
   private readonly _courses = signal<Certificate[]>([]);
   readonly courses = this._courses.asReadonly();
   readonly loaded = signal(false);
+  readonly error = signal(false);
 
   constructor() {
     this.load();
@@ -29,7 +30,10 @@ export class CertificatesService {
         this._courses.set(data?.courses ?? []);
         this.loaded.set(true);
       },
-      error: () => this.loaded.set(true),
+      error: () => {
+        this.error.set(true);
+        this.loaded.set(true);
+      },
     });
   }
 }

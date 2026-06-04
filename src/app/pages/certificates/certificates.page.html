@@ -11,6 +11,8 @@
 
   @if (!loaded()) {
     <p class="certs__state">{{ t().loading }}</p>
+  } @else if (error()) {
+    <p class="certs__state">{{ t().error }}</p>
   } @else {
     <div class="certs__stats">
       <div class="certs__stat">

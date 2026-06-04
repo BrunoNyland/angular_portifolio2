@@ -15,5 +15,13 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/certificates/certificates.page').then((m) => m.CertificatesPage),
   },
+  {
+    path: 'blog',
+    loadComponent: () => import('./pages/blog/blog.page').then((m) => m.BlogPage),
+  },
+  {
+    path: 'blog/:slug',
+    loadComponent: () => import('./pages/blog/blog-post.page').then((m) => m.BlogPostPage),
+  },
   { path: '**', redirectTo: '' },
 ];

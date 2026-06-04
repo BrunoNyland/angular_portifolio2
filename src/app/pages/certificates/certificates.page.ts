@@ -43,6 +43,7 @@ export class CertificatesPage implements OnDestroy {
   readonly t = computed(() => this.content.dict().certs);
   readonly lang = this.content.lang;
   readonly loaded = this.service.loaded;
+  readonly error = this.service.error;
 
   private readonly courses = this.service.courses;
 
