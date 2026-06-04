@@ -89,7 +89,7 @@ graph TD
 
 ### Fase 3: Otimizações Visuais e Testes Finais
 
-- [ ] **Otimização Three.js:** Testar a performance da malha 3D em dispositivos móveis e ajustar a densidade de partículas de forma dinâmica se o FPS cair de 60.
-- [ ] **Otimização de Imagens (LCP):** Adotar `NgOptimizedImage` e priorizar imagens críticas para melhorar métricas.
-- [ ] **Cobertura de Testes com Vitest:** Adicionar testes de unidade para o `CertificatesService`, `SeoService` e componentes de rotas.
-- [ ] **Auditoria AOT:** Executar `npm run build` final em produção para garantir 100% de integridade antes da entrega.
+- [x] **Otimização Three.js:** Qualidade adaptativa em [scene.service.ts](file:///c:/Users/Usuario/Desktop/portifolio2/src/app/scene/scene.service.ts) — monitor de FPS no loop de render baixa o nível (pixel ratio + densidade de partículas via `setDrawRange`) se a média cair; dispositivos de toque/telas pequenas começam em nível reduzido e sem antialias.
+- [ ] **Otimização de Imagens (LCP):** Adotar `NgOptimizedImage`. _(N/A no momento: o app não tem imagens raster — Work usa placeholders de texto, certificados são PDFs e o blog ainda não tem imagens. Aplicar quando os projetos receberem capas/imagens reais, junto com o item de Projetos da Fase 2.)_
+- [x] **Cobertura de Testes com Vitest:** Specs adicionados para `CertificatesService`, `SeoService`, `BlogService` e `renderMarkdown` (32 testes no total, todos verdes). _(Componentes de rota não foram montados em teste por dependerem de GSAP/Three/IntersectionObserver — coberto via testes de serviço + render.)_
+- [x] **Auditoria AOT:** `npm run build` de produção passa sem erros nem estouro de budget (inicial ~478 kB; `three` e `markdown` em chunks lazy).

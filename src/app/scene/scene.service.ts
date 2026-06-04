@@ -32,13 +32,30 @@ export class SceneService {
   private mouseHandler?: (e: MouseEvent) => void;
   private resizeHandler?: () => void;
 
+  // Qualidade adaptativa: do mais pesado (0) ao mais leve. O monitor de FPS abaixa
+  // o nível quando a média cai, ajustando pixel ratio e densidade de partículas.
+  private readonly QUALITY = [
+    { dpr: 2, particles: 900 },
+    { dpr: 1.5, particles: 600 },
+    { dpr: 1, particles: 360 },
+  ];
+  private quality = 0;
+  private frameCount = 0;
+  private fpsElapsed = 0;
+  private lastFrame = 0;
+
   async init(canvas: HTMLCanvasElement): Promise<void> {
     const THREE = await import('three');
     this.THREE = THREE;
 
     this.zone.runOutsideAngular(() => {
-      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      // Dispositivos de menor potência (toque/telas pequenas) começam com qualidade
+      // reduzida e sem antialias; o monitor de FPS no tick pode baixar ainda mais.
+      const lowPower =
+        (window.matchMedia?.('(pointer: coarse)').matches ?? false) || window.innerWidth < 768;
+      this.quality = lowPower ? 1 : 0;
+
+      const renderer = new THREE.WebGLRenderer({ canvas, antialias: !lowPower, alpha: true });
       renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.setClearColor(0x000000, 0);
       this.renderer = renderer;
@@ -154,6 +171,7 @@ export class SceneService {
       window.addEventListener('mousemove', this.mouseHandler);
       window.addEventListener('resize', this.resizeHandler);
 
+      this.applyQuality();
       this.startTime = performance.now();
       this.tick();
     });
@@ -194,9 +212,37 @@ export class SceneService {
     this.apMat.opacity = 0.9 * k;
   }
 
+  /** Aplica o nível de qualidade atual: pixel ratio do renderer e partículas desenhadas. */
+  private applyQuality(): void {
+    const q = this.QUALITY[this.quality];
+    if (this.renderer) {
+      this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, q.dpr));
+      this.renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+    this.pGeo?.setDrawRange(0, q.particles);
+  }
+
   private tick = (): void => {
     if (!this.renderer || !this.scene || !this.camera) return;
-    const t = (performance.now() - this.startTime) / 1000;
+    const now = performance.now();
+    const t = (now - this.startTime) / 1000;
+
+    // Monitor de FPS: mede a média a cada ~1s e, passada a fase de aquecimento,
+    // reduz a qualidade um nível se a taxa cair — recupera fluidez em dispositivos lentos.
+    if (this.lastFrame) {
+      this.fpsElapsed += now - this.lastFrame;
+      this.frameCount++;
+      if (this.fpsElapsed >= 1000) {
+        const fps = (this.frameCount * 1000) / this.fpsElapsed;
+        if (t > 2 && fps < 50 && this.quality < this.QUALITY.length - 1) {
+          this.quality++;
+          this.applyQuality();
+        }
+        this.frameCount = 0;
+        this.fpsElapsed = 0;
+      }
+    }
+    this.lastFrame = now;
 
     this.current.mx += (this.target.mx - this.current.mx) * 0.05;
     this.current.my += (this.target.my - this.current.my) * 0.05;
