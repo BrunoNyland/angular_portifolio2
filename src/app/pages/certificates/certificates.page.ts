@@ -54,15 +54,9 @@ export class CertificatesPage implements OnDestroy {
   readonly selectedLanguage = signal('');
 
   // Opções derivadas dos dados (sem hardcode).
-  readonly platforms = computed(() =>
-    [...new Set(this.courses().map((c) => c.platform))].sort(),
-  );
-  readonly topics = computed(() =>
-    [...new Set(this.courses().flatMap((c) => c.topics))].sort(),
-  );
-  readonly languages = computed(() =>
-    [...new Set(this.courses().map((c) => c.language))].sort(),
-  );
+  readonly platforms = computed(() => [...new Set(this.courses().map((c) => c.platform))].sort());
+  readonly topics = computed(() => [...new Set(this.courses().flatMap((c) => c.topics))].sort());
+  readonly languages = computed(() => [...new Set(this.courses().map((c) => c.language))].sort());
 
   // Estatísticas (sobre o conjunto completo).
   readonly totalCourses = computed(() => this.courses().length);
@@ -140,7 +134,7 @@ export class CertificatesPage implements OnDestroy {
   }
 
   pdfHref(c: Certificate): string {
-    return `certificates/${encodeURIComponent(c.pdf)}`;
+    return `certificates-content/${encodeURIComponent(c.pdf)}`;
   }
 
   formatDate(date: string): string {

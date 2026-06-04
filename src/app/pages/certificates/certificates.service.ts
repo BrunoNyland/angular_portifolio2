@@ -7,7 +7,7 @@ interface CertificatesFile {
 }
 
 /**
- * Carrega todos os certificados de /certificates/certificates.json (servido a
+ * Carrega todos os certificados de /certificates-content/certificates.json (servido a
  * partir de public/). São documentos leves, então carregamos tudo de uma vez e
  * filtramos em memória na página.
  */
@@ -25,7 +25,7 @@ export class CertificatesService {
   }
 
   private load(): void {
-    this.http.get<CertificatesFile>('/certificates/certificates.json').subscribe({
+    this.http.get<CertificatesFile>('/certificates-content/certificates.json').subscribe({
       next: (data) => {
         this._courses.set(data?.courses ?? []);
         this.loaded.set(true);
