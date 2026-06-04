@@ -180,6 +180,17 @@ export interface LoaderDict {
   foot2: string;
 }
 
+/** Metadados de SEO de uma página, já no idioma do dicionário ativo. */
+export interface SeoEntry {
+  title: string;
+  desc: string;
+}
+
+export interface SeoDict {
+  home: SeoEntry;
+  certs: SeoEntry;
+}
+
 export interface Dict {
   nav: NavDict;
   hero: HeroDict;
@@ -193,6 +204,7 @@ export interface Dict {
   certs: CertsDict;
   foot: FootDict;
   loader: LoaderDict;
+  seo: SeoDict;
 }
 
 export type Content = Record<Lang, Dict>;

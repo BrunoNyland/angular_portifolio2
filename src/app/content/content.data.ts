@@ -279,6 +279,16 @@ export const CONTENT: Content = {
       foot1: 'CARREGANDO RECURSOS',
       foot2: 'v1.0',
     },
+    seo: {
+      home: {
+        title: 'Bruno Nyland — Desenvolvedor Fullstack',
+        desc: 'Portfólio de Bruno Nyland — desenvolvedor fullstack com 15+ anos em Python, TypeScript e dados.',
+      },
+      certs: {
+        title: 'Certificados — Bruno Nyland',
+        desc: 'Banco de certificados de Bruno Nyland: cursos e especializações em desenvolvimento, dados e automação, com horas estudadas por tema.',
+      },
+    },
   },
   en: {
     nav: {
@@ -557,6 +567,16 @@ export const CONTENT: Content = {
       top2: 'PORTFOLIO 2026',
       foot1: 'LOADING ASSETS',
       foot2: 'v1.0',
+    },
+    seo: {
+      home: {
+        title: 'Bruno Nyland — Fullstack Developer',
+        desc: 'Portfolio of Bruno Nyland — fullstack developer with 15+ years in Python, TypeScript and data.',
+      },
+      certs: {
+        title: 'Certificates — Bruno Nyland',
+        desc: 'Bruno Nyland’s certificates: courses and specializations in development, data and automation, with hours studied per topic.',
+      },
     },
   },
 };

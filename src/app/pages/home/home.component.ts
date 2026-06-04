@@ -75,14 +75,7 @@ export class HomeComponent {
   private ctx?: gsap.Context;
 
   constructor() {
-    this.seo.setMeta({
-      titlePt: 'Bruno Nyland — Desenvolvedor Fullstack',
-      titleEn: 'Bruno Nyland — Fullstack Developer',
-      descPt:
-        'Portfólio de Bruno Nyland — desenvolvedor fullstack com 15+ anos em Python, TypeScript e dados.',
-      descEn:
-        'Portfolio of Bruno Nyland — fullstack developer with 15+ years in Python, TypeScript and data.',
-    });
+    this.seo.setMeta(() => this.content.dict().seo.home, { pt: '/', en: '/' });
 
     afterNextRender(() => this.viewReady.set(true));
 

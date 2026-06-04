@@ -128,13 +128,9 @@ export class CertificatesPage implements OnDestroy {
       if (this.currentPath() !== target) this.location.replaceState(target);
     });
 
-    this.seo.setMeta({
-      titlePt: 'Certificados — Bruno Nyland',
-      titleEn: 'Certificates — Bruno Nyland',
-      descPt:
-        'Banco de certificados de Bruno Nyland: cursos e especializações em desenvolvimento, dados e automação, com horas estudadas por tema.',
-      descEn:
-        'Bruno Nyland’s certificates: courses and specializations in development, data and automation, with hours studied per topic.',
+    this.seo.setMeta(() => this.content.dict().seo.certs, {
+      pt: CERT_SLUG.pt,
+      en: CERT_SLUG.en,
     });
   }
 

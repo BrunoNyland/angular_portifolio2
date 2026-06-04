@@ -2,16 +2,19 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   ElementRef,
+  Injector,
   NgZone,
   OnDestroy,
+  afterNextRender,
   inject,
   signal,
   viewChild,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
@@ -43,6 +46,8 @@ export class App implements AfterViewInit, OnDestroy {
   private readonly tweaks = inject(TweaksService);
   private readonly layout = inject(LayoutService);
   private readonly router = inject(Router);
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly injector = inject(Injector);
 
   readonly bgCanvas = viewChild.required<ElementRef<HTMLCanvasElement>>('bgCanvas');
   readonly cursorEl = viewChild.required<ElementRef<HTMLDivElement>>('cursor');
@@ -53,11 +58,11 @@ export class App implements AfterViewInit, OnDestroy {
   readonly totopVisible = signal(false);
 
   private lenis?: Lenis;
+  private tickerHandler?: (time: number) => void;
   private mouseMoveHandler?: (e: MouseEvent) => void;
   private mouseOverHandler?: (e: MouseEvent) => void;
   private mouseOutHandler?: (e: MouseEvent) => void;
   private resizeHandler?: () => void;
-  private routerSub?: Subscription;
 
   // Métricas de layout cacheadas para evitar leituras (forced reflow) a cada evento de scroll.
   private winH = window.innerHeight;
@@ -69,8 +74,12 @@ export class App implements AfterViewInit, OnDestroy {
 
     // Reage a mudanças de rota: reseta o scroll, atualiza os gatilhos do GSAP e,
     // se houver uma seção pendente (volta cross-route à home), rola até ela.
-    this.routerSub = this.router.events
-      .pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
+    // `takeUntilDestroyed` limpa a assinatura junto com o componente, sem OnDestroy manual.
+    this.router.events
+      .pipe(
+        filter((e): e is NavigationEnd => e instanceof NavigationEnd),
+        takeUntilDestroyed(this.destroyRef),
+      )
       .subscribe((e) => this.onRouteChange(e.urlAfterRedirects));
 
     queueMicrotask(async () => {
@@ -108,7 +117,7 @@ export class App implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.lenis?.destroy();
-    this.routerSub?.unsubscribe();
+    if (this.tickerHandler) gsap.ticker.remove(this.tickerHandler);
     if (this.mouseMoveHandler) window.removeEventListener('mousemove', this.mouseMoveHandler);
     if (this.mouseOverHandler) document.removeEventListener('mouseover', this.mouseOverHandler);
     if (this.mouseOutHandler) document.removeEventListener('mouseout', this.mouseOutHandler);
@@ -128,18 +137,22 @@ export class App implements AfterViewInit, OnDestroy {
   private onRouteChange(url: string): void {
     const path = url.split('?')[0].split('#')[0];
     const frag = this.layout.pendingFragment();
-    // Aguarda a nova view renderizar antes de medir/rolar.
-    setTimeout(() => {
-      this.recomputeMetrics();
-      ScrollTrigger.refresh();
-      if (frag && path === '/') {
-        const target = document.getElementById(frag);
-        if (target && this.lenis) this.lenis.scrollTo(target, { offset: 0, duration: 1.2 });
-        this.layout.pendingFragment.set(null);
-      } else {
-        this.lenis?.scrollTo(0, { immediate: true });
-      }
-    }, 80);
+    // Aguarda a nova view renderizar antes de medir/rolar — sem "timeout mágico".
+    // `afterNextRender` dispara após o próximo render, robusto em dispositivos lentos.
+    afterNextRender(
+      () => {
+        this.recomputeMetrics();
+        ScrollTrigger.refresh();
+        if (frag && path === '/') {
+          const target = document.getElementById(frag);
+          if (target && this.lenis) this.lenis.scrollTo(target, { offset: 0, duration: 1.2 });
+          this.layout.pendingFragment.set(null);
+        } else {
+          this.lenis?.scrollTo(0, { immediate: true });
+        }
+      },
+      { injector: this.injector },
+    );
   }
 
   setLang(lang: Lang): void {
@@ -213,7 +226,9 @@ export class App implements AfterViewInit, OnDestroy {
         this.totopVisible.set(e.scroll > this.winH * 0.6);
       });
       // Sincroniza o loop do Lenis com o ticker de frames do GSAP para manter o scroll suave.
-      gsap.ticker.add((t) => this.lenis?.raf(t * 1000));
+      // Guarda o handler para removê-lo no destroy (evita listeners duplicados em hot reload).
+      this.tickerHandler = (t: number) => this.lenis?.raf(t * 1000);
+      gsap.ticker.add(this.tickerHandler);
       // Desativa o ajuste automático de lag do ticker para evitar comportamentos estranhos na animação de scroll.
       gsap.ticker.lagSmoothing(0);
 
