@@ -1,4 +1,4 @@
-import { DestroyRef, Injectable, NgZone, inject } from '@angular/core';
+import { Injectable, NgZone, inject } from '@angular/core';
 import type * as THREE from 'three';
 
 type ThreeModule = typeof import('three');
@@ -6,7 +6,6 @@ type ThreeModule = typeof import('three');
 @Injectable({ providedIn: 'root' })
 export class SceneService {
   private readonly zone = inject(NgZone);
-  private readonly destroyRef = inject(DestroyRef);
 
   private renderer?: THREE.WebGLRenderer;
   private scene?: THREE.Scene;
@@ -43,12 +42,16 @@ export class SceneService {
   private frameCount = 0;
   private fpsElapsed = 0;
   private lastFrame = 0;
+  private destroyed = false;
 
   async init(canvas: HTMLCanvasElement): Promise<void> {
+    this.destroyed = false;
     const THREE = await import('three');
+    if (this.destroyed) return;
     this.THREE = THREE;
 
     this.zone.runOutsideAngular(() => {
+      if (this.destroyed) return;
       // Dispositivos de menor potência (toque/telas pequenas) começam com qualidade
       // reduzida e sem antialias; o monitor de FPS no tick pode baixar ainda mais.
       const lowPower =
@@ -61,7 +64,12 @@ export class SceneService {
       this.renderer = renderer;
 
       const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 200);
+      const camera = new THREE.PerspectiveCamera(
+        50,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        200,
+      );
       camera.position.z = 6;
       this.scene = scene;
       this.camera = camera;
@@ -84,7 +92,7 @@ export class SceneService {
         bevelThickness: 0.04,
         bevelSize: 0.04,
         bevelSegments: 6,
-        curveSegments: 24
+        curveSegments: 24,
       });
       bGeo.center();
 
@@ -93,7 +101,7 @@ export class SceneService {
         metalness: 0.85,
         roughness: 0.18,
         emissive: 0x1a0f3a,
-        emissiveIntensity: 0.5
+        emissiveIntensity: 0.5,
       });
       const bMesh = new THREE.Mesh(bGeo, bMat);
       bMesh.scale.setScalar(1.4);
@@ -102,7 +110,11 @@ export class SceneService {
       this.bMat = bMat;
 
       const wireGeo = new THREE.EdgesGeometry(bGeo, 25);
-      const wireMat = new THREE.LineBasicMaterial({ color: 0x7c5cff, transparent: true, opacity: 0.35 });
+      const wireMat = new THREE.LineBasicMaterial({
+        color: 0x7c5cff,
+        transparent: true,
+        opacity: 0.35,
+      });
       const wireMesh = new THREE.LineSegments(wireGeo, wireMat);
       wireMesh.scale.copy(bMesh.scale);
       wireMesh.position.copy(bMesh.position);
@@ -127,7 +139,7 @@ export class SceneService {
         size: 0.012,
         transparent: true,
         opacity: 0.7,
-        sizeAttenuation: true
+        sizeAttenuation: true,
       });
       const points = new THREE.Points(pGeo, pMat);
       scene.add(points);
@@ -150,7 +162,7 @@ export class SceneService {
         size: 0.05,
         transparent: true,
         opacity: 0.9,
-        sizeAttenuation: true
+        sizeAttenuation: true,
       });
       const accentPoints = new THREE.Points(apGeo, apMat);
       scene.add(accentPoints);
@@ -173,14 +185,17 @@ export class SceneService {
 
       this.applyQuality();
       this.startTime = performance.now();
+      if (this.destroyed) return;
       this.tick();
     });
-
-    this.destroyRef.onDestroy(() => this.dispose());
   }
 
-  setScroll(y: number): void { this.target.sy = y; }
-  pulse(): void { this.target.pulse = 1; }
+  setScroll(y: number): void {
+    this.target.sy = y;
+  }
+  pulse(): void {
+    this.target.pulse = 1;
+  }
 
   setHue(h: number): void {
     if (!this.THREE || !this.bMat || !this.wireMat || !this.apMat || !this.keyLight) return;
@@ -223,7 +238,7 @@ export class SceneService {
   }
 
   private tick = (): void => {
-    if (!this.renderer || !this.scene || !this.camera) return;
+    if (this.destroyed || !this.renderer || !this.scene || !this.camera) return;
     const now = performance.now();
     const t = (now - this.startTime) / 1000;
 
@@ -284,13 +299,15 @@ export class SceneService {
     this.camera.position.y = -this.current.my * 0.3 - this.current.sy * 0.0008;
     this.camera.lookAt(0, 0, 0);
 
+    if (this.destroyed) return;
     this.renderer.render(this.scene, this.camera);
     this.rafId = requestAnimationFrame(this.tick);
   };
 
   private makeBShape(THREE: ThreeModule): THREE.Shape {
     const s = new THREE.Shape();
-    const w = 1.0, h = 1.4;
+    const w = 1.0,
+      h = 1.4;
     s.moveTo(-w / 2, -h / 2);
     s.lineTo(-w / 2, h / 2);
     s.lineTo(w / 2 - 0.05, h / 2);
@@ -313,15 +330,28 @@ export class SceneService {
     bot.moveTo(-w / 2 + 0.25, -h / 2 + 0.18);
     bot.lineTo(-w / 2 + 0.25, -0.25);
     bot.lineTo(w / 2 - 0.18, -0.25);
-    bot.bezierCurveTo(w / 2 + 0.18, -0.25, w / 2 + 0.18, -h / 2 + 0.18, w / 2 - 0.18, -h / 2 + 0.18);
+    bot.bezierCurveTo(
+      w / 2 + 0.18,
+      -0.25,
+      w / 2 + 0.18,
+      -h / 2 + 0.18,
+      w / 2 - 0.18,
+      -h / 2 + 0.18,
+    );
     bot.lineTo(-w / 2 + 0.25, -h / 2 + 0.18);
     s.holes.push(bot);
 
     return s;
   }
 
+  destroy(): void {
+    this.destroyed = true;
+    this.dispose();
+  }
+
   private dispose(): void {
     if (this.rafId) cancelAnimationFrame(this.rafId);
+    this.rafId = 0;
     if (this.mouseHandler) window.removeEventListener('mousemove', this.mouseHandler);
     if (this.resizeHandler) window.removeEventListener('resize', this.resizeHandler);
     this.renderer?.dispose();

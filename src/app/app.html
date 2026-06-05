@@ -1,18 +1,12 @@
 @if (showLoader()) {
-  <app-loader #loader />
+<app-loader #loader />
 }
-
-<canvas id="bg-canvas" #bgCanvas></canvas>
 
 <div class="progress" [style.width.%]="progress()"></div>
 <div class="cursor" id="cursor" #cursor></div>
 
-<app-nav
-  (navigate)="goTo($event)"
-  (langChange)="setLang($event)"
-  (home)="goHome()"
-  (menuOpenChange)="onMenuToggle($event)"
-/>
+<app-nav (navigate)="goTo($event)" (langChange)="setLang($event)" (home)="goHome()"
+  (menuOpenChange)="onMenuToggle($event)" />
 
 <main>
   <router-outlet />

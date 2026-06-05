@@ -49,7 +49,6 @@ export class App implements AfterViewInit, OnDestroy {
   private readonly destroyRef = inject(DestroyRef);
   private readonly injector = inject(Injector);
 
-  readonly bgCanvas = viewChild.required<ElementRef<HTMLCanvasElement>>('bgCanvas');
   readonly cursorEl = viewChild.required<ElementRef<HTMLDivElement>>('cursor');
   readonly loader = viewChild<LoaderComponent>('loader');
 
@@ -69,7 +68,6 @@ export class App implements AfterViewInit, OnDestroy {
   private maxScroll = 1;
 
   ngAfterViewInit(): void {
-    this.scene.init(this.bgCanvas().nativeElement);
     document.documentElement.lang = this.content.lang();
 
     // Reage a mudanças de rota: reseta o scroll, atualiza os gatilhos do GSAP e,

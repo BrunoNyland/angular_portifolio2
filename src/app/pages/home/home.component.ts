@@ -2,10 +2,12 @@ import {
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
+  ElementRef,
   afterNextRender,
   effect,
   inject,
   signal,
+  viewChild,
 } from '@angular/core';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -51,6 +53,7 @@ const HUE_MAP: Array<{ id: string; h: number }> = [
     ContactComponent,
   ],
   template: `
+    <canvas id="bg-canvas" #bgCanvas></canvas>
     <app-hero />
     <app-about />
     <app-skills />
@@ -70,6 +73,8 @@ export class HomeComponent {
   private readonly seo = inject(SeoService);
   private readonly destroyRef = inject(DestroyRef);
 
+  readonly bgCanvas = viewChild.required<ElementRef<HTMLCanvasElement>>('bgCanvas');
+
   private readonly viewReady = signal(false);
   private started = false;
   private ctx?: gsap.Context;
@@ -84,11 +89,15 @@ export class HomeComponent {
     effect(() => {
       if (this.viewReady() && this.layout.appReady() && !this.started) {
         this.started = true;
+        void this.scene.init(this.bgCanvas().nativeElement);
         this.initHome();
       }
     });
 
-    this.destroyRef.onDestroy(() => this.ctx?.revert());
+    this.destroyRef.onDestroy(() => {
+      this.scene.destroy();
+      this.ctx?.revert();
+    });
   }
 
   private initHome(): void {
