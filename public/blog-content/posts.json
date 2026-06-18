@@ -1,49 +1,61 @@
 {
   "posts": [
     {
-      "slug": "automation-patterns-that-survive-time",
+      "slug": {
+        "pt": "o-grande-rollback-shopify-trocou-redis-pelo-mysql",
+        "en": "the-great-rollback-shopify-swapped-redis-for-mysql"
+      },
+      "date": "2026-06",
+      "featured": true,
+      "tag": { "pt": "Arquitetura", "en": "Architecture" },
+      "title": {
+        "pt": "O Grande Rollback? A Shopify trocou o Redis pelo MySQL",
+        "en": "The Great Rollback? Shopify Swapped Redis for MySQL"
+      },
+      "excerpt": {
+        "pt": "Como a Shopify removeu o Redis de sua arquitetura de reserva de estoque e resolveu gargalos usando apenas o MySQL com SKIP LOCKED.",
+        "en": "How Shopify removed Redis from its inventory reservation architecture and resolved bottlenecks using only MySQL with SKIP LOCKED."
+      }
+    },
+    {
+      "slug": {
+        "pt": "o-apocalipse-dos-devs-como-garantir-a-qualidade-do-codigo-gerado-por-ia",
+        "en": "the-developer-apocalypse-how-to-ensure-the-quality-of-ai-generated-code"
+      },
+      "date": "2026-06",
+      "featured": true,
+      "tag": { "pt": "IA", "en": "AI" },
+      "title": {
+        "pt": "O Apocalipse dos Devs: Como garantir a qualidade do código gerado por IA?",
+        "en": "The Developer Apocalypse: How to Ensure the Quality of AI-Generated Code?"
+      },
+      "excerpt": {
+        "pt": "A possibilidade de um apagão de devs seniores com o avanço da IA e como garantir a qualidade do código gerado dominando performance, segurança e arquitetura.",
+        "en": "The threat of a senior dev shortage due to the rise of AI, and how to ensure the quality of generated code by mastering performance, security, and architecture."
+      }
+    },
+    {
+      "slug": {
+        "pt": "de-python-para-csharp-reconstruindo-um-app-de-automacao-em-csharp",
+        "en": "from-python-to-csharp-rebuilding-an-automation-app-in-csharp"
+      },
       "date": "2026-05",
       "featured": true,
-      "tag": { "pt": "Python", "en": "Python" },
+      "tag": { "pt": "C#", "en": "C#" },
       "title": {
-        "pt": "Padrões de automação que sobrevivem ao tempo",
-        "en": "Automation patterns that survive time"
+        "pt": "De Python para C# - Recontruindo um app de automação em C#",
+        "en": "From Python to C# - Rebuilding an automation app in C#"
       },
       "excerpt": {
-        "pt": "Por que a maioria dos seus scripts quebram em 6 meses — e como estruturá-los para durar anos sem manutenção.",
-        "en": "Why most scripts break in 6 months — and how to structure them so they last for years untouched."
+        "pt": "Meu aplicativo de automação estava pesado e travando em Python, então C#.",
+        "en": "My automation app was heavy and crashing in Python, so C#."
       }
     },
     {
-      "slug": "back-to-django-after-spa",
-      "date": "2026-04",
-      "featured": true,
-      "tag": { "pt": "Frontend", "en": "Frontend" },
-      "title": {
-        "pt": "Por que voltei a usar Django depois de 2 anos só em SPA",
-        "en": "Why I came back to Django after 2 years of pure SPA"
+      "slug": {
+        "pt": "foco-banco-e-codigo",
+        "en": "focus-bank-and-code"
       },
-      "excerpt": {
-        "pt": "Sobre a falsa promessa do JS no servidor e quando o monolito com templates ainda vence.",
-        "en": "On the false promise of JS on the server and when the monolith with templates still wins."
-      }
-    },
-    {
-      "slug": "pandas-is-a-language",
-      "date": "2026-03",
-      "featured": false,
-      "tag": { "pt": "Dados", "en": "Data" },
-      "title": {
-        "pt": "Pandas é uma linguagem, não uma biblioteca",
-        "en": "Pandas is a language, not a library"
-      },
-      "excerpt": {
-        "pt": "Aprendi mais sobre programação resolvendo CSVs no Pandas do que em qualquer livro de algoritmos.",
-        "en": "I learned more about programming solving CSVs in Pandas than in any algorithms book."
-      }
-    },
-    {
-      "slug": "focus-bank-and-code",
       "date": "2026-02",
       "featured": false,
       "tag": { "pt": "Carreira", "en": "Career" },

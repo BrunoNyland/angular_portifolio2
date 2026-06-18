@@ -6,7 +6,7 @@ import {
 import { TestBed } from '@angular/core/testing';
 import { CertificatesService } from './certificates.service';
 
-const URL = '/certificates/certificates.json';
+const URL = '/certificates-content/certificates.json';
 
 function setup() {
   TestBed.configureTestingModule({

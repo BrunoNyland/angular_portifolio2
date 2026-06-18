@@ -39,8 +39,8 @@
 
     @if (filtered().length) {
       <div class="blog-page__grid">
-        @for (p of visible(); track p.slug) {
-          <a class="post post--card" [routerLink]="['/blog', p.slug]">
+        @for (p of visible(); track p.slug.pt) {
+          <a class="post post--card" [routerLink]="['/blog', p.slug[lang()]]">
             <div class="post__meta">
               <span class="tag">{{ p.tag[lang()] }}</span>
               <span>{{ date(p.date) }}</span>

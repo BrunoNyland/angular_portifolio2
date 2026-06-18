@@ -51,17 +51,12 @@ export class BlogService {
     return this.index$;
   }
 
-  /**
-   * Busca o post pelo slug: localiza os metadados no índice e baixa o corpo `.md`
-   * no idioma pedido (com fallback para PT), retornando o HTML já renderizado.
-   * Emite `null` quando o slug não existe.
-   */
   getPost(slug: string, lang: Lang): Observable<BlogPost | null> {
     return this.loadIndex().pipe(
       switchMap((posts) => {
-        const meta = posts.find((p) => p.slug === slug);
+        const meta = posts.find((p) => p.slug.pt === slug || p.slug.en === slug);
         if (!meta) return of(null);
-        return this.fetchMarkdown(slug, lang).pipe(
+        return this.fetchMarkdown(meta, lang).pipe(
           // Importa o renderizador (marked + highlight.js) sob demanda: ele só é
           // baixado ao abrir um post, ficando fora do bundle inicial da home.
           switchMap((md) =>
@@ -78,13 +73,14 @@ export class BlogService {
   }
 
   /** Baixa o `.md` do idioma; se faltar a versão EN, cai para a PT. */
-  private fetchMarkdown(slug: string, lang: Lang): Observable<string> {
-    return this.http.get(`/blog-content/${slug}.${lang}.md`, { responseType: 'text' }).pipe(
+  private fetchMarkdown(meta: BlogPostMeta, lang: Lang): Observable<string> {
+    const currentSlug = meta.slug[lang];
+    return this.http.get(`/blog-content/${currentSlug}.${lang}.md`, { responseType: 'text' }).pipe(
       catchError(() =>
         lang === 'pt'
           ? of('')
           : this.http
-              .get(`/blog-content/${slug}.pt.md`, { responseType: 'text' })
+              .get(`/blog-content/${meta.slug.pt}.pt.md`, { responseType: 'text' })
               .pipe(catchError(() => of(''))),
       ),
     );

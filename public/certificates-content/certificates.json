@@ -724,6 +724,57 @@
       "validationUrl": "https://universidade.caixa.gov.br/poderpublico/",
       "date": "08-2025",
       "pdf": "Universidade CAIXA - Introdução à Blockchain - 08-2025 - 3h.pdf"
+    },
+    {
+      "name": "Microsoft - Foundations of Coding Back-End",
+      "nameEn": "Microsoft - Foundations of Coding Back-End",
+      "platform": "Coursera",
+      "workload": "39h",
+      "language": "Inglês",
+      "topics": [
+        "C#",
+        "Back-End"
+      ],
+      "specializations": [
+        "Microsoft Back-End Developer Professional Certificate"
+      ],
+      "validationUrl": "https://coursera.org/verify/ELHG3OP9NBYS",
+      "date": "06-2026",
+      "pdf": "Coursera - Microsoft - Foundations of Coding Back-End.pdf"
+    },
+    {
+      "name": "Microsoft - Foundations of Coding Front-End",
+      "nameEn": "Microsoft - Foundations of Coding Front-End",
+      "platform": "Coursera - Microsoft",
+      "workload": "40h",
+      "language": "Inglês",
+      "topics": [
+        "C#",
+        "Git",
+        "Front-End"
+      ],
+      "specializations": [
+        "Microsoft Front-End Developer Professional Certificate"
+      ],
+      "validationUrl": "https://coursera.org/verify/TR6S70WMTDDM",
+      "date": "06-2026",
+      "pdf": "Coursera - Microsoft - Foundations of Coding Front-End.pdf"
+    },
+    {
+      "name": "Microsoft - Foundations of Coding Full-Stack",
+      "nameEn": "Microsoft - Foundations of Coding Full-Stack",
+      "platform": "Coursera - Microsoft",
+      "workload": "39h",
+      "language": "Inglês",
+      "topics": [
+        "Full-Stack"
+      ],
+      "specializations": [
+        "Microsoft Full-Stack Developer Professional Certificate"
+      ],
+      "validationUrl": "https://coursera.org/verify/I1EEQAOZJ1X6",
+      "date": "06-2026",
+      "pdf": "Coursera - Microsoft - Foundations of Coding Full-Stack.pdf"
     }
   ]
 }

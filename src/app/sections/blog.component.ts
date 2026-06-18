@@ -18,8 +18,8 @@ import { SectionFadeDirective } from '../shared/section-fade.directive';
 
       @if (featured().length) {
         <div class="blog">
-          @for (p of featured(); track p.slug) {
-            <a class="post" [routerLink]="['/blog', p.slug]">
+          @for (p of featured(); track p.slug.pt) {
+            <a class="post" [routerLink]="['/blog', p.slug[lang()]]">
               <div class="post__meta">
                 <span class="tag">{{ p.tag[lang()] }}</span>
                 <span>{{ date(p.date) }}</span>

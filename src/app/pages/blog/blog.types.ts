@@ -10,7 +10,7 @@ export type Localized = Record<Lang, string>;
  * corpo Markdown é baixado sob demanda na página de detalhe.
  */
 export interface BlogPostMeta {
-  slug: string;
+  slug: Localized;
   /** 'YYYY-MM' (ou 'YYYY-MM-DD') — base para ordenação e formatação por idioma. */
   date: string;
   tag: Localized;

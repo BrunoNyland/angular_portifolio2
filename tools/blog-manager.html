@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Gerenciador do Blog</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --panel: #161b22;
+    --panel-2: #1c232d;
+    --border: #2d3742;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --accent: #2f81f7;
+    --accent-2: #238636;
+    --danger: #da3633;
+    --chip: #21303f;
+    --radius: 10px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+  }
+  header {
+    position: sticky; top: 0; z-index: 20;
+    background: rgba(13,17,23,.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 24px;
+    display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+  }
+  header h1 { font-size: 17px; margin: 0; font-weight: 600; }
+  .count { color: var(--muted); font-size: 13px; }
+  .grow { flex: 1; }
+  .layout { display: grid; grid-template-columns: 340px 1fr; gap: 0; min-height: calc(100vh - 56px); }
+  @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } }
+
+  .sidebar {
+    border-right: 1px solid var(--border);
+    padding: 16px;
+    overflow-y: auto;
+    max-height: calc(100vh - 56px);
+    position: sticky; top: 56px;
+  }
+  .search { width: 100%; margin-bottom: 12px; }
+  .list-item {
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 8px;
+    cursor: pointer;
+    background: var(--panel);
+    transition: border-color .15s, background .15s;
+  }
+  .list-item:hover { border-color: var(--accent); }
+  .list-item.active { border-color: var(--accent); background: var(--panel-2); }
+  .list-item .li-name { font-size: 14px; font-weight: 600; }
+  .list-item .li-meta { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .li-flag { color: #d29922; font-size: 11px; }
+  .li-star { color: #d29922; font-size: 11px; }
+
+  .editor { padding: 24px; overflow-y: auto; max-height: calc(100vh - 56px); }
+  .field { margin-bottom: 16px; }
+  label { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin-bottom: 6px; font-weight: 600; }
+  input[type=text], input[type=url], textarea, select {
+    width: 100%;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 8px;
+    padding: 9px 11px;
+    font-size: 14px;
+    font-family: inherit;
+  }
+  input:focus, textarea:focus, select:focus { outline: none; border-color: var(--accent); }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 560px) { .row { grid-template-columns: 1fr; } }
+  textarea { resize: vertical; }
+  textarea.excerpt { min-height: 64px; }
+
+  button {
+    border: 1px solid var(--border);
+    background: var(--panel-2);
+    color: var(--text);
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  button:hover { border-color: var(--accent); }
+  button:disabled { opacity: .4; cursor: not-allowed; }
+  button:disabled:hover { border-color: var(--border); }
+  button.primary { background: var(--accent-2); border-color: var(--accent-2); }
+  button.primary:hover { filter: brightness(1.1); }
+  button.accent { background: var(--accent); border-color: var(--accent); }
+  button.danger { color: #ff7b72; }
+  button.danger:hover { border-color: var(--danger); background: rgba(218,54,51,.12); }
+  button.small { padding: 5px 9px; font-size: 12px; }
+
+  .checkbox-field { display: flex; align-items: center; gap: 8px; }
+  .checkbox-field input { width: auto; }
+  .checkbox-field label { margin: 0; text-transform: none; letter-spacing: 0; font-size: 14px; font-weight: 500; color: var(--text); }
+
+  .empty { color: var(--muted); text-align: center; margin-top: 80px; }
+  .toolbar { display: flex; gap: 8px; flex-wrap: wrap; }
+  .hint { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .editor-head { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+  .editor-head h2 { font-size: 16px; margin: 0; flex: 1; }
+  .toast {
+    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+    background: var(--accent-2); color: #fff; padding: 10px 18px; border-radius: 8px;
+    font-size: 14px; opacity: 0; transition: opacity .25s; pointer-events: none; z-index: 50;
+  }
+  .toast.show { opacity: 1; }
+  datalist { color: #000; }
+
+  /* Editor de corpo Markdown */
+  .body-section { border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; margin-bottom: 16px; background: var(--panel); }
+  .body-head { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+  .lang-tabs { display: flex; gap: 4px; }
+  .lang-tabs button.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .body-tools { display: flex; gap: 6px; margin-left: auto; align-items: center; }
+  .wc { font-size: 12px; color: var(--muted); }
+  .body-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .body-grid.solo { grid-template-columns: 1fr; }
+  @media (max-width: 760px) { .body-grid { grid-template-columns: 1fr; } }
+  textarea.md { min-height: 420px; font-family: "Cascadia Code", "Fira Code", Consolas, monospace; font-size: 13px; line-height: 1.6; }
+  .preview {
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    background: var(--bg); overflow-y: auto; max-height: 520px; font-size: 14px;
+  }
+  .preview h1 { font-size: 22px; margin: 0 0 12px; }
+  .preview h2 { font-size: 18px; margin: 20px 0 8px; border-bottom: 1px solid var(--border); padding-bottom: 4px; }
+  .preview h3 { font-size: 15px; margin: 16px 0 6px; }
+  .preview p { margin: 0 0 12px; }
+  .preview ul, .preview ol { margin: 0 0 12px; padding-left: 22px; }
+  .preview li { margin: 3px 0; }
+  .preview code { background: var(--panel-2); padding: 1px 5px; border-radius: 4px; font-size: 12.5px; font-family: Consolas, monospace; }
+  .preview pre { background: var(--panel-2); padding: 12px; border-radius: 6px; overflow: auto; }
+  .preview pre code { background: none; padding: 0; }
+  .preview blockquote { border-left: 3px solid var(--accent); margin: 0 0 12px; padding: 4px 14px; color: var(--muted); background: var(--panel); border-radius: 0 6px 6px 0; }
+  .preview a { color: var(--accent); }
+  .preview hr { border: none; border-top: 1px solid var(--border); margin: 18px 0; }
+  .preview img { max-width: 100%; border-radius: 6px; }
+  .preview table { border-collapse: collapse; margin: 0 0 12px; }
+  .preview th, .preview td { border: 1px solid var(--border); padding: 5px 10px; }
+
+  .warn { color: #d29922; font-size: 12px; margin-top: 4px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>📝 Gerenciador do Blog</h1>
+  <span class="count" id="count"></span>
+  <div class="grow"></div>
+  <div class="toolbar">
+    <button class="small" id="btn-new">+ Novo post</button>
+    <button class="small accent" id="btn-sync" title="Conecta a pasta blog-content uma vez e lê posts.json + os .md direto do disco — sem servidor">Sincronizar do disco</button>
+    <button class="small" id="btn-folder" title="Selecione a pasta blog-content para carregar posts.json e os .md">Importar pasta</button>
+    <button class="small" id="btn-copy-index">Copiar posts.json</button>
+    <button class="small" id="btn-export-index">Baixar posts.json</button>
+    <button class="small primary" id="btn-export-all" title="Baixa posts.json + todos os .md de uma vez">Baixar tudo</button>
+  </div>
+  <input type="file" id="file-folder" webkitdirectory directory multiple hidden />
+</header>
+
+<div class="layout">
+  <aside class="sidebar">
+    <input type="text" class="search" id="search" placeholder="Buscar título, slug, tag..." />
+    <div id="list"></div>
+  </aside>
+
+  <main class="editor" id="editor">
+    <div class="empty">Selecione um post à esquerda, clique em <strong>+ Novo post</strong> ou <strong>Importar pasta</strong> para carregar o conteúdo existente.</div>
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============================================================
+   Gerencia o conteúdo de public/blog-content/:
+     - posts.json (índice de metadados)
+     - {slug}.pt.md e {slug}.en.md (corpos Markdown)
+   Use "Importar pasta" para carregar o estado real do disco.
+   ============================================================ */
+
+/* Índice semente (cópia do posts.json atual). Os corpos .md vêm via Importar pasta. */
+const SEED_INDEX = {
+  posts: [
+    {
+      slug: "from-python-to-csharp-rebuilding-an-automation-app-in-csharp",
+      date: "2026-05",
+      featured: true,
+      tag: { pt: "C#", en: "C#" },
+      title: {
+        pt: "De Python para C# - Recontruindo um app de automação em C#",
+        en: "From Python to C# - Rebuilding an automation app in C#"
+      },
+      excerpt: {
+        pt: "Meu aplicativo de automação estava pesado e travando em Python, então C#.",
+        en: "My automation app was heavy and crashing in Python, so C#."
+      }
+    },
+    {
+      slug: "focus-bank-and-code",
+      date: "2026-02",
+      featured: false,
+      tag: { pt: "Carreira", en: "Career" },
+      title: {
+        pt: "11 anos no banco, 15 programando. O que aprendi sobre foco",
+        en: "11 years at the bank, 15 coding. What I learned about focus"
+      },
+      excerpt: {
+        pt: "Conciliar uma carreira pública estável com desenvolvimento independente exige um sistema, não disciplina.",
+        en: "Balancing a stable public-sector career with independent dev work demands a system — not discipline."
+      }
+    }
+  ]
+};
+
+const STORAGE_KEY = "blog-manager-v1";
+const CONTENT_BASE = "../public/blog-content/"; // relativo a tools/
+const LANGS = ["pt", "en"];
+const LANG_LABEL = { pt: "Português (PT)", en: "Inglês (EN)" };
+
+/* ---------- Estado ---------- */
+let state = { posts: [] };
+let selectedId = null;
+let activeLang = "pt";       // aba do editor de corpo
+let showPreview = true;
+
+function load() {
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if (raw) {
+    try {
+      state = JSON.parse(raw);
+      state.posts = (state.posts || []).map(normalizePost);
+      return;
+    } catch { /* cai no seed */ }
+  }
+  state.posts = (SEED_INDEX.posts || []).map(metaToPost);
+  save();
+}
+function save() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+function emptyPost() {
+  return {
+    id: crypto.randomUUID(),
+    slug: "",
+    date: new Date().toISOString().slice(0, 7), // YYYY-MM
+    featured: false,
+    tag: { pt: "", en: "" },
+    title: { pt: "", en: "" },
+    excerpt: { pt: "", en: "" },
+    body: { pt: "", en: "" }
+  };
+}
+function metaToPost(m) {
+  const p = emptyPost();
+  return normalizePost({ ...p, ...m, body: { pt: "", en: "" } });
+}
+function normalizePost(p) {
+  const base = emptyPost();
+  const loc = (v) => ({ pt: (v && v.pt) || "", en: (v && v.en) || "" });
+  return {
+    id: p.id || base.id,
+    slug: p.slug || "",
+    date: p.date || "",
+    featured: !!p.featured,
+    tag: loc(p.tag),
+    title: loc(p.title),
+    excerpt: loc(p.excerpt),
+    body: loc(p.body)
+  };
+}
+
+/* ---------- Helpers ---------- */
+function isComplete(p) {
+  return p.slug && p.date &&
+         p.title.pt && p.title.en &&
+         p.excerpt.pt && p.excerpt.en &&
+         p.tag.pt && p.tag.en &&
+         p.body.pt.trim() && p.body.en.trim();
+}
+function slugify(s) {
+  return String(s || "")
+    .normalize("NFD").replace(/[̀-ͯ]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .trim().replace(/\s+/g, "-").replace(/-+/g, "-");
+}
+function allTags() {
+  const set = new Set();
+  state.posts.forEach(p => { if (p.tag.pt) set.add(p.tag.pt); if (p.tag.en) set.add(p.tag.en); });
+  return [...set].sort();
+}
+function toast(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg; t.classList.add("show");
+  clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove("show"), 1800);
+}
+function wordCount(s) {
+  const m = (s || "").trim().match(/\S+/g);
+  return m ? m.length : 0;
+}
+
+/* ---------- Mini renderizador Markdown (apenas para preview) ---------- */
+function mdToHtml(src) {
+  if (!src) return '<p class="hint" style="color:var(--muted)">Sem conteúdo.</p>';
+  const esc = s => s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  const inline = s => esc(s)
+    .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img alt="$1" src="$2">')
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+    .replace(/(^|[^*])\*([^*]+)\*/g, '$1<em>$2</em>')
+    .replace(/__([^_]+)__/g, '<strong>$1</strong>');
+
+  const lines = src.replace(/\r\n/g, "\n").split("\n");
+  let html = "", i = 0;
+  let listType = null;
+  const closeList = () => { if (listType) { html += `</${listType}>`; listType = null; } };
+
+  while (i < lines.length) {
+    let line = lines[i];
+
+    // bloco de código
+    const fence = line.match(/^```(\w*)/);
+    if (fence) {
+      closeList();
+      let code = "";
+      i++;
+      while (i < lines.length && !/^```/.test(lines[i])) { code += lines[i] + "\n"; i++; }
+      i++; // fecha ```
+      html += `<pre><code>${esc(code.replace(/\n$/,""))}</code></pre>`;
+      continue;
+    }
+
+    if (/^\s*$/.test(line)) { closeList(); i++; continue; }
+
+    let m;
+    if ((m = line.match(/^(#{1,6})\s+(.*)$/))) {
+      closeList();
+      const lvl = m[1].length;
+      html += `<h${lvl}>${inline(m[2])}</h${lvl}>`;
+    } else if (/^\s*[-*]{3,}\s*$/.test(line)) {
+      closeList(); html += "<hr>";
+    } else if ((m = line.match(/^\s*>\s?(.*)$/))) {
+      closeList();
+      let quote = m[1];
+      while (i + 1 < lines.length && /^\s*>\s?(.*)$/.test(lines[i+1])) { i++; quote += "<br>" + lines[i].replace(/^\s*>\s?/, ""); }
+      html += `<blockquote>${inline(quote)}</blockquote>`;
+    } else if ((m = line.match(/^\s*[-*+]\s+(.*)$/))) {
+      if (listType !== "ul") { closeList(); listType = "ul"; html += "<ul>"; }
+      html += `<li>${inline(m[1])}</li>`;
+    } else if ((m = line.match(/^\s*\d+\.\s+(.*)$/))) {
+      if (listType !== "ol") { closeList(); listType = "ol"; html += "<ol>"; }
+      html += `<li>${inline(m[1])}</li>`;
+    } else {
+      closeList();
+      let para = line;
+      while (i + 1 < lines.length && !/^\s*$/.test(lines[i+1]) && !/^(#{1,6}\s|```|\s*[-*+]\s|\s*\d+\.\s|\s*>)/.test(lines[i+1])) {
+        i++; para += " " + lines[i];
+      }
+      html += `<p>${inline(para)}</p>`;
+    }
+    i++;
+  }
+  closeList();
+  return html;
+}
+
+/* ---------- Render lista ---------- */
+function renderList() {
+  const term = document.getElementById("search").value.toLowerCase();
+  const list = document.getElementById("list");
+  list.innerHTML = "";
+
+  const items = state.posts.filter(p => {
+    if (!term) return true;
+    const hay = [p.slug, p.title.pt, p.title.en, p.tag.pt, p.tag.en, p.excerpt.pt, p.excerpt.en].join(" ").toLowerCase();
+    return hay.includes(term);
+  });
+
+  document.getElementById("count").textContent =
+    `${state.posts.length} posts · ${state.posts.filter(isComplete).length} completos`;
+
+  items.forEach(p => {
+    const div = document.createElement("div");
+    div.className = "list-item" + (p.id === selectedId ? " active" : "");
+    div.onclick = () => { selectedId = p.id; render(); };
+    const meta = [p.date, p.tag.pt].filter(Boolean).join(" · ");
+    div.innerHTML = `
+      <div class="li-name">${escapeHtml(p.title.pt || p.slug || "(sem título)")}</div>
+      <div class="li-meta">${escapeHtml(meta)} ${p.featured ? '<span class="li-star">★ destaque</span>' : ""} ${isComplete(p) ? "" : '<span class="li-flag">⚠ incompleto</span>'}</div>`;
+    list.appendChild(div);
+  });
+}
+
+/* ---------- Render editor ---------- */
+function render() {
+  renderList();
+  const ed = document.getElementById("editor");
+  const p = state.posts.find(x => x.id === selectedId);
+  if (!p) {
+    ed.innerHTML = '<div class="empty">Selecione um post à esquerda, clique em <strong>+ Novo post</strong> ou <strong>Importar pasta</strong>.</div>';
+    return;
+  }
+
+  const slugWarn = p.slug && p.slug !== slugify(p.slug)
+    ? '<div class="warn">⚠ O slug deve ser minúsculo, sem acentos e com hífens. Use "Gerar do título".</div>' : "";
+
+  ed.innerHTML = `
+    <div class="editor-head">
+      <h2>${escapeHtml(p.title.pt || "(novo post)")}</h2>
+      <button class="danger small" id="btn-delete">Excluir</button>
+    </div>
+
+    <div class="field">
+      <label>Slug (identificador da URL e nome dos arquivos .md)</label>
+      <div class="tag-input-wrap" style="display:flex; gap:8px;">
+        <input type="text" id="f-slug" value="${attr(p.slug)}" placeholder="meu-post-em-kebab-case" style="flex:1" />
+        <button class="small" id="btn-slug">Gerar do título</button>
+      </div>
+      ${slugWarn}
+      <div class="hint">Gera os arquivos <code>${escapeHtml(p.slug || "slug")}.pt.md</code> e <code>${escapeHtml(p.slug || "slug")}.en.md</code></div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label>Data (AAAA-MM)</label>
+        <input type="text" id="f-date" value="${attr(p.date)}" placeholder="2026-05" />
+      </div>
+      <div class="field">
+        <label>Destaque</label>
+        <div class="checkbox-field" style="padding-top:6px;">
+          <input type="checkbox" id="f-featured" ${p.featured ? "checked" : ""} />
+          <label for="f-featured">Aparece na home (featured)</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label>Tag (PT)</label>
+        <input type="text" id="f-tag-pt" list="dl-tags" value="${attr(p.tag.pt)}" placeholder="ex.: Carreira" />
+      </div>
+      <div class="field">
+        <label>Tag (EN)</label>
+        <input type="text" id="f-tag-en" list="dl-tags" value="${attr(p.tag.en)}" placeholder="e.g. Career" />
+      </div>
+    </div>
+    <datalist id="dl-tags">${allTags().map(t=>`<option value="${attr(t)}">`).join("")}</datalist>
+
+    <div class="row">
+      <div class="field">
+        <label>Título (PT)</label>
+        <input type="text" id="f-title-pt" value="${attr(p.title.pt)}" />
+      </div>
+      <div class="field">
+        <label>Título (EN)</label>
+        <input type="text" id="f-title-en" value="${attr(p.title.en)}" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label>Resumo / excerpt (PT)</label>
+        <textarea id="f-excerpt-pt" class="excerpt">${escapeHtml(p.excerpt.pt)}</textarea>
+      </div>
+      <div class="field">
+        <label>Resumo / excerpt (EN)</label>
+        <textarea id="f-excerpt-en" class="excerpt">${escapeHtml(p.excerpt.en)}</textarea>
+      </div>
+    </div>
+
+    <div class="body-section">
+      <div class="body-head">
+        <div class="lang-tabs" id="lang-tabs">
+          ${LANGS.map(l => `<button class="small ${l===activeLang?"active":""}" data-lang="${l}">${LANG_LABEL[l]}</button>`).join("")}
+        </div>
+        <div class="body-tools">
+          <span class="wc" id="wc"></span>
+          <button class="small" id="btn-toggle-preview">${showPreview ? "Ocultar preview" : "Mostrar preview"}</button>
+          <button class="small accent" id="btn-dl-md">Baixar .${activeLang}.md</button>
+        </div>
+      </div>
+      <div class="body-grid ${showPreview ? "" : "solo"}" id="body-grid">
+        <textarea id="f-body" class="md" placeholder="# Título do post&#10;&#10;Escreva o conteúdo em Markdown..."></textarea>
+        ${showPreview ? '<div class="preview" id="preview"></div>' : ""}
+      </div>
+      <div class="hint">Conteúdo do arquivo <code>${escapeHtml(p.slug || "slug")}.${activeLang}.md</code></div>
+    </div>
+  `;
+
+  // bindings de metadados
+  bindInput("f-slug", v => p.slug = v.trim(), true);
+  document.getElementById("btn-slug").onclick = () => {
+    p.slug = slugify(p.title.pt || p.title.en);
+    save(); render(); toast("Slug gerado");
+  };
+  bindCheckbox("f-featured", v => p.featured = v);
+  bindInput("f-date", v => p.date = v.trim());
+  bindInput("f-tag-pt", v => p.tag.pt = v);
+  bindInput("f-tag-en", v => p.tag.en = v);
+  bindInput("f-title-pt", v => p.title.pt = v, true);
+  bindInput("f-title-en", v => p.title.en = v);
+  bindInput("f-excerpt-pt", v => p.excerpt.pt = v);
+  bindInput("f-excerpt-en", v => p.excerpt.en = v);
+
+  // editor de corpo
+  const bodyEl = document.getElementById("f-body");
+  bodyEl.value = p.body[activeLang];
+  const refreshPreview = () => {
+    if (showPreview) document.getElementById("preview").innerHTML = mdToHtml(p.body[activeLang]);
+    document.getElementById("wc").textContent = `${wordCount(p.body[activeLang])} palavras`;
+  };
+  refreshPreview();
+  bodyEl.oninput = () => { p.body[activeLang] = bodyEl.value; save(); refreshPreview(); };
+
+  document.querySelectorAll("#lang-tabs button").forEach(b => {
+    b.onclick = () => { activeLang = b.dataset.lang; render(); };
+  });
+  document.getElementById("btn-toggle-preview").onclick = () => { showPreview = !showPreview; render(); };
+  document.getElementById("btn-dl-md").onclick = () => downloadMd(p, activeLang);
+
+  document.getElementById("btn-delete").onclick = () => {
+    if (confirm("Excluir este post? (não apaga arquivos do disco, apenas desta ferramenta)")) {
+      state.posts = state.posts.filter(x => x.id !== p.id);
+      selectedId = null; save(); render(); toast("Post excluído");
+    }
+  };
+}
+
+function bindInput(id, setter, rerenderHead) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.oninput = () => {
+    setter(el.value); save(); renderList();
+    if (rerenderHead) {
+      const p = state.posts.find(x => x.id === selectedId);
+      if (p) document.querySelector(".editor-head h2").textContent = p.title.pt || "(novo post)";
+    }
+  };
+}
+function bindCheckbox(id, setter) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.onchange = () => { setter(el.checked); save(); renderList(); };
+}
+
+/* ---------- Util ---------- */
+function escapeHtml(s) { return String(s ?? "").replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+function attr(s) { return escapeHtml(s).replace(/"/g,'&quot;'); }
+
+/* ---------- Exportação ---------- */
+function exportIndex() {
+  return {
+    posts: state.posts.map(p => ({
+      slug: p.slug,
+      date: p.date,
+      featured: p.featured,
+      tag: { pt: p.tag.pt, en: p.tag.en },
+      title: { pt: p.title.pt, en: p.title.en },
+      excerpt: { pt: p.excerpt.pt, en: p.excerpt.en }
+    }))
+  };
+}
+function downloadBlob(filename, content, type) {
+  const blob = new Blob([content], { type });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+function downloadMd(p, lang) {
+  if (!p.slug) { alert("Defina o slug antes de baixar o arquivo."); return; }
+  downloadBlob(`${p.slug}.${lang}.md`, p.body[lang] || "", "text/markdown");
+  toast(`${p.slug}.${lang}.md baixado`);
+}
+
+document.getElementById("btn-export-index").onclick = () => {
+  downloadBlob("posts.json", JSON.stringify(exportIndex(), null, 2), "application/json");
+  toast("posts.json baixado");
+};
+document.getElementById("btn-copy-index").onclick = async () => {
+  await navigator.clipboard.writeText(JSON.stringify(exportIndex(), null, 2));
+  toast("posts.json copiado");
+};
+document.getElementById("btn-export-all").onclick = () => {
+  const withoutSlug = state.posts.filter(p => !p.slug).length;
+  if (withoutSlug) { alert(`${withoutSlug} post(s) sem slug. Defina o slug de todos antes de baixar tudo.`); return; }
+  const files = [["posts.json", JSON.stringify(exportIndex(), null, 2), "application/json"]];
+  state.posts.forEach(p => {
+    files.push([`${p.slug}.pt.md`, p.body.pt || "", "text/markdown"]);
+    files.push([`${p.slug}.en.md`, p.body.en || "", "text/markdown"]);
+  });
+  files.forEach(([name, content, type], i) => setTimeout(() => downloadBlob(name, content, type), i * 250));
+  toast(`Baixando ${files.length} arquivo(s)...`);
+};
+
+function firstHeading(md) {
+  if (!md) return "";
+  const m = md.match(/^#\s+(.+)$/m);
+  return m ? m[1].trim() : "";
+}
+
+/* ---------- Mescla índice + corpos no estado ----------
+   index: { posts: [...] } ou null · bodies: { slug: { pt, en } } */
+function mergeContent(index, bodies, { overwriteBodies = true } = {}) {
+  const bySlug = new Map(state.posts.map(p => [p.slug, p]));
+  const result = [];
+  const seen = new Set();
+  let filled = 0, stubs = 0;
+  const setBody = (post, l, txt) => {
+    if (txt == null) return;
+    if (overwriteBodies || !post.body[l].trim()) { post.body[l] = txt; filled++; }
+  };
+
+  const indexPosts = (index && Array.isArray(index.posts)) ? index.posts : [];
+  indexPosts.forEach(meta => {
+    const existing = bySlug.get(meta.slug);
+    const post = existing || normalizePost({ ...emptyPost(), ...meta });
+    if (existing) {
+      // preenche apenas metadados ausentes, sem sobrescrever edições locais
+      if (!post.date && meta.date) post.date = meta.date;
+      ["tag", "title", "excerpt"].forEach(k => {
+        LANGS.forEach(l => { if (!post[k][l] && meta[k] && meta[k][l]) post[k][l] = meta[k][l]; });
+      });
+    }
+    const b = bodies[meta.slug];
+    if (b) LANGS.forEach(l => setBody(post, l, b[l]));
+    result.push(post); seen.add(meta.slug);
+  });
+
+  // corpos .md sem entrada no índice → cria stub
+  Object.keys(bodies).forEach(slug => {
+    if (seen.has(slug)) return;
+    const b = bodies[slug];
+    const post = bySlug.get(slug) || normalizePost(emptyPost());
+    post.slug = slug;
+    LANGS.forEach(l => setBody(post, l, b[l]));
+    if (!post.title.pt) post.title.pt = firstHeading(b.pt) || slug;
+    if (!post.title.en) post.title.en = firstHeading(b.en) || "";
+    result.push(post); seen.add(slug); stubs++;
+  });
+
+  // preserva posts locais que não estão no disco
+  state.posts.forEach(p => { if (!seen.has(p.slug)) result.push(p); });
+
+  state.posts = result;
+  save(); render();
+  return { count: result.length, filled, stubs };
+}
+
+/* ---------- IndexedDB: guarda o handle da pasta (sem servidor) ---------- */
+function idb(mode, fn) {
+  return new Promise((res, rej) => {
+    const open = indexedDB.open("blog-manager", 1);
+    open.onupgradeneeded = () => open.result.createObjectStore("kv");
+    open.onerror = () => rej(open.error);
+    open.onsuccess = () => {
+      const store = open.result.transaction("kv", mode).objectStore("kv");
+      const rq = fn(store);
+      rq.onsuccess = () => res(rq.result);
+      rq.onerror = () => rej(rq.error);
+    };
+  });
+}
+const idbGet = (k) => idb("readonly", s => s.get(k));
+const idbSet = (k, v) => idb("readwrite", s => s.put(v, k));
+
+/* ---------- File System Access: lê a pasta de verdade, sem servidor ---------- */
+async function readDirHandle(dir) {
+  let index = null;
+  const bodies = {};
+  for await (const entry of dir.values()) {
+    if (entry.kind !== "file") continue;
+    const name = entry.name;
+    if (/^posts\.json$/i.test(name)) {
+      try { index = JSON.parse(await (await entry.getFile()).text()); } catch { /* ignora */ }
+      continue;
+    }
+    const m = name.match(/^(.+)\.(pt|en)\.md$/i);
+    if (m) (bodies[m[1]] = bodies[m[1]] || {})[m[2].toLowerCase()] = await (await entry.getFile()).text();
+  }
+  return { index, bodies };
+}
+async function loadFromDir(dir, { overwriteBodies, silent } = {}) {
+  const { index, bodies } = await readDirHandle(dir);
+  if (!index && !Object.keys(bodies).length) {
+    if (!silent) alert("A pasta selecionada não tem posts.json nem arquivos .md.");
+    return false;
+  }
+  const r = mergeContent(index, bodies, { overwriteBodies });
+  if (!silent) toast(`Sincronizado · ${r.filled} corpo(s)${r.stubs ? ` · ${r.stubs} sem metadados` : ""}`);
+  return true;
+}
+
+/* Botão principal: reaproveita a pasta já conectada, ou pede para escolher. */
+async function connectFolder() {
+  // 1) tenta reusar a pasta lembrada (um clique para re-autorizar)
+  try {
+    const saved = await idbGet("dir");
+    if (saved && saved.requestPermission) {
+      const perm = await saved.requestPermission({ mode: "read" });
+      if (perm === "granted") { await loadFromDir(saved, { overwriteBodies: true }); return; }
+    }
+  } catch { /* segue para escolher nova pasta */ }
+
+  // 2) escolhe uma nova pasta (File System Access)
+  if (window.showDirectoryPicker) {
+    let dir;
+    try { dir = await window.showDirectoryPicker({ id: "blog-content", mode: "read" }); }
+    catch (e) { if (e.name === "AbortError") return; dir = null; }
+    if (dir) {
+      try { await idbSet("dir", dir); } catch { /* alguns navegadores não persistem handle */ }
+      await loadFromDir(dir, { overwriteBodies: true });
+      return;
+    }
+  }
+
+  // 3) fallback universal: input webkitdirectory (funciona em qualquer navegador via file://)
+  document.getElementById("file-folder").click();
+}
+
+/* Sincroniza por fetch — só funciona se o tool for servido via http (ou no Firefox via file://). */
+async function syncFromFetch({ silent = true, overwriteBodies = false } = {}) {
+  let index;
+  try {
+    const res = await fetch(CONTENT_BASE + "posts.json", { cache: "no-store" });
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    index = await res.json();
+  } catch { return false; }
+
+  const bodies = {};
+  for (const meta of (index.posts || [])) {
+    for (const l of LANGS) {
+      try {
+        const r = await fetch(`${CONTENT_BASE}${encodeURIComponent(meta.slug)}.${l}.md`, { cache: "no-store" });
+        if (r.ok) { const txt = await r.text(); if (txt.trim()) (bodies[meta.slug] = bodies[meta.slug] || {})[l] = txt; }
+      } catch { /* .md ausente */ }
+    }
+  }
+  const r = mergeContent(index, bodies, { overwriteBodies });
+  if (!silent) toast(`Sincronizado · ${r.filled} corpo(s)`);
+  return true;
+}
+
+document.getElementById("btn-sync").onclick = connectFolder;
+
+/* ---------- Importar pasta blog-content (fallback universal) ---------- */
+document.getElementById("btn-folder").onclick = () => document.getElementById("file-folder").click();
+document.getElementById("file-folder").onchange = async (e) => {
+  const files = [...e.target.files];
+  e.target.value = "";
+  if (!files.length) return;
+
+  let index = null;
+  const bodies = {};
+  for (const f of files) {
+    if (/(^|\/)posts\.json$/i.test(f.name) || f.name === "posts.json") {
+      try { index = JSON.parse(await f.text()); } catch { alert("posts.json inválido — ignorado."); }
+      continue;
+    }
+    const m = f.name.match(/^(.+)\.(pt|en)\.md$/i);
+    if (m) (bodies[m[1]] = bodies[m[1]] || {})[m[2].toLowerCase()] = await f.text();
+  }
+
+  if (!index && !Object.keys(bodies).length) {
+    alert("Nenhum posts.json ou arquivo .md encontrado na pasta selecionada.");
+    return;
+  }
+  const r = mergeContent(index, bodies, { overwriteBodies: true });
+  toast(`${r.count} post(s) carregado(s)${r.stubs ? ` · ${r.stubs} sem metadados` : ""}`);
+};
+
+/* ---------- Ações de topo ---------- */
+document.getElementById("btn-new").onclick = () => {
+  const p = emptyPost();
+  state.posts.unshift(p); selectedId = p.id; activeLang = "pt"; save(); render();
+};
+document.getElementById("search").oninput = renderList;
+
+/* ---------- Boot ---------- */
+load();
+render();
+
+// Auto-carrega os corpos .md sem precisar de servidor.
+async function autoLoad() {
+  // 1) Pasta lembrada via File System Access (já autorizada → carrega sozinho).
+  try {
+    const saved = await idbGet("dir");
+    if (saved && saved.queryPermission) {
+      const perm = await saved.queryPermission({ mode: "read" });
+      if (perm === "granted") { await loadFromDir(saved, { overwriteBodies: false, silent: true }); return; }
+      // Precisa de um clique para re-autorizar (segurança do navegador).
+      toast('Clique em "Sincronizar do disco" para recarregar a pasta');
+      return;
+    }
+  } catch { /* sem suporte / sem handle salvo */ }
+
+  // 2) Servido via http (ou Firefox file://): tenta por fetch relativo.
+  syncFromFetch({ silent: true });
+}
+autoLoad();
+</script>
+</body>
+</html>

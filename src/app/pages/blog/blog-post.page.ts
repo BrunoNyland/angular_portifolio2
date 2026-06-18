@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { combineLatest, of } from 'rxjs';
-import { catchError, map, startWith, switchMap } from 'rxjs/operators';
+import { catchError, map, startWith, switchMap, tap } from 'rxjs/operators';
 
 import { ContentService } from '../../content/content.service';
 import { SeoService } from '../../core/seo.service';
@@ -28,6 +28,7 @@ export class BlogPostPage {
   private readonly blog = inject(BlogService);
   private readonly seo = inject(SeoService);
   private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
 
   readonly t = computed(() => this.content.dict().blogPage);
   readonly lang = this.content.lang;
@@ -37,13 +38,22 @@ export class BlogPostPage {
     this.route.paramMap,
     toObservable(this.content.lang),
   ]).pipe(
-    switchMap(([params, lang]) =>
-      this.blog.getPost(params.get('slug') ?? '', lang).pipe(
+    switchMap(([params, lang]) => {
+      const currentSlug = params.get('slug') ?? '';
+      return this.blog.getPost(currentSlug, lang).pipe(
+        tap((post) => {
+          if (post) {
+            const expectedSlug = post.meta.slug[lang];
+            if (currentSlug !== expectedSlug) {
+              this.router.navigate(['/blog', expectedSlug], { replaceUrl: true });
+            }
+          }
+        }),
         map((post) => ({ post, error: false }) as PostState),
         startWith({ post: undefined, error: false } as PostState),
         catchError(() => of({ post: null, error: true } as PostState)),
-      ),
-    ),
+      );
+    }),
   );
   readonly state = toSignal(this.state$, {
     initialValue: { post: undefined, error: false } as PostState,
