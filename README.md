@@ -31,7 +31,7 @@ Depois disso, abra `http://localhost:4200/`.
 
 - `npm start`: inicia o servidor de desenvolvimento.
 - `npm run build`: gera a versão de produção em `dist/`.
-- `npm run build:pages`: gera o build pronto para GitHub Pages com base em `/angular_portifolio2/`.
+- `npm run build:pages`: gera o build pronto para GitHub Pages com base em `/angular_portifolio2/` e ativa hash routing só nesse alvo.
 - `npm run format`: formata o código com Prettier.
 - `npm run format:check`: verifica se o código está formatado.
 - `npm run lint`: roda o ESLint nos arquivos TypeScript.
