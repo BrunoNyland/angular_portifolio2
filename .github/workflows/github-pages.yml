@@ -42,12 +42,6 @@ jobs:
       - name: Build for GitHub Pages
         run: npm run build:pages
 
-      - name: Prepare static fallback files
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: |
-          cp dist/portifolio2/browser/index.html dist/portifolio2/browser/404.html
-          touch dist/portifolio2/browser/.nojekyll
-
       - name: Upload GitHub Pages artifact
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v3
