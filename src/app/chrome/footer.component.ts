@@ -9,7 +9,7 @@ import { ContentService } from '../content/content.service';
       <span>{{ dict().foot.r }}</span>
     </footer>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FooterComponent {
   private readonly content = inject(ContentService);

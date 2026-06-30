@@ -31,8 +31,20 @@ Depois disso, abra `http://localhost:4200/`.
 
 - `npm start`: inicia o servidor de desenvolvimento.
 - `npm run build`: gera a versão de produção em `dist/`.
+- `npm run build:pages`: gera o build pronto para GitHub Pages com base em `/angular_portifolio2/`.
+- `npm run format`: formata o código com Prettier.
+- `npm run format:check`: verifica se o código está formatado.
+- `npm run lint`: roda o ESLint nos arquivos TypeScript.
+- `npm run lint:fix`: aplica correções automáticas do ESLint.
 - `npm test`: executa os testes com Vitest.
+- `npm run test:ci`: executa os testes sem modo watch, para uso em CI.
+- `npm run test:coverage`: executa os testes com cobertura e gera o relatório em `coverage/`.
+- `npm run check`: roda formatação, lint e testes em sequência.
 - `npm run watch`: recompila em modo observação durante o desenvolvimento.
+
+## CI/CD
+
+O repositório agora contém um workflow em `.github/workflows/github-pages.yml` que roda verificação de formatação, lint e testes em pull requests e faz deploy automático para GitHub Pages quando há push na branch `main`.
 
 ## Estrutura
 

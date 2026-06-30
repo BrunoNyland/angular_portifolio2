@@ -7,7 +7,13 @@ import { SectionFadeDirective } from '../shared/section-fade.directive';
   selector: 'app-experience',
   imports: [AnimateInDirective, SectionFadeDirective],
   template: `
-    <section class="section" id="sec-xp" data-screen-label="05 Experiência" sectionFade [animateIn]="anims">
+    <section
+      class="section"
+      id="sec-xp"
+      data-screen-label="05 Experiência"
+      sectionFade
+      [animateIn]="anims"
+    >
       <div class="section__head">
         <span class="num">{{ x().num }}</span>
         <span class="ttl">{{ x().title }}</span>

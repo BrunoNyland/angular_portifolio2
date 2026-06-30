@@ -7,7 +7,13 @@ import { SectionFadeDirective } from '../shared/section-fade.directive';
   selector: 'app-work',
   imports: [AnimateInDirective, SectionFadeDirective],
   template: `
-    <section class="section" id="sec-work" data-screen-label="04 Projetos" sectionFade [animateIn]="anims">
+    <section
+      class="section"
+      id="sec-work"
+      data-screen-label="04 Projetos"
+      sectionFade
+      [animateIn]="anims"
+    >
       <div class="section__head">
         <span class="num">{{ w().num }}</span>
         <span class="ttl">{{ w().title }}</span>
@@ -24,7 +30,10 @@ import { SectionFadeDirective } from '../shared/section-fade.directive';
               <span class="ph">{{ p.ph }}</span>
             </div>
             <div>
-              <div class="project__title"><span>{{ p.t }}</span><span class="arr">↗</span></div>
+              <div class="project__title">
+                <span>{{ p.t }}</span
+                ><span class="arr">↗</span>
+              </div>
               <div class="project__tags">
                 @for (tag of p.tags; track tag) {
                   <span>{{ tag }}</span>
@@ -36,7 +45,7 @@ import { SectionFadeDirective } from '../shared/section-fade.directive';
       </div>
     </section>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WorkComponent {
   private readonly content = inject(ContentService);
@@ -44,10 +53,18 @@ export class WorkComponent {
 
   readonly anims: AnimateInConfig[] = [
     { target: '.section__head > *' },
-    { target: '.project', from: { autoAlpha: 0, y: 50 }, stagger: 0.1, duration: 0.8, start: 'top 80%' },
+    {
+      target: '.project',
+      from: { autoAlpha: 0, y: 50 },
+      stagger: 0.1,
+      duration: 0.8,
+      start: 'top 80%',
+    },
   ];
 
-  pad(n: number): string { return String(n).padStart(2, '0'); }
+  pad(n: number): string {
+    return String(n).padStart(2, '0');
+  }
 
   // Rect do card sob o cursor, medido uma vez no mouseenter para evitar reflow a cada mousemove.
   private rect?: DOMRect;
@@ -60,7 +77,7 @@ export class WorkComponent {
     const r = this.rect;
     if (!r) return;
     const el = e.currentTarget as HTMLElement;
-    el.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
-    el.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+    el.style.setProperty('--mx', ((e.clientX - r.left) / r.width) * 100 + '%');
+    el.style.setProperty('--my', ((e.clientY - r.top) / r.height) * 100 + '%');
   }
 }

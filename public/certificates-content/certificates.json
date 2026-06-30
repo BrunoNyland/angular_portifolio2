@@ -6,9 +6,7 @@
       "platform": "AdaTech",
       "workload": "5h",
       "language": "Português",
-      "topics": [
-        "Digital Security"
-      ],
+      "topics": ["Digital Security"],
       "specializations": [],
       "validationUrl": "https://ada.tech/certificado?code=3d1de9f2-f99c-af3b-3d4c-f4ffa8acb667",
       "date": "06-2025",
@@ -20,10 +18,7 @@
       "platform": "AdaTech",
       "workload": "5h",
       "language": "Português",
-      "topics": [
-        "TypeScript",
-        "Angular"
-      ],
+      "topics": ["TypeScript", "Angular"],
       "specializations": [],
       "validationUrl": "https://ada.tech/certificado?code=3d1817b6-36bd-a48b-9bd3-d8a85be3f92b",
       "date": "04-2026",
@@ -35,11 +30,7 @@
       "platform": "AdaTech",
       "workload": "15h",
       "language": "Português",
-      "topics": [
-        "HTML",
-        "CSS",
-        "JavaScript"
-      ],
+      "topics": ["HTML", "CSS", "JavaScript"],
       "specializations": [],
       "validationUrl": "https://ada.tech/certificado?code=eff650b3-99ad-870a-33fd-cac747662d78",
       "date": "06-2025",
@@ -51,12 +42,7 @@
       "platform": "AdaTech",
       "workload": "22h",
       "language": "Português",
-      "topics": [
-        "APIs",
-        "HTML",
-        "CSS",
-        "JavaScript"
-      ],
+      "topics": ["APIs", "HTML", "CSS", "JavaScript"],
       "specializations": [],
       "validationUrl": "https://ada.tech/certificado?code=da50c22b-e141-8336-298c-68020477b5a0",
       "date": "09-2025",
@@ -68,11 +54,7 @@
       "platform": "AdaTech",
       "workload": "11h",
       "language": "Português",
-      "topics": [
-        "Angular",
-        "TypeScript",
-        "APIs"
-      ],
+      "topics": ["Angular", "TypeScript", "APIs"],
       "specializations": [],
       "validationUrl": "https://ada.tech/certificado?code=c6e79f6a-03ed-85c3-277b-43d6927008fb",
       "date": "04-2026",
@@ -84,10 +66,7 @@
       "platform": "AdaTech",
       "workload": "48h",
       "language": "Português",
-      "topics": [
-        "JavaScript",
-        "OOP"
-      ],
+      "topics": ["JavaScript", "OOP"],
       "specializations": [],
       "validationUrl": "https://ada.tech/certificado?code=f7d05e8d-6c7e-4467-aff8-ea69f8655b82",
       "date": "10-2025",
@@ -99,9 +78,7 @@
       "platform": "AdaTech",
       "workload": "6h",
       "language": "Português",
-      "topics": [
-        "CSS"
-      ],
+      "topics": ["CSS"],
       "specializations": [],
       "validationUrl": "https://ada.tech/certificado?code=9a732cb1-7ff9-8554-2838-ece470f7548f",
       "date": "06-2025",
@@ -113,9 +90,7 @@
       "platform": "AdaTech",
       "workload": "14h",
       "language": "Português",
-      "topics": [
-        "JavaScript"
-      ],
+      "topics": ["JavaScript"],
       "specializations": [],
       "validationUrl": "https://ada.tech/certificado?code=3d13e3c3-4775-a12b-4d75-28fe46c5de4f",
       "date": "09-2025",
@@ -127,9 +102,7 @@
       "platform": "AdaTech",
       "workload": "4h",
       "language": "Português",
-      "topics": [
-        "JavaScript"
-      ],
+      "topics": ["JavaScript"],
       "specializations": [],
       "validationUrl": "https://ada.tech/certificado?code=3d18f03f-f562-a99b-7d30-f11a6865b889",
       "date": "09-2025",
@@ -141,9 +114,7 @@
       "platform": "AdaTech",
       "workload": "3h",
       "language": "Português",
-      "topics": [
-        "Mathematics"
-      ],
+      "topics": ["Mathematics"],
       "specializations": [],
       "validationUrl": "https://ada.tech/certificado?code=2b8190fe-aee8-83e7-21d7-a39461cf26ce",
       "date": "06-2025",
@@ -155,9 +126,7 @@
       "platform": "AdaTech",
       "workload": "2h",
       "language": "Português",
-      "topics": [
-        "Git"
-      ],
+      "topics": ["Git"],
       "specializations": [],
       "validationUrl": "https://ada.tech/certificado?code=56129346-c426-8940-22aa-38b68c1672af",
       "date": "09-2025",
@@ -169,10 +138,7 @@
       "platform": "AdaTech",
       "workload": "2h",
       "language": "Português",
-      "topics": [
-        "LGPD",
-        "Compliance"
-      ],
+      "topics": ["LGPD", "Compliance"],
       "specializations": [],
       "validationUrl": "https://ada.tech/certificado?code=3d11d02c-34b9-a06b-2e7e-e1e2b3175f3e",
       "date": "09-2025",
@@ -184,9 +150,7 @@
       "platform": "AdaTech",
       "workload": "3h",
       "language": "Português",
-      "topics": [
-        "HTML"
-      ],
+      "topics": ["HTML"],
       "specializations": [],
       "validationUrl": "https://ada.tech/certificado?code=a1b83618-41fc-8e0a-0f73-d448ceb6b54c",
       "date": "06-2025",
@@ -198,9 +162,7 @@
       "platform": "AdaTech",
       "workload": "2h",
       "language": "Português",
-      "topics": [
-        "Angular"
-      ],
+      "topics": ["Angular"],
       "specializations": [],
       "validationUrl": "https://ada.tech/certificado?code=b952e9a0-9491-8498-260a-c59b51145ab7",
       "date": "10-2025",
@@ -212,9 +174,7 @@
       "platform": "AdaTech",
       "workload": "3h",
       "language": "Português",
-      "topics": [
-        "Web"
-      ],
+      "topics": ["Web"],
       "specializations": [],
       "validationUrl": "https://ada.tech/certificado?code=5b4c7052-184e-8f13-4d10-1df6dbeed264",
       "date": "06-2025",
@@ -226,9 +186,7 @@
       "platform": "AdaTech",
       "workload": "4h",
       "language": "Português",
-      "topics": [
-        "JavaScript"
-      ],
+      "topics": ["JavaScript"],
       "specializations": [],
       "validationUrl": "https://ada.tech/certificado?code=3d180f7f-7e9e-ae8b-e9ed-0f8d4329a24d",
       "date": "09-2025",
@@ -240,9 +198,7 @@
       "platform": "AdaTech",
       "workload": "3h",
       "language": "Português",
-      "topics": [
-        "JavaScript"
-      ],
+      "topics": ["JavaScript"],
       "specializations": [],
       "validationUrl": "https://ada.tech/certificado?code=3d0c41ab-e0a9-aeeb-7aa3-226c027d253f",
       "date": "06-2025",
@@ -254,9 +210,7 @@
       "platform": "AdaTech",
       "workload": "2h",
       "language": "Português",
-      "topics": [
-        "JavaScript"
-      ],
+      "topics": ["JavaScript"],
       "specializations": [],
       "validationUrl": "https://ada.tech/certificado?code=3d1014a1-85dc-ae0b-2f25-1a122cc46631",
       "date": "08-2025",
@@ -268,9 +222,7 @@
       "platform": "AdaTech",
       "workload": "2h",
       "language": "Português",
-      "topics": [
-        "Agile"
-      ],
+      "topics": ["Agile"],
       "specializations": [],
       "validationUrl": "https://ada.tech/certificado?code=0d58f343-8b42-8dfe-269a-e1cf748652e3",
       "date": "06-2025",
@@ -282,14 +234,8 @@
       "platform": "Coursera - Board Infinity",
       "workload": "20h",
       "language": "Inglês",
-      "topics": [
-        "Angular",
-        "SSR",
-        "TypeScript"
-      ],
-      "specializations": [
-        "Board Infinity - Angular 21 Specialization"
-      ],
+      "topics": ["Angular", "SSR", "TypeScript"],
+      "specializations": ["Board Infinity - Angular 21 Specialization"],
       "validationUrl": "https://coursera.org/verify/BAYR9IQFLWMD",
       "date": "05-2026",
       "pdf": "Coursera - Board Infinity - Angular Advanced Enterprise Patterns - SSR & Performance - 05-2026 - 20h.pdf"
@@ -300,10 +246,7 @@
       "platform": "Coursera - Board Infinity",
       "workload": "60h",
       "language": "Inglês",
-      "topics": [
-        "Angular",
-        "TypeScript"
-      ],
+      "topics": ["Angular", "TypeScript"],
       "specializations": [],
       "validationUrl": "https://coursera.org/verify/specialization/PX2PFPEZEUHA",
       "date": "05-2026",
@@ -315,10 +258,7 @@
       "platform": "Coursera - Board Infinity",
       "workload": "19h",
       "language": "Inglês",
-      "topics": [
-        "Angular",
-        "TypeScript"
-      ],
+      "topics": ["Angular", "TypeScript"],
       "specializations": [],
       "validationUrl": "https://coursera.org/verify/1EU301N99I5H",
       "date": "04-2026",
@@ -330,10 +270,7 @@
       "platform": "Coursera",
       "workload": "20h",
       "language": "Inglês",
-      "topics": [
-        "Angular",
-        "TypeScript"
-      ],
+      "topics": ["Angular", "TypeScript"],
       "specializations": [],
       "validationUrl": "https://coursera.org/verify/VOG7KLDTZNAF",
       "date": "05-2026",
@@ -345,9 +282,7 @@
       "platform": "Coursera",
       "workload": "1h",
       "language": "Inglês",
-      "topics": [
-        "Angular"
-      ],
+      "topics": ["Angular"],
       "specializations": [],
       "validationUrl": "https://coursera.org/verify/683N099HRD1Q",
       "date": "05-2026",
@@ -359,12 +294,8 @@
       "platform": "Coursera - LearnQuest",
       "workload": "13h",
       "language": "Inglês",
-      "topics": [
-        "Angular"
-      ],
-      "specializations": [
-        "LearnQuest - Angular 17 Specialization"
-      ],
+      "topics": ["Angular"],
+      "specializations": ["LearnQuest - Angular 17 Specialization"],
       "validationUrl": "https://coursera.org/verify/30P5LB4G5DQL",
       "date": "05-2026",
       "pdf": "Coursera - LearnQuest - Advanced Angular Development - 05-2026 - 13h.pdf"
@@ -375,12 +306,8 @@
       "platform": "Coursera",
       "workload": "13h",
       "language": "Inglês",
-      "topics": [
-        "Angular"
-      ],
-      "specializations": [
-        "LearnQuest - Angular 17 Specialization"
-      ],
+      "topics": ["Angular"],
+      "specializations": ["LearnQuest - Angular 17 Specialization"],
       "validationUrl": "https://coursera.org/verify/8P5CKDQO16QI",
       "date": "04-2026",
       "pdf": "Coursera - LearnQuest - Advanced Angular Topics - 04-2026 - 13h.pdf"
@@ -391,12 +318,8 @@
       "platform": "Coursera - LearnQuest",
       "workload": "12h",
       "language": "Inglês",
-      "topics": [
-        "Angular"
-      ],
-      "specializations": [
-        "LearnQuest - Angular 17 Specialization"
-      ],
+      "topics": ["Angular"],
+      "specializations": ["LearnQuest - Angular 17 Specialization"],
       "validationUrl": "https://coursera.org/verify/0DTMG7ZL9M2B",
       "date": "04-2026",
       "pdf": "Coursera - LearnQuest - Angular 17 Overview & Basics - 04-2026 - 12h.pdf"
@@ -407,9 +330,7 @@
       "platform": "Coursera",
       "workload": "38h (3 Courses)",
       "language": "Inglês",
-      "topics": [
-        "Angular"
-      ],
+      "topics": ["Angular"],
       "specializations": [],
       "validationUrl": "https://coursera.org/verify/specialization/URNX7N3QA5T0",
       "date": "05-2026",
@@ -421,12 +342,8 @@
       "platform": "Coursera - Meta",
       "workload": "26h",
       "language": "Inglês",
-      "topics": [
-        "React"
-      ],
-      "specializations": [
-        "Meta - Specialization React"
-      ],
+      "topics": ["React"],
+      "specializations": ["Meta - Specialization React"],
       "validationUrl": "https://coursera.org/verify/PM3PTY56CSWM",
       "date": "04-2026",
       "pdf": "Coursera - Meta - Advanced React.pdf"
@@ -437,10 +354,7 @@
       "platform": "Coursera - Meta",
       "workload": "30h",
       "language": "Inglês",
-      "topics": [
-        "HTML",
-        "CSS"
-      ],
+      "topics": ["HTML", "CSS"],
       "specializations": [],
       "validationUrl": "https://coursera.org/verify/V2EXOYWOYJTY",
       "date": "03-2026",
@@ -452,11 +366,7 @@
       "platform": "Coursera - Meta",
       "workload": "18h",
       "language": "Inglês",
-      "topics": [
-        "HTML",
-        "CSS",
-        "APIs"
-      ],
+      "topics": ["HTML", "CSS", "APIs"],
       "specializations": [],
       "validationUrl": "https://coursera.org/verify/4VE02ATMKB2E",
       "date": "02-2026",
@@ -468,10 +378,7 @@
       "platform": "Coursera - Meta",
       "workload": "18h",
       "language": "Inglês",
-      "topics": [
-        "HTML",
-        "CSS"
-      ],
+      "topics": ["HTML", "CSS"],
       "specializations": [],
       "validationUrl": "https://coursera.org/verify/LA3JOAAO48EC",
       "date": "01-2026",
@@ -483,9 +390,7 @@
       "platform": "Coursera - Meta",
       "workload": "47h",
       "language": "Inglês",
-      "topics": [
-        "JavaScript"
-      ],
+      "topics": ["JavaScript"],
       "specializations": [],
       "validationUrl": "https://coursera.org/verify/VHA3TRA59EAI",
       "date": "02-2026",
@@ -497,12 +402,8 @@
       "platform": "Coursera",
       "workload": "29h",
       "language": "Inglês",
-      "topics": [
-        "React"
-      ],
-      "specializations": [
-        "Meta - Specialization React"
-      ],
+      "topics": ["React"],
+      "specializations": ["Meta - Specialization React"],
       "validationUrl": "https://coursera.org/verify/YICPNWLW5QX7",
       "date": "03-2026",
       "pdf": "Coursera - Meta - React Basics.pdf"
@@ -513,12 +414,8 @@
       "platform": "Coursera",
       "workload": "55h",
       "language": "Inglês",
-      "topics": [
-        "React"
-      ],
-      "specializations": [
-        "Meta - Specialization React"
-      ],
+      "topics": ["React"],
+      "specializations": ["Meta - Specialization React"],
       "validationUrl": "https://coursera.org/verify/specialization/5DL8NG01GLVS",
       "date": "04-2026",
       "pdf": "Coursera - Meta - Specialization React.pdf"
@@ -529,9 +426,7 @@
       "platform": "Coursera - Meta",
       "workload": "15h",
       "language": "Inglês",
-      "topics": [
-        "Git"
-      ],
+      "topics": ["Git"],
       "specializations": [],
       "validationUrl": "https://coursera.org/verify/OBLELQ1RLEDC",
       "date": "02-2026",
@@ -543,9 +438,7 @@
       "platform": "Coursera - Scrimba",
       "workload": "15h",
       "language": "Inglês",
-      "topics": [
-        "JavaScript"
-      ],
+      "topics": ["JavaScript"],
       "specializations": [],
       "validationUrl": "https://coursera.org/verify/I0GVI5BSNHQU",
       "date": "02-2026",
@@ -557,9 +450,7 @@
       "platform": "Coursera - Scrimba",
       "workload": "3h",
       "language": "Inglês",
-      "topics": [
-        "JavaScript"
-      ],
+      "topics": ["JavaScript"],
       "specializations": [],
       "validationUrl": "https://coursera.org/verify/2WHP4PU4WOZ3",
       "date": "02-2026",
@@ -571,10 +462,7 @@
       "platform": "Coursera - Scrimba",
       "workload": "13h",
       "language": "Inglês",
-      "topics": [
-        "HTML",
-        "CSS"
-      ],
+      "topics": ["HTML", "CSS"],
       "specializations": [],
       "validationUrl": "https://coursera.org/verify/TR4O7AWH9KP1",
       "date": "05-2026",
@@ -586,9 +474,7 @@
       "platform": "Coursera - Scrimba",
       "workload": "17h",
       "language": "Inglês",
-      "topics": [
-        "React"
-      ],
+      "topics": ["React"],
       "specializations": [],
       "validationUrl": "https://coursera.org/verify/7U7BFR2PZZ35",
       "date": "01-2026",
@@ -600,9 +486,7 @@
       "platform": "ENAP",
       "workload": "20h",
       "language": "Português",
-      "topics": [
-        "Python"
-      ],
+      "topics": ["Python"],
       "specializations": [],
       "validationUrl": "https://www.escolavirtual.gov.br/documentos/validacao",
       "date": "08-2025",
@@ -614,9 +498,7 @@
       "platform": "ENAP",
       "workload": "25h",
       "language": "Português",
-      "topics": [
-        "Automation"
-      ],
+      "topics": ["Automation"],
       "specializations": [],
       "validationUrl": "https://www.escolavirtual.gov.br/documentos/validacao",
       "date": "06-2025",
@@ -628,10 +510,7 @@
       "platform": "ENAP",
       "workload": "30h",
       "language": "Português",
-      "topics": [
-        "Excel",
-        "VBA"
-      ],
+      "topics": ["Excel", "VBA"],
       "specializations": [],
       "validationUrl": "https://www.escolavirtual.gov.br/documentos/validacao",
       "date": "09-2025",
@@ -643,10 +522,7 @@
       "platform": "ENAP",
       "workload": "30h",
       "language": "Português",
-      "topics": [
-        "Excel",
-        "VBA"
-      ],
+      "topics": ["Excel", "VBA"],
       "specializations": [],
       "validationUrl": "https://www.escolavirtual.gov.br/documentos/validacao",
       "date": "09-2025",
@@ -658,9 +534,7 @@
       "platform": "ENAP",
       "workload": "25h",
       "language": "Português",
-      "topics": [
-        "Excel"
-      ],
+      "topics": ["Excel"],
       "specializations": [],
       "validationUrl": "https://www.escolavirtual.gov.br/documentos/validacao",
       "date": "09-2025",
@@ -672,10 +546,7 @@
       "platform": "Microlins",
       "workload": "48h",
       "language": "Português",
-      "topics": [
-        "Hardware",
-        "Network"
-      ],
+      "topics": ["Hardware", "Network"],
       "specializations": [],
       "validationUrl": "https://microlins.com.br/",
       "date": "2009",
@@ -687,9 +558,7 @@
       "platform": "Mundi Game Experiences",
       "workload": "6h",
       "language": "Português",
-      "topics": [
-        "Sustainability"
-      ],
+      "topics": ["Sustainability"],
       "specializations": [],
       "validationUrl": "https://certificates.startupmundi.com/verify/NmMzZTFjYjUtMDhlMi00MjVmLWJkMjUtYzNkNzFjNzliOWYx",
       "date": "09-2025",
@@ -701,11 +570,7 @@
       "platform": "Rocketseat",
       "workload": "2h",
       "language": "Português",
-      "topics": [
-        "HTML",
-        "CSS",
-        "JavaScript"
-      ],
+      "topics": ["HTML", "CSS", "JavaScript"],
       "specializations": [],
       "validationUrl": "https://app.rocketseat.com.br/certificates/996208db-782b-4b36-aa5d-90e9a1582f82",
       "date": "09-2022",
@@ -717,9 +582,7 @@
       "platform": "Universidade CAIXA",
       "workload": "3h",
       "language": "Português",
-      "topics": [
-        "Blockchain"
-      ],
+      "topics": ["Blockchain"],
       "specializations": [],
       "validationUrl": "https://universidade.caixa.gov.br/poderpublico/",
       "date": "08-2025",
@@ -731,13 +594,8 @@
       "platform": "Coursera",
       "workload": "39h",
       "language": "Inglês",
-      "topics": [
-        "C#",
-        "Back-End"
-      ],
-      "specializations": [
-        "Microsoft Back-End Developer Professional Certificate"
-      ],
+      "topics": ["C#", "Back-End"],
+      "specializations": ["Microsoft Back-End Developer Professional Certificate"],
       "validationUrl": "https://coursera.org/verify/ELHG3OP9NBYS",
       "date": "06-2026",
       "pdf": "Coursera - Microsoft - Foundations of Coding Back-End.pdf"
@@ -748,14 +606,8 @@
       "platform": "Coursera - Microsoft",
       "workload": "40h",
       "language": "Inglês",
-      "topics": [
-        "C#",
-        "Git",
-        "Front-End"
-      ],
-      "specializations": [
-        "Microsoft Front-End Developer Professional Certificate"
-      ],
+      "topics": ["C#", "Git", "Front-End"],
+      "specializations": ["Microsoft Front-End Developer Professional Certificate"],
       "validationUrl": "https://coursera.org/verify/TR6S70WMTDDM",
       "date": "06-2026",
       "pdf": "Coursera - Microsoft - Foundations of Coding Front-End.pdf"
@@ -766,12 +618,8 @@
       "platform": "Coursera - Microsoft",
       "workload": "39h",
       "language": "Inglês",
-      "topics": [
-        "Full-Stack"
-      ],
-      "specializations": [
-        "Microsoft Full-Stack Developer Professional Certificate"
-      ],
+      "topics": ["Full-Stack"],
+      "specializations": ["Microsoft Full-Stack Developer Professional Certificate"],
       "validationUrl": "https://coursera.org/verify/I1EEQAOZJ1X6",
       "date": "06-2026",
       "pdf": "Coursera - Microsoft - Foundations of Coding Full-Stack.pdf"

@@ -8,7 +8,13 @@ import { SectionFadeDirective } from '../shared/section-fade.directive';
   selector: 'app-about',
   imports: [FragComponent, AnimateInDirective, SectionFadeDirective],
   template: `
-    <section class="section" id="sec-about" data-screen-label="02 Sobre" sectionFade [animateIn]="anims">
+    <section
+      class="section"
+      id="sec-about"
+      data-screen-label="02 Sobre"
+      sectionFade
+      [animateIn]="anims"
+    >
       <div class="section__head">
         <span class="num">{{ a().num }}</span>
         <span class="ttl">{{ a().title }}</span>
@@ -21,7 +27,9 @@ import { SectionFadeDirective } from '../shared/section-fade.directive';
           <div class="about__stats">
             @for (s of a().stats; track s.l) {
               <div>
-                <div class="n">{{ s.n }}<sup>{{ s.sup }}</sup></div>
+                <div class="n">
+                  {{ s.n }}<sup>{{ s.sup }}</sup>
+                </div>
                 <div class="l">{{ s.l }}</div>
               </div>
             }
@@ -30,7 +38,7 @@ import { SectionFadeDirective } from '../shared/section-fade.directive';
       </div>
     </section>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AboutComponent {
   private readonly content = inject(ContentService);

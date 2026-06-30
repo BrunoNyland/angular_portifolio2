@@ -1,600 +1,635 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gerenciador de Certificados</title>
+    <style>
+      :root {
+        --bg: #0d1117;
+        --panel: #161b22;
+        --panel-2: #1c232d;
+        --border: #2d3742;
+        --text: #e6edf3;
+        --muted: #8b949e;
+        --accent: #2f81f7;
+        --accent-2: #238636;
+        --danger: #da3633;
+        --chip: #21303f;
+        --radius: 10px;
+      }
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gerenciador de Certificados</title>
-  <style>
-    :root {
-      --bg: #0d1117;
-      --panel: #161b22;
-      --panel-2: #1c232d;
-      --border: #2d3742;
-      --text: #e6edf3;
-      --muted: #8b949e;
-      --accent: #2f81f7;
-      --accent-2: #238636;
-      --danger: #da3633;
-      --chip: #21303f;
-      --radius: 10px;
-    }
+      * {
+        box-sizing: border-box;
+      }
 
-    * {
-      box-sizing: border-box;
-    }
+      body {
+        margin: 0;
+        font-family: -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.5;
+      }
 
-    body {
-      margin: 0;
-      font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.5;
-    }
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        background: rgba(13, 17, 23, 0.92);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid var(--border);
+        padding: 14px 24px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
 
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      background: rgba(13, 17, 23, .92);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--border);
-      padding: 14px 24px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
+      header h1 {
+        font-size: 17px;
+        margin: 0;
+        font-weight: 600;
+      }
 
-    header h1 {
-      font-size: 17px;
-      margin: 0;
-      font-weight: 600;
-    }
+      .count {
+        color: var(--muted);
+        font-size: 13px;
+      }
 
-    .count {
-      color: var(--muted);
-      font-size: 13px;
-    }
+      .grow {
+        flex: 1;
+      }
 
-    .grow {
-      flex: 1;
-    }
-
-    .layout {
-      display: grid;
-      grid-template-columns: 360px 1fr;
-      gap: 0;
-      min-height: calc(100vh - 56px);
-    }
-
-    @media (max-width: 900px) {
       .layout {
-        grid-template-columns: 1fr;
+        display: grid;
+        grid-template-columns: 360px 1fr;
+        gap: 0;
+        min-height: calc(100vh - 56px);
       }
-    }
 
-    .sidebar {
-      border-right: 1px solid var(--border);
-      padding: 16px;
-      overflow-y: auto;
-      max-height: calc(100vh - 56px);
-      position: sticky;
-      top: 56px;
-    }
+      @media (max-width: 900px) {
+        .layout {
+          grid-template-columns: 1fr;
+        }
+      }
 
-    .search {
-      width: 100%;
-      margin-bottom: 12px;
-    }
+      .sidebar {
+        border-right: 1px solid var(--border);
+        padding: 16px;
+        overflow-y: auto;
+        max-height: calc(100vh - 56px);
+        position: sticky;
+        top: 56px;
+      }
 
-    .list-item {
-      padding: 10px 12px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      margin-bottom: 8px;
-      cursor: pointer;
-      background: var(--panel);
-      transition: border-color .15s, background .15s;
-    }
+      .search {
+        width: 100%;
+        margin-bottom: 12px;
+      }
 
-    .list-item:hover {
-      border-color: var(--accent);
-    }
+      .list-item {
+        padding: 10px 12px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        margin-bottom: 8px;
+        cursor: pointer;
+        background: var(--panel);
+        transition:
+          border-color 0.15s,
+          background 0.15s;
+      }
 
-    .list-item.active {
-      border-color: var(--accent);
-      background: var(--panel-2);
-    }
+      .list-item:hover {
+        border-color: var(--accent);
+      }
 
-    .list-item .li-name {
-      font-size: 14px;
-      font-weight: 600;
-    }
+      .list-item.active {
+        border-color: var(--accent);
+        background: var(--panel-2);
+      }
 
-    .list-item .li-meta {
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 2px;
-    }
+      .list-item .li-name {
+        font-size: 14px;
+        font-weight: 600;
+      }
 
-    .li-flag {
-      color: #d29922;
-      font-size: 11px;
-    }
+      .list-item .li-meta {
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 2px;
+      }
 
-    .editor {
-      padding: 24px;
-      overflow-y: auto;
-      max-height: calc(100vh - 56px);
-    }
+      .li-flag {
+        color: #d29922;
+        font-size: 11px;
+      }
 
-    .field {
-      margin-bottom: 16px;
-    }
+      .editor {
+        padding: 24px;
+        overflow-y: auto;
+        max-height: calc(100vh - 56px);
+      }
 
-    label {
-      display: block;
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: .04em;
-      color: var(--muted);
-      margin-bottom: 6px;
-      font-weight: 600;
-    }
+      .field {
+        margin-bottom: 16px;
+      }
 
-    input[type=text],
-    input[type=url],
-    textarea,
-    select {
-      width: 100%;
-      background: var(--panel);
-      border: 1px solid var(--border);
-      color: var(--text);
-      border-radius: 8px;
-      padding: 9px 11px;
-      font-size: 14px;
-      font-family: inherit;
-    }
+      label {
+        display: block;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--muted);
+        margin-bottom: 6px;
+        font-weight: 600;
+      }
 
-    input:focus,
-    textarea:focus,
-    select:focus {
-      outline: none;
-      border-color: var(--accent);
-    }
+      input[type='text'],
+      input[type='url'],
+      textarea,
+      select {
+        width: 100%;
+        background: var(--panel);
+        border: 1px solid var(--border);
+        color: var(--text);
+        border-radius: 8px;
+        padding: 9px 11px;
+        font-size: 14px;
+        font-family: inherit;
+      }
 
-    .row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
+      input:focus,
+      textarea:focus,
+      select:focus {
+        outline: none;
+        border-color: var(--accent);
+      }
 
-    @media (max-width: 560px) {
       .row {
-        grid-template-columns: 1fr;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
       }
-    }
 
-    button {
-      border: 1px solid var(--border);
-      background: var(--panel-2);
-      color: var(--text);
-      padding: 8px 14px;
-      border-radius: 8px;
-      font-size: 13px;
-      cursor: pointer;
-      font-family: inherit;
-    }
+      @media (max-width: 560px) {
+        .row {
+          grid-template-columns: 1fr;
+        }
+      }
 
-    button:hover {
-      border-color: var(--accent);
-    }
+      button {
+        border: 1px solid var(--border);
+        background: var(--panel-2);
+        color: var(--text);
+        padding: 8px 14px;
+        border-radius: 8px;
+        font-size: 13px;
+        cursor: pointer;
+        font-family: inherit;
+      }
 
-    button:disabled {
-      opacity: .4;
-      cursor: not-allowed;
-    }
+      button:hover {
+        border-color: var(--accent);
+      }
 
-    button:disabled:hover {
-      border-color: var(--border);
-    }
+      button:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
 
-    button.primary {
-      background: var(--accent-2);
-      border-color: var(--accent-2);
-    }
+      button:disabled:hover {
+        border-color: var(--border);
+      }
 
-    button.primary:hover {
-      filter: brightness(1.1);
-    }
+      button.primary {
+        background: var(--accent-2);
+        border-color: var(--accent-2);
+      }
 
-    button.accent {
-      background: var(--accent);
-      border-color: var(--accent);
-    }
+      button.primary:hover {
+        filter: brightness(1.1);
+      }
 
-    button.danger {
-      color: #ff7b72;
-    }
+      button.accent {
+        background: var(--accent);
+        border-color: var(--accent);
+      }
 
-    button.danger:hover {
-      border-color: var(--danger);
-      background: rgba(218, 54, 51, .12);
-    }
+      button.danger {
+        color: #ff7b72;
+      }
 
-    button.small {
-      padding: 5px 9px;
-      font-size: 12px;
-    }
+      button.danger:hover {
+        border-color: var(--danger);
+        background: rgba(218, 54, 51, 0.12);
+      }
 
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 8px;
-    }
+      button.small {
+        padding: 5px 9px;
+        font-size: 12px;
+      }
 
-    .chip {
-      background: var(--chip);
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      padding: 3px 6px 3px 11px;
-      font-size: 13px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-bottom: 8px;
+      }
 
-    .chip button {
-      all: unset;
-      cursor: pointer;
-      color: var(--muted);
-      padding: 0 4px;
-      line-height: 1;
-    }
+      .chip {
+        background: var(--chip);
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        padding: 3px 6px 3px 11px;
+        font-size: 13px;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
 
-    .chip button:hover {
-      color: #ff7b72;
-    }
+      .chip button {
+        all: unset;
+        cursor: pointer;
+        color: var(--muted);
+        padding: 0 4px;
+        line-height: 1;
+      }
 
-    .tag-input-wrap {
-      display: flex;
-      gap: 8px;
-    }
+      .chip button:hover {
+        color: #ff7b72;
+      }
 
-    .tag-input-wrap input {
-      flex: 1;
-    }
+      .tag-input-wrap {
+        display: flex;
+        gap: 8px;
+      }
 
-    .empty {
-      color: var(--muted);
-      text-align: center;
-      margin-top: 80px;
-    }
+      .tag-input-wrap input {
+        flex: 1;
+      }
 
-    .toolbar {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
+      .empty {
+        color: var(--muted);
+        text-align: center;
+        margin-top: 80px;
+      }
 
-    .hint {
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 4px;
-    }
+      .toolbar {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
 
-    .editor-head {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
+      .hint {
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 4px;
+      }
 
-    .editor-head h2 {
-      font-size: 16px;
-      margin: 0;
-      flex: 1;
-    }
+      .editor-head {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 20px;
+      }
 
-    .toast {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--accent-2);
-      color: #fff;
-      padding: 10px 18px;
-      border-radius: 8px;
-      font-size: 14px;
-      opacity: 0;
-      transition: opacity .25s;
-      pointer-events: none;
-      z-index: 50;
-    }
+      .editor-head h2 {
+        font-size: 16px;
+        margin: 0;
+        flex: 1;
+      }
 
-    .toast.show {
-      opacity: 1;
-    }
+      .toast {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--accent-2);
+        color: #fff;
+        padding: 10px 18px;
+        border-radius: 8px;
+        font-size: 14px;
+        opacity: 0;
+        transition: opacity 0.25s;
+        pointer-events: none;
+        z-index: 50;
+      }
 
-    datalist {
-      color: #000;
-    }
+      .toast.show {
+        opacity: 1;
+      }
 
-    details.json-preview {
-      margin-top: 20px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 12px;
-    }
+      datalist {
+        color: #000;
+      }
 
-    details.json-preview summary {
-      cursor: pointer;
-      color: var(--muted);
-      font-size: 13px;
-    }
+      details.json-preview {
+        margin-top: 20px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 12px;
+      }
 
-    pre {
-      background: var(--bg);
-      padding: 12px;
-      border-radius: 6px;
-      overflow: auto;
-      font-size: 12px;
-      max-height: 320px;
-    }
+      details.json-preview summary {
+        cursor: pointer;
+        color: var(--muted);
+        font-size: 13px;
+      }
 
-    .filterbar {
-      display: flex;
-      gap: 6px;
-      margin-bottom: 10px;
-    }
+      pre {
+        background: var(--bg);
+        padding: 12px;
+        border-radius: 6px;
+        overflow: auto;
+        font-size: 12px;
+        max-height: 320px;
+      }
 
-    .filterbar select {
-      font-size: 12px;
-      padding: 5px 8px;
-    }
-  </style>
-</head>
+      .filterbar {
+        display: flex;
+        gap: 6px;
+        margin-bottom: 10px;
+      }
 
-<body>
-  <header>
-    <h1>📜 Gerenciador de Certificados</h1>
-    <span class="count" id="count"></span>
-    <div class="grow"></div>
-    <div class="toolbar">
-      <button class="small" id="btn-new">+ Novo curso</button>
-      <button class="small" id="btn-import">Importar JSON</button>
-      <button class="small" id="btn-folder"
-        title="Selecione a pasta certificates para sincronizar os nomes dos PDFs">Ler pasta PDFs</button>
-      <button class="small" id="btn-copy">Copiar JSON</button>
-      <button class="small primary" id="btn-export">Baixar JSON</button>
-    </div>
-    <input type="file" id="file-import" accept="application/json" hidden />
-    <input type="file" id="file-folder" webkitdirectory directory multiple hidden />
-  </header>
+      .filterbar select {
+        font-size: 12px;
+        padding: 5px 8px;
+      }
+    </style>
+  </head>
 
-  <div class="layout">
-    <aside class="sidebar">
-      <input type="text" class="search" id="search" placeholder="Buscar curso, plataforma, tema..." />
-      <div class="filterbar">
-        <select id="filter-platform">
-          <option value="">Todas plataformas</option>
-        </select>
-        <select id="filter-status">
-          <option value="">Todos</option>
-          <option value="incomplete">⚠ Incompletos</option>
-          <option value="complete">✓ Completos</option>
-        </select>
+  <body>
+    <header>
+      <h1>📜 Gerenciador de Certificados</h1>
+      <span class="count" id="count"></span>
+      <div class="grow"></div>
+      <div class="toolbar">
+        <button class="small" id="btn-new">+ Novo curso</button>
+        <button class="small" id="btn-import">Importar JSON</button>
+        <button
+          class="small"
+          id="btn-folder"
+          title="Selecione a pasta certificates para sincronizar os nomes dos PDFs"
+        >
+          Ler pasta PDFs
+        </button>
+        <button class="small" id="btn-copy">Copiar JSON</button>
+        <button class="small primary" id="btn-export">Baixar JSON</button>
       </div>
-      <div id="list"></div>
-    </aside>
+      <input type="file" id="file-import" accept="application/json" hidden />
+      <input type="file" id="file-folder" webkitdirectory directory multiple hidden />
+    </header>
 
-    <main class="editor" id="editor">
-      <div class="empty">Selecione um curso à esquerda ou clique em <strong>+ Novo curso</strong>.</div>
-    </main>
-  </div>
+    <div class="layout">
+      <aside class="sidebar">
+        <input
+          type="text"
+          class="search"
+          id="search"
+          placeholder="Buscar curso, plataforma, tema..."
+        />
+        <div class="filterbar">
+          <select id="filter-platform">
+            <option value="">Todas plataformas</option>
+          </select>
+          <select id="filter-status">
+            <option value="">Todos</option>
+            <option value="incomplete">⚠ Incompletos</option>
+            <option value="complete">✓ Completos</option>
+          </select>
+        </div>
+        <div id="list"></div>
+      </aside>
 
-  <div class="toast" id="toast"></div>
+      <main class="editor" id="editor">
+        <div class="empty">
+          Selecione um curso à esquerda ou clique em <strong>+ Novo curso</strong>.
+        </div>
+      </main>
+    </div>
 
-  <script>
-    /* ============================================================
+    <div class="toast" id="toast"></div>
+
+    <script>
+      /* ============================================================
        Lista real dos PDFs em public/certificates (seed inicial).
        Use "Ler pasta PDFs" para re-sincronizar a qualquer momento.
        ============================================================ */
-    const SEED_FILES = [
-      "AdaTech - Ameaças digitais - 06-2025 - 5h.pdf",
-      "AdaTech - Angular Avançado - 04-2026 - 5h.pdf",
-      "AdaTech - CAIXAVERSO - Dev Front-end - Nível I - 06-2025 - 15h.pdf",
-      "AdaTech - CAIXAVERSO - Dev Front-end - Nível II - 09-2025 - 22h.pdf",
-      "AdaTech - CAIXAVERSO - Dev Front-end - Nível III - 04-2026 - 11h.pdf.pdf",
-      "AdaTech - CAIXAVERSO - Programação Orientada a Objetos e Front End Dinâmico com JS - 10-2025 - 48h.pdf",
-      "AdaTech - CSS - 06-2025 - 6h.pdf",
-      "AdaTech - Desenvolvimento Web básico com JavaScript - 09-2025 - 14h.pdf",
-      "AdaTech - Desenvolvimento Web intermediário com JavaScript - 09-2025 - 4h.pdf",
-      "AdaTech - Fundamentos matemáticos - 06-2025 - 3h.pdf",
-      "AdaTech - Git e Versionamento - 09-2025 - 2h.pdf",
-      "AdaTech - Governança de dados - 09-2025 - 2h.pdf",
-      "AdaTech - HTML - 06-2025 - 3h.pdf",
-      "AdaTech - Introdução ao Angular - 10-2025 - 2h.pdf",
-      "AdaTech - Introdução à Infraestrutura Web - 06-2025 - 3h.pdf",
-      "AdaTech - Lógica de programação avançada com Javascript - 09-2025 - 4h.pdf",
-      "AdaTech - Lógica de programação básica com Javascript - 06-2025 - 3h.pdf",
-      "AdaTech - Lógica de programação intermediária com Javascript - 08-2025 - 2h.pdf",
-      "AdaTech - Metodologias Ágeis de Projeto - 06-2025 - 2h.pdf",
-      "Coursera - Board Infinite - Angular Advanced Enterprise Patterns - SSR & Performance - 05-2026 - 20h.pdf",
-      "Coursera - Board Infinity - Angular 21 Specialization - 05-2026 - 60h (3 Courses).pdf",
-      "Coursera - Board Infinity - Angular Foundation & Application Architecture - 04-2026 - 19h.pdf",
-      "Coursera - Board Infinity - Angular Intermediate - 05-2026 - 20h.pdf",
-      "Coursera - Learn Angular Routing by building a Cocktails Application - 05-2026 - 1h.pdf",
-      "Coursera - LearnQuest - Advanced Angular Development - 05-2026 - 13h.pdf",
-      "Coursera - LearnQuest - Advanced Angular Topics - 04-2026 - 13h.pdf",
-      "Coursera - LearnQuest - Angular 17 Overview & Basics - 04-2026 - 12h.pdf",
-      "Coursera - LearnQuest - Angular 17 Specialization - 05-2026 - 38h (3 Courses).pdf",
-      "Coursera - Meta - Advanced React.pdf",
-      "Coursera - Meta - HTML and CSS in depth.pdf",
-      "Coursera - Meta - Intrudução-Back-End.pdf",
-      "Coursera - Meta - Intrudução-Front-End.pdf",
-      "Coursera - Meta - Programming with JavaScript.pdf",
-      "Coursera - Meta - React Basics.pdf",
-      "Coursera - Meta - Specialization React.pdf",
-      "Coursera - Meta - Version Control.pdf",
-      "Coursera - Scrimba - JavaScript Deep Dive.pdf",
-      "Coursera - Scrimba - JavaScript Interview Prep Real Coding Questions.pdf",
-      "Coursera - Scrimba - Learn HTML and CSS - 05-2026 - 13h.pdf",
-      "Coursera - Scrimba - React.pdf",
-      "ENAP - Aprendendo com Python - 08-2025 - 20h.pdf",
-      "ENAP - Automação de Processo Através de RPA para Transformação Digital - 06-2025 - 25h.pdf",
-      "ENAP - Excel Avançado - 09-2025 - 30h.pdf",
-      "ENAP - Excel Intermediário - 09-2025 - 30h.pdf",
-      "ENAP - Introdução ao Excel - 09-2025 - 25h.pdf",
-      "Microlins - Curso Redes e Montagem de Computadores - 2009 - 48hs.pdf",
-      "Mundi Game Experiences - Sustentabilidade Game Experience - 09-2025 - 6h.pdf",
-      "Rocketseat - Discover Conectar - 09-2022 - 2h.pdf",
-      "Universidade CAIXA - Introdução à Blockchain - 08-2025 - 3h.pdf"
-    ];
+      const SEED_FILES = [
+        'AdaTech - Ameaças digitais - 06-2025 - 5h.pdf',
+        'AdaTech - Angular Avançado - 04-2026 - 5h.pdf',
+        'AdaTech - CAIXAVERSO - Dev Front-end - Nível I - 06-2025 - 15h.pdf',
+        'AdaTech - CAIXAVERSO - Dev Front-end - Nível II - 09-2025 - 22h.pdf',
+        'AdaTech - CAIXAVERSO - Dev Front-end - Nível III - 04-2026 - 11h.pdf.pdf',
+        'AdaTech - CAIXAVERSO - Programação Orientada a Objetos e Front End Dinâmico com JS - 10-2025 - 48h.pdf',
+        'AdaTech - CSS - 06-2025 - 6h.pdf',
+        'AdaTech - Desenvolvimento Web básico com JavaScript - 09-2025 - 14h.pdf',
+        'AdaTech - Desenvolvimento Web intermediário com JavaScript - 09-2025 - 4h.pdf',
+        'AdaTech - Fundamentos matemáticos - 06-2025 - 3h.pdf',
+        'AdaTech - Git e Versionamento - 09-2025 - 2h.pdf',
+        'AdaTech - Governança de dados - 09-2025 - 2h.pdf',
+        'AdaTech - HTML - 06-2025 - 3h.pdf',
+        'AdaTech - Introdução ao Angular - 10-2025 - 2h.pdf',
+        'AdaTech - Introdução à Infraestrutura Web - 06-2025 - 3h.pdf',
+        'AdaTech - Lógica de programação avançada com Javascript - 09-2025 - 4h.pdf',
+        'AdaTech - Lógica de programação básica com Javascript - 06-2025 - 3h.pdf',
+        'AdaTech - Lógica de programação intermediária com Javascript - 08-2025 - 2h.pdf',
+        'AdaTech - Metodologias Ágeis de Projeto - 06-2025 - 2h.pdf',
+        'Coursera - Board Infinite - Angular Advanced Enterprise Patterns - SSR & Performance - 05-2026 - 20h.pdf',
+        'Coursera - Board Infinity - Angular 21 Specialization - 05-2026 - 60h (3 Courses).pdf',
+        'Coursera - Board Infinity - Angular Foundation & Application Architecture - 04-2026 - 19h.pdf',
+        'Coursera - Board Infinity - Angular Intermediate - 05-2026 - 20h.pdf',
+        'Coursera - Learn Angular Routing by building a Cocktails Application - 05-2026 - 1h.pdf',
+        'Coursera - LearnQuest - Advanced Angular Development - 05-2026 - 13h.pdf',
+        'Coursera - LearnQuest - Advanced Angular Topics - 04-2026 - 13h.pdf',
+        'Coursera - LearnQuest - Angular 17 Overview & Basics - 04-2026 - 12h.pdf',
+        'Coursera - LearnQuest - Angular 17 Specialization - 05-2026 - 38h (3 Courses).pdf',
+        'Coursera - Meta - Advanced React.pdf',
+        'Coursera - Meta - HTML and CSS in depth.pdf',
+        'Coursera - Meta - Intrudução-Back-End.pdf',
+        'Coursera - Meta - Intrudução-Front-End.pdf',
+        'Coursera - Meta - Programming with JavaScript.pdf',
+        'Coursera - Meta - React Basics.pdf',
+        'Coursera - Meta - Specialization React.pdf',
+        'Coursera - Meta - Version Control.pdf',
+        'Coursera - Scrimba - JavaScript Deep Dive.pdf',
+        'Coursera - Scrimba - JavaScript Interview Prep Real Coding Questions.pdf',
+        'Coursera - Scrimba - Learn HTML and CSS - 05-2026 - 13h.pdf',
+        'Coursera - Scrimba - React.pdf',
+        'ENAP - Aprendendo com Python - 08-2025 - 20h.pdf',
+        'ENAP - Automação de Processo Através de RPA para Transformação Digital - 06-2025 - 25h.pdf',
+        'ENAP - Excel Avançado - 09-2025 - 30h.pdf',
+        'ENAP - Excel Intermediário - 09-2025 - 30h.pdf',
+        'ENAP - Introdução ao Excel - 09-2025 - 25h.pdf',
+        'Microlins - Curso Redes e Montagem de Computadores - 2009 - 48hs.pdf',
+        'Mundi Game Experiences - Sustentabilidade Game Experience - 09-2025 - 6h.pdf',
+        'Rocketseat - Discover Conectar - 09-2022 - 2h.pdf',
+        'Universidade CAIXA - Introdução à Blockchain - 08-2025 - 3h.pdf',
+      ];
 
-    const STORAGE_KEY = "certificates-manager-v1";
+      const STORAGE_KEY = 'certificates-manager-v1';
 
-    /* ---------- Parser do nome do arquivo ---------- */
-    function parseFilename(filename) {
-      const base = filename.replace(/\.pdf$/i, "").replace(/\.pdf$/i, ""); // tolera ".pdf.pdf"
-      const tokens = base.split(" - ").map(t => t.trim()).filter(Boolean);
+      /* ---------- Parser do nome do arquivo ---------- */
+      function parseFilename(filename) {
+        const base = filename.replace(/\.pdf$/i, '').replace(/\.pdf$/i, ''); // tolera ".pdf.pdf"
+        const tokens = base
+          .split(' - ')
+          .map((t) => t.trim())
+          .filter(Boolean);
 
-      const reDate = /^(\d{2}-\d{4}|\d{4})$/;          // 06-2025 ou 2009
-      const reHours = /\b\d+\s*hs?\b/i;                // 5h, 48hs, 60h (3 Courses)
+        const reDate = /^(\d{2}-\d{4}|\d{4})$/; // 06-2025 ou 2009
+        const reHours = /\b\d+\s*hs?\b/i; // 5h, 48hs, 60h (3 Courses)
 
-      let date = "";
-      let workload = "";
-      const nameParts = [];
+        let date = '';
+        let workload = '';
+        const nameParts = [];
 
-      tokens.forEach((tok, i) => {
-        if (i === 0) return; // plataforma tratada separadamente
-        if (!date && reDate.test(tok)) { date = tok; return; }
-        if (!workload && reHours.test(tok)) { workload = tok; return; }
-        nameParts.push(tok);
-      });
+        tokens.forEach((tok, i) => {
+          if (i === 0) return; // plataforma tratada separadamente
+          if (!date && reDate.test(tok)) {
+            date = tok;
+            return;
+          }
+          if (!workload && reHours.test(tok)) {
+            workload = tok;
+            return;
+          }
+          nameParts.push(tok);
+        });
 
-      return {
-        platform: tokens[0] || "",
-        name: nameParts.join(" - "),
-        date,
-        workload,
-        pdf: filename
-      };
-    }
-
-    function makeCourse(filename) {
-      const p = parseFilename(filename);
-      return {
-        id: crypto.randomUUID(),
-        name: p.name,
-        nameEn: "",
-        platform: p.platform,
-        workload: p.workload,
-        language: "Português",
-        topics: [],
-        specializations: [],
-        validationUrl: "",
-        date: p.date,
-        pdf: p.pdf
-      };
-    }
-
-    /* ---------- Estado ---------- */
-    let state = { courses: [] };
-    let selectedId = null;
-
-    function load() {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) {
-        try {
-          state = JSON.parse(raw);
-          state.courses = (state.courses || []).map(normalizeCourse);
-        }
-        catch { state = { courses: [] }; }
-      } else {
-        state.courses = SEED_FILES.map(makeCourse);
-        save();
-      }
-    }
-    function save() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state, null, 2));
-    }
-
-    /* ---------- Helpers ---------- */
-    function isComplete(c) {
-      return c.name && c.platform && c.workload && c.date &&
-        c.topics.length > 0 && c.validationUrl;
-    }
-    function uniquePlatforms() {
-      return [...new Set(state.courses.map(c => c.platform).filter(Boolean))].sort();
-    }
-    function allTopics() {
-      return [...new Set(state.courses.flatMap(c => c.topics))].sort();
-    }
-    function allSpecializations() {
-      return [...new Set(state.courses.flatMap(c => c.specializations))].sort();
-    }
-    function toast(msg) {
-      const t = document.getElementById("toast");
-      t.textContent = msg; t.classList.add("show");
-      clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove("show"), 1800);
-    }
-
-    /* ---------- Render lista ---------- */
-    function renderList() {
-      const term = document.getElementById("search").value.toLowerCase();
-      const fPlat = document.getElementById("filter-platform").value;
-      const fStat = document.getElementById("filter-status").value;
-      const list = document.getElementById("list");
-      list.innerHTML = "";
-
-      let items = state.courses.filter(c => {
-        if (fPlat && c.platform !== fPlat) return false;
-        if (fStat === "complete" && !isComplete(c)) return false;
-        if (fStat === "incomplete" && isComplete(c)) return false;
-        if (term) {
-          const hay = [c.name, c.platform, ...c.topics, ...c.specializations].join(" ").toLowerCase();
-          if (!hay.includes(term)) return false;
-        }
-        return true;
-      });
-
-      document.getElementById("count").textContent =
-        `${state.courses.length} cursos · ${state.courses.filter(isComplete).length} completos`;
-
-      items.forEach(c => {
-        const div = document.createElement("div");
-        div.className = "list-item" + (c.id === selectedId ? " active" : "");
-        div.onclick = () => { selectedId = c.id; render(); };
-        const meta = [c.platform, c.date, c.workload].filter(Boolean).join(" · ");
-        div.innerHTML = `
-      <div class="li-name">${escapeHtml(c.name || "(sem nome)")}</div>
-      <div class="li-meta">${escapeHtml(meta)} ${isComplete(c) ? "" : '<span class="li-flag">⚠ incompleto</span>'}</div>`;
-        list.appendChild(div);
-      });
-
-      // popular filtro de plataformas
-      const sel = document.getElementById("filter-platform");
-      const cur = sel.value;
-      sel.innerHTML = '<option value="">Todas plataformas</option>' +
-        uniquePlatforms().map(p => `<option${p === cur ? " selected" : ""}>${escapeHtml(p)}</option>`).join("");
-    }
-
-    /* ---------- Render editor ---------- */
-    function render() {
-      renderList();
-      const ed = document.getElementById("editor");
-      const c = state.courses.find(x => x.id === selectedId);
-      if (!c) {
-        ed.innerHTML = '<div class="empty">Selecione um curso à esquerda ou clique em <strong>+ Novo curso</strong>.</div>';
-        return;
+        return {
+          platform: tokens[0] || '',
+          name: nameParts.join(' - '),
+          date,
+          workload,
+          pdf: filename,
+        };
       }
 
-      ed.innerHTML = `
+      function makeCourse(filename) {
+        const p = parseFilename(filename);
+        return {
+          id: crypto.randomUUID(),
+          name: p.name,
+          nameEn: '',
+          platform: p.platform,
+          workload: p.workload,
+          language: 'Português',
+          topics: [],
+          specializations: [],
+          validationUrl: '',
+          date: p.date,
+          pdf: p.pdf,
+        };
+      }
+
+      /* ---------- Estado ---------- */
+      let state = { courses: [] };
+      let selectedId = null;
+
+      function load() {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          try {
+            state = JSON.parse(raw);
+            state.courses = (state.courses || []).map(normalizeCourse);
+          } catch {
+            state = { courses: [] };
+          }
+        } else {
+          state.courses = SEED_FILES.map(makeCourse);
+          save();
+        }
+      }
+      function save() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state, null, 2));
+      }
+
+      /* ---------- Helpers ---------- */
+      function isComplete(c) {
+        return (
+          c.name && c.platform && c.workload && c.date && c.topics.length > 0 && c.validationUrl
+        );
+      }
+      function uniquePlatforms() {
+        return [...new Set(state.courses.map((c) => c.platform).filter(Boolean))].sort();
+      }
+      function allTopics() {
+        return [...new Set(state.courses.flatMap((c) => c.topics))].sort();
+      }
+      function allSpecializations() {
+        return [...new Set(state.courses.flatMap((c) => c.specializations))].sort();
+      }
+      function toast(msg) {
+        const t = document.getElementById('toast');
+        t.textContent = msg;
+        t.classList.add('show');
+        clearTimeout(t._t);
+        t._t = setTimeout(() => t.classList.remove('show'), 1800);
+      }
+
+      /* ---------- Render lista ---------- */
+      function renderList() {
+        const term = document.getElementById('search').value.toLowerCase();
+        const fPlat = document.getElementById('filter-platform').value;
+        const fStat = document.getElementById('filter-status').value;
+        const list = document.getElementById('list');
+        list.innerHTML = '';
+
+        let items = state.courses.filter((c) => {
+          if (fPlat && c.platform !== fPlat) return false;
+          if (fStat === 'complete' && !isComplete(c)) return false;
+          if (fStat === 'incomplete' && isComplete(c)) return false;
+          if (term) {
+            const hay = [c.name, c.platform, ...c.topics, ...c.specializations]
+              .join(' ')
+              .toLowerCase();
+            if (!hay.includes(term)) return false;
+          }
+          return true;
+        });
+
+        document.getElementById('count').textContent =
+          `${state.courses.length} cursos · ${state.courses.filter(isComplete).length} completos`;
+
+        items.forEach((c) => {
+          const div = document.createElement('div');
+          div.className = 'list-item' + (c.id === selectedId ? ' active' : '');
+          div.onclick = () => {
+            selectedId = c.id;
+            render();
+          };
+          const meta = [c.platform, c.date, c.workload].filter(Boolean).join(' · ');
+          div.innerHTML = `
+      <div class="li-name">${escapeHtml(c.name || '(sem nome)')}</div>
+      <div class="li-meta">${escapeHtml(meta)} ${isComplete(c) ? '' : '<span class="li-flag">⚠ incompleto</span>'}</div>`;
+          list.appendChild(div);
+        });
+
+        // popular filtro de plataformas
+        const sel = document.getElementById('filter-platform');
+        const cur = sel.value;
+        sel.innerHTML =
+          '<option value="">Todas plataformas</option>' +
+          uniquePlatforms()
+            .map((p) => `<option${p === cur ? ' selected' : ''}>${escapeHtml(p)}</option>`)
+            .join('');
+      }
+
+      /* ---------- Render editor ---------- */
+      function render() {
+        renderList();
+        const ed = document.getElementById('editor');
+        const c = state.courses.find((x) => x.id === selectedId);
+        if (!c) {
+          ed.innerHTML =
+            '<div class="empty">Selecione um curso à esquerda ou clique em <strong>+ Novo curso</strong>.</div>';
+          return;
+        }
+
+        ed.innerHTML = `
     <div class="editor-head">
-      <h2>${escapeHtml(c.name || "(novo curso)")}</h2>
+      <h2>${escapeHtml(c.name || '(novo curso)')}</h2>
       <button class="danger small" id="btn-delete">Excluir</button>
     </div>
 
@@ -613,7 +648,9 @@
       <div class="field">
         <label>Plataforma (escola)</label>
         <input type="text" id="f-platform" list="dl-platforms" value="${attr(c.platform)}" />
-        <datalist id="dl-platforms">${uniquePlatforms().map(p => `<option value="${attr(p)}">`).join("")}</datalist>
+        <datalist id="dl-platforms">${uniquePlatforms()
+          .map((p) => `<option value="${attr(p)}">`)
+          .join('')}</datalist>
       </div>
       <div class="field">
         <label>Carga horária</label>
@@ -629,7 +666,7 @@
       <div class="field">
         <label>Língua do curso</label>
         <select id="f-language">
-          ${["Português", "Inglês", "Espanhol"].map(l => `<option${c.language === l ? " selected" : ""}>${l}</option>`).join("")}
+          ${['Português', 'Inglês', 'Espanhol'].map((l) => `<option${c.language === l ? ' selected' : ''}>${l}</option>`).join('')}
         </select>
       </div>
     </div>
@@ -641,7 +678,9 @@
         <input type="text" id="in-topic" list="dl-topics" placeholder="Adicionar tema e Enter" />
         <button class="small" id="add-topic">Adicionar</button>
       </div>
-      <datalist id="dl-topics">${allTopics().map(t => `<option value="${attr(t)}">`).join("")}</datalist>
+      <datalist id="dl-topics">${allTopics()
+        .map((t) => `<option value="${attr(t)}">`)
+        .join('')}</datalist>
     </div>
 
     <div class="field">
@@ -651,7 +690,9 @@
         <input type="text" id="in-spec" list="dl-specs" placeholder="Adicionar especialização e Enter" />
         <button class="small" id="add-spec">Adicionar</button>
       </div>
-      <datalist id="dl-specs">${allSpecializations().map(t => `<option value="${attr(t)}">`).join("")}</datalist>
+      <datalist id="dl-specs">${allSpecializations()
+        .map((t) => `<option value="${attr(t)}">`)
+        .join('')}</datalist>
       <div class="hint">Um curso pode pertencer a mais de um programa de especialização.</div>
     </div>
 
@@ -664,162 +705,249 @@
       <label>Arquivo PDF</label>
       <div class="tag-input-wrap">
         <input type="text" id="f-pdf" value="${attr(c.pdf)}" />
-        <button class="small accent" id="open-pdf" ${c.pdf ? "" : "disabled"}>Abrir PDF ↗</button>
+        <button class="small accent" id="open-pdf" ${c.pdf ? '' : 'disabled'}>Abrir PDF ↗</button>
       </div>
       <div class="hint">Nome do arquivo dentro de public/certificates/</div>
     </div>
   `;
 
-      renderTags(c);
+        renderTags(c);
 
-      // bindings
-      bindInput("f-name", v => c.name = v);
-      bindInput("f-nameEn", v => c.nameEn = v);
-      bindInput("f-platform", v => c.platform = v);
-      bindInput("f-workload", v => c.workload = v);
-      bindInput("f-date", v => c.date = v);
-      bindInput("f-language", v => c.language = v);
-      bindInput("f-url", v => c.validationUrl = v);
-      bindInput("f-pdf", v => {
-        c.pdf = v;
-        document.getElementById("open-pdf").disabled = !v.trim();
-      });
+        // bindings
+        bindInput('f-name', (v) => (c.name = v));
+        bindInput('f-nameEn', (v) => (c.nameEn = v));
+        bindInput('f-platform', (v) => (c.platform = v));
+        bindInput('f-workload', (v) => (c.workload = v));
+        bindInput('f-date', (v) => (c.date = v));
+        bindInput('f-language', (v) => (c.language = v));
+        bindInput('f-url', (v) => (c.validationUrl = v));
+        bindInput('f-pdf', (v) => {
+          c.pdf = v;
+          document.getElementById('open-pdf').disabled = !v.trim();
+        });
 
-      document.getElementById("open-pdf").onclick = () => {
-        const name = c.pdf.trim();
-        if (!name) return;
-        // tools/ -> ../public/certificates/
-        window.open("../public/certificates-content/" + encodeURIComponent(name), "_blank");
+        document.getElementById('open-pdf').onclick = () => {
+          const name = c.pdf.trim();
+          if (!name) return;
+          // tools/ -> ../public/certificates/
+          window.open('../public/certificates-content/' + encodeURIComponent(name), '_blank');
+        };
+
+        const addTopic = () => {
+          const inp = document.getElementById('in-topic');
+          const v = inp.value.trim();
+          if (v && !c.topics.includes(v)) {
+            c.topics.push(v);
+            save();
+            renderTags(c);
+            renderList();
+          }
+          inp.value = '';
+          inp.focus();
+        };
+        const addSpec = () => {
+          const inp = document.getElementById('in-spec');
+          const v = inp.value.trim();
+          if (v && !c.specializations.includes(v)) {
+            c.specializations.push(v);
+            save();
+            renderTags(c);
+            renderList();
+          }
+          inp.value = '';
+          inp.focus();
+        };
+        document.getElementById('add-topic').onclick = addTopic;
+        document.getElementById('add-spec').onclick = addSpec;
+        document.getElementById('in-topic').onkeydown = (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            addTopic();
+          }
+        };
+        document.getElementById('in-spec').onkeydown = (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            addSpec();
+          }
+        };
+
+        document.getElementById('btn-delete').onclick = () => {
+          if (confirm('Excluir este curso da lista?')) {
+            state.courses = state.courses.filter((x) => x.id !== c.id);
+            selectedId = null;
+            save();
+            render();
+            toast('Curso excluído');
+          }
+        };
+      }
+
+      function renderTags(c) {
+        const t = document.getElementById('tags-topics');
+        const s = document.getElementById('tags-specs');
+        t.innerHTML =
+          c.topics.map((tag, i) => chip(tag, 'topic', i)).join('') ||
+          '<span class="hint">Nenhum tema ainda.</span>';
+        s.innerHTML =
+          c.specializations.map((tag, i) => chip(tag, 'spec', i)).join('') ||
+          '<span class="hint">Nenhuma especialização.</span>';
+        t.querySelectorAll('button[data-i]').forEach(
+          (b) =>
+            (b.onclick = () => {
+              c.topics.splice(+b.dataset.i, 1);
+              save();
+              renderTags(c);
+              renderList();
+            }),
+        );
+        s.querySelectorAll('button[data-i]').forEach(
+          (b) =>
+            (b.onclick = () => {
+              c.specializations.splice(+b.dataset.i, 1);
+              save();
+              renderTags(c);
+              renderList();
+            }),
+        );
+      }
+      function chip(text, kind, i) {
+        return `<span class="chip">${escapeHtml(text)}<button data-i="${i}" data-kind="${kind}" title="Remover">✕</button></span>`;
+      }
+      function bindInput(id, setter) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.oninput = () => {
+          setter(el.value);
+          save();
+        };
+        el.onchange = () => {
+          renderList();
+        };
+      }
+
+      /* ---------- Util ---------- */
+      function escapeHtml(s) {
+        return String(s ?? '').replace(
+          /[&<>"']/g,
+          (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m],
+        );
+      }
+      function attr(s) {
+        return escapeHtml(s).replace(/"/g, '&quot;');
+      }
+
+      /* ---------- Ações de topo ---------- */
+      document.getElementById('btn-new').onclick = () => {
+        const c = {
+          id: crypto.randomUUID(),
+          name: '',
+          nameEn: '',
+          platform: '',
+          workload: '',
+          language: 'Português',
+          topics: [],
+          specializations: [],
+          validationUrl: '',
+          date: '',
+          pdf: '',
+        };
+        state.courses.unshift(c);
+        selectedId = c.id;
+        save();
+        render();
       };
 
-      const addTopic = () => {
-        const inp = document.getElementById("in-topic");
-        const v = inp.value.trim();
-        if (v && !c.topics.includes(v)) { c.topics.push(v); save(); renderTags(c); renderList(); }
-        inp.value = ""; inp.focus();
+      document.getElementById('btn-export').onclick = () => {
+        const blob = new Blob([JSON.stringify(exportData(), null, 2)], {
+          type: 'application/json',
+        });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'certificates.json';
+        a.click();
+        toast('certificates.json baixado');
       };
-      const addSpec = () => {
-        const inp = document.getElementById("in-spec");
-        const v = inp.value.trim();
-        if (v && !c.specializations.includes(v)) { c.specializations.push(v); save(); renderTags(c); renderList(); }
-        inp.value = ""; inp.focus();
+
+      document.getElementById('btn-copy').onclick = async () => {
+        await navigator.clipboard.writeText(JSON.stringify(exportData(), null, 2));
+        toast('JSON copiado para a área de transferência');
       };
-      document.getElementById("add-topic").onclick = addTopic;
-      document.getElementById("add-spec").onclick = addSpec;
-      document.getElementById("in-topic").onkeydown = e => { if (e.key === "Enter") { e.preventDefault(); addTopic(); } };
-      document.getElementById("in-spec").onkeydown = e => { if (e.key === "Enter") { e.preventDefault(); addSpec(); } };
 
-      document.getElementById("btn-delete").onclick = () => {
-        if (confirm("Excluir este curso da lista?")) {
-          state.courses = state.courses.filter(x => x.id !== c.id);
-          selectedId = null; save(); render(); toast("Curso excluído");
-        }
+      document.getElementById('btn-import').onclick = () =>
+        document.getElementById('file-import').click();
+      document.getElementById('file-import').onchange = (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const r = new FileReader();
+        r.onload = () => {
+          try {
+            const data = JSON.parse(r.result);
+            const arr = Array.isArray(data) ? data : data.courses;
+            if (!Array.isArray(arr)) throw 0;
+            state.courses = arr.map(normalizeCourse);
+            selectedId = null;
+            save();
+            render();
+            toast('JSON importado');
+          } catch {
+            alert('Arquivo JSON inválido.');
+          }
+        };
+        r.readAsText(file);
+        e.target.value = '';
       };
-    }
 
-    function renderTags(c) {
-      const t = document.getElementById("tags-topics");
-      const s = document.getElementById("tags-specs");
-      t.innerHTML = c.topics.map((tag, i) => chip(tag, "topic", i)).join("") || '<span class="hint">Nenhum tema ainda.</span>';
-      s.innerHTML = c.specializations.map((tag, i) => chip(tag, "spec", i)).join("") || '<span class="hint">Nenhuma especialização.</span>';
-      t.querySelectorAll("button[data-i]").forEach(b => b.onclick = () => { c.topics.splice(+b.dataset.i, 1); save(); renderTags(c); renderList(); });
-      s.querySelectorAll("button[data-i]").forEach(b => b.onclick = () => { c.specializations.splice(+b.dataset.i, 1); save(); renderTags(c); renderList(); });
-    }
-    function chip(text, kind, i) {
-      return `<span class="chip">${escapeHtml(text)}<button data-i="${i}" data-kind="${kind}" title="Remover">✕</button></span>`;
-    }
-    function bindInput(id, setter) {
-      const el = document.getElementById(id);
-      if (!el) return;
-      el.oninput = () => { setter(el.value); save(); };
-      el.onchange = () => { renderList(); };
-    }
-
-    /* ---------- Util ---------- */
-    function escapeHtml(s) { return String(s ?? "").replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m])); }
-    function attr(s) { return escapeHtml(s).replace(/"/g, '&quot;'); }
-
-    /* ---------- Ações de topo ---------- */
-    document.getElementById("btn-new").onclick = () => {
-      const c = { id: crypto.randomUUID(), name: "", nameEn: "", platform: "", workload: "", language: "Português", topics: [], specializations: [], validationUrl: "", date: "", pdf: "" };
-      state.courses.unshift(c); selectedId = c.id; save(); render();
-    };
-
-    document.getElementById("btn-export").onclick = () => {
-      const blob = new Blob([JSON.stringify(exportData(), null, 2)], { type: "application/json" });
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = "certificates.json";
-      a.click();
-      toast("certificates.json baixado");
-    };
-
-    document.getElementById("btn-copy").onclick = async () => {
-      await navigator.clipboard.writeText(JSON.stringify(exportData(), null, 2));
-      toast("JSON copiado para a área de transferência");
-    };
-
-    document.getElementById("btn-import").onclick = () => document.getElementById("file-import").click();
-    document.getElementById("file-import").onchange = e => {
-      const file = e.target.files[0]; if (!file) return;
-      const r = new FileReader();
-      r.onload = () => {
-        try {
-          const data = JSON.parse(r.result);
-          const arr = Array.isArray(data) ? data : data.courses;
-          if (!Array.isArray(arr)) throw 0;
-          state.courses = arr.map(normalizeCourse);
-          selectedId = null; save(); render(); toast("JSON importado");
-        } catch { alert("Arquivo JSON inválido."); }
+      /* Lê a pasta certificates e adiciona PDFs novos sem apagar dados preenchidos */
+      document.getElementById('btn-folder').onclick = () =>
+        document.getElementById('file-folder').click();
+      document.getElementById('file-folder').onchange = (e) => {
+        const pdfs = [...e.target.files].filter((f) => /\.pdf$/i.test(f.name)).map((f) => f.name);
+        const existing = new Set(state.courses.map((c) => c.pdf));
+        let added = 0;
+        pdfs.forEach((name) => {
+          if (!existing.has(name)) {
+            state.courses.push(makeCourse(name));
+            added++;
+          }
+        });
+        save();
+        render();
+        toast(added ? `${added} PDF(s) novo(s) adicionado(s)` : 'Nenhum PDF novo encontrado');
+        e.target.value = '';
       };
-      r.readAsText(file);
-      e.target.value = "";
-    };
 
-    /* Lê a pasta certificates e adiciona PDFs novos sem apagar dados preenchidos */
-    document.getElementById("btn-folder").onclick = () => document.getElementById("file-folder").click();
-    document.getElementById("file-folder").onchange = e => {
-      const pdfs = [...e.target.files].filter(f => /\.pdf$/i.test(f.name)).map(f => f.name);
-      const existing = new Set(state.courses.map(c => c.pdf));
-      let added = 0;
-      pdfs.forEach(name => { if (!existing.has(name)) { state.courses.push(makeCourse(name)); added++; } });
-      save(); render();
-      toast(added ? `${added} PDF(s) novo(s) adicionado(s)` : "Nenhum PDF novo encontrado");
-      e.target.value = "";
-    };
+      function normalizeCourse(c) {
+        return {
+          id: c.id || crypto.randomUUID(),
+          name: c.name || '',
+          nameEn: c.nameEn || '',
+          platform: c.platform || '',
+          workload: c.workload || '',
+          language: c.language || 'Português',
+          topics: Array.isArray(c.topics) ? c.topics : [],
+          specializations: Array.isArray(c.specializations) ? c.specializations : [],
+          validationUrl: c.validationUrl || '',
+          date: c.date || '',
+          pdf: c.pdf || '',
+        };
+      }
 
-    function normalizeCourse(c) {
-      return {
-        id: c.id || crypto.randomUUID(),
-        name: c.name || "",
-        nameEn: c.nameEn || "",
-        platform: c.platform || "",
-        workload: c.workload || "",
-        language: c.language || "Português",
-        topics: Array.isArray(c.topics) ? c.topics : [],
-        specializations: Array.isArray(c.specializations) ? c.specializations : [],
-        validationUrl: c.validationUrl || "",
-        date: c.date || "",
-        pdf: c.pdf || ""
-      };
-    }
+      /* JSON exportado sem o campo interno "id" */
+      function exportData() {
+        return {
+          courses: state.courses.map(({ id, ...rest }) => rest),
+        };
+      }
 
-    /* JSON exportado sem o campo interno "id" */
-    function exportData() {
-      return {
-        courses: state.courses.map(({ id, ...rest }) => rest)
-      };
-    }
+      /* ---------- Eventos globais ---------- */
+      document.getElementById('search').oninput = renderList;
+      document.getElementById('filter-platform').onchange = renderList;
+      document.getElementById('filter-status').onchange = renderList;
 
-    /* ---------- Eventos globais ---------- */
-    document.getElementById("search").oninput = renderList;
-    document.getElementById("filter-platform").onchange = renderList;
-    document.getElementById("filter-status").onchange = renderList;
-
-    /* ---------- Boot ---------- */
-    load();
-    render();
-  </script>
-</body>
-
+      /* ---------- Boot ---------- */
+      load();
+      render();
+    </script>
+  </body>
 </html>

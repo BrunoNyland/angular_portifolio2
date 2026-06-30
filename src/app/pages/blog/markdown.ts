@@ -37,7 +37,9 @@ const marked = new Marked(
   markedHighlight({
     langPrefix: 'hljs language-',
     highlight: (code, lang) =>
-      lang && hljs.getLanguage(lang) ? hljs.highlight(code, { language: lang }).value : escapeHtml(code),
+      lang && hljs.getLanguage(lang)
+        ? hljs.highlight(code, { language: lang }).value
+        : escapeHtml(code),
   }),
 );
 

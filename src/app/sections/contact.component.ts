@@ -8,7 +8,13 @@ import { SectionFadeDirective } from '../shared/section-fade.directive';
   selector: 'app-contact',
   imports: [FragComponent, AnimateInDirective, SectionFadeDirective],
   template: `
-    <section class="section contact" id="sec-contact" data-screen-label="07 Contato" sectionFade [animateIn]="anims">
+    <section
+      class="section contact"
+      id="sec-contact"
+      data-screen-label="07 Contato"
+      sectionFade
+      [animateIn]="anims"
+    >
       <div class="section__head">
         <span class="num">{{ c().num }}</span>
         <span class="ttl">{{ c().title }}</span>
@@ -24,7 +30,7 @@ import { SectionFadeDirective } from '../shared/section-fade.directive';
       </div>
     </section>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContactComponent {
   private readonly content = inject(ContentService);

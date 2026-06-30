@@ -1,8 +1,5 @@
 import { provideHttpClient } from '@angular/common/http';
-import {
-  HttpTestingController,
-  provideHttpClientTesting,
-} from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { CertificatesService } from './certificates.service';
 
@@ -22,7 +19,17 @@ describe('CertificatesService', () => {
   it('loads the courses and marks loaded without error', () => {
     const { service, http } = setup();
     http.expectOne(URL).flush({
-      courses: [{ name: 'Curso', platform: 'X', date: '01-2026', workload: '10h', topics: [], language: 'pt', pdf: 'a.pdf' }],
+      courses: [
+        {
+          name: 'Curso',
+          platform: 'X',
+          date: '01-2026',
+          workload: '10h',
+          topics: [],
+          language: 'pt',
+          pdf: 'a.pdf',
+        },
+      ],
     });
 
     expect(service.loaded()).toBe(true);

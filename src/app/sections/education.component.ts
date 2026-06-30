@@ -7,7 +7,13 @@ import { SectionFadeDirective } from '../shared/section-fade.directive';
   selector: 'app-education',
   imports: [AnimateInDirective, SectionFadeDirective],
   template: `
-    <section class="section" id="sec-edu" data-screen-label="06 Educação" sectionFade [animateIn]="anims">
+    <section
+      class="section"
+      id="sec-edu"
+      data-screen-label="06 Educação"
+      sectionFade
+      [animateIn]="anims"
+    >
       <div class="section__head">
         <span class="num">{{ e().num }}</span>
         <span class="ttl">{{ e().title }}</span>
@@ -15,7 +21,11 @@ import { SectionFadeDirective } from '../shared/section-fade.directive';
 
       <div class="edu">
         @for (it of e().items; track it.title; let i = $index) {
-          <article class="edu-item" [class.is-ongoing]="it.status === 'ongoing'" [class.is-done]="it.status === 'done'">
+          <article
+            class="edu-item"
+            [class.is-ongoing]="it.status === 'ongoing'"
+            [class.is-done]="it.status === 'done'"
+          >
             <aside class="edu-item__side">
               <div class="edu-item__idx">{{ pad(i + 1) }} / {{ pad(e().items.length) }}</div>
               <div class="edu-item__status">

@@ -7,7 +7,13 @@ import { SectionFadeDirective } from '../shared/section-fade.directive';
   selector: 'app-skills',
   imports: [AnimateInDirective, SectionFadeDirective],
   template: `
-    <section class="section" id="sec-skills" data-screen-label="03 Skills" sectionFade [animateIn]="anims">
+    <section
+      class="section"
+      id="sec-skills"
+      data-screen-label="03 Skills"
+      sectionFade
+      [animateIn]="anims"
+    >
       <div class="section__head">
         <span class="num">{{ s().num }}</span>
         <span class="ttl">{{ s().title }}</span>
@@ -27,7 +33,7 @@ import { SectionFadeDirective } from '../shared/section-fade.directive';
       </div>
     </section>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SkillsComponent {
   private readonly content = inject(ContentService);

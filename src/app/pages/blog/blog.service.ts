@@ -75,14 +75,16 @@ export class BlogService {
   /** Baixa o `.md` do idioma; se faltar a versão EN, cai para a PT. */
   private fetchMarkdown(meta: BlogPostMeta, lang: Lang): Observable<string> {
     const currentSlug = meta.slug[lang];
-    return this.http.get(`/blog-content/${currentSlug}.${lang}.md`, { responseType: 'text' }).pipe(
-      catchError(() =>
-        lang === 'pt'
-          ? of('')
-          : this.http
-              .get(`/blog-content/${meta.slug.pt}.pt.md`, { responseType: 'text' })
-              .pipe(catchError(() => of(''))),
-      ),
-    );
+    return this.http
+      .get(`/blog-content/${currentSlug}.${lang}.md`, { responseType: 'text' })
+      .pipe(
+        catchError(() =>
+          lang === 'pt'
+            ? of('')
+            : this.http
+                .get(`/blog-content/${meta.slug.pt}.pt.md`, { responseType: 'text' })
+                .pipe(catchError(() => of(''))),
+        ),
+      );
   }
 }

@@ -10,12 +10,18 @@ interface Token {
   selector: 'app-frag',
   template: `@for (tok of tokens(); track $index) {
     @switch (tok.kind) {
-      @case ('em') { <em>{{ tok.value }}</em> }
-      @case ('outline') { <span> </span><span class="outline">{{ tok.value }}</span> }
-      @default { {{ tok.value }} }
+      @case ('em') {
+        <em>{{ tok.value }}</em>
+      }
+      @case ('outline') {
+        <span> </span><span class="outline">{{ tok.value }}</span>
+      }
+      @default {
+        {{ tok.value }}
+      }
     }
   }`,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FragComponent {
   readonly parts = input.required<FragPart[]>();
@@ -24,6 +30,6 @@ export class FragComponent {
       if (typeof p === 'string') return { kind: 'text', value: p };
       if ('em' in p) return { kind: 'em', value: p.em };
       return { kind: 'outline', value: p.outline };
-    })
+    }),
   );
 }

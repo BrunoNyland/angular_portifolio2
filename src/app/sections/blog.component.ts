@@ -10,7 +10,13 @@ import { SectionFadeDirective } from '../shared/section-fade.directive';
   selector: 'app-blog',
   imports: [RouterLink, AnimateInDirective, SectionFadeDirective],
   template: `
-    <section class="section" id="sec-blog" data-screen-label="06 Blog" sectionFade [animateIn]="anims">
+    <section
+      class="section"
+      id="sec-blog"
+      data-screen-label="06 Blog"
+      sectionFade
+      [animateIn]="anims"
+    >
       <div class="section__head">
         <span class="num">{{ b().num }}</span>
         <span class="ttl">{{ b().title }}</span>

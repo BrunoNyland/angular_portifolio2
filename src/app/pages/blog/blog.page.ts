@@ -68,7 +68,12 @@ export class BlogPage implements OnDestroy {
   private observer?: IntersectionObserver;
 
   readonly anims: AnimateInConfig[] = [
-    { target: '.blog-page__intro > *', from: { autoAlpha: 0, y: 24 }, stagger: 0.08, start: 'top 90%' },
+    {
+      target: '.blog-page__intro > *',
+      from: { autoAlpha: 0, y: 24 },
+      stagger: 0.08,
+      start: 'top 90%',
+    },
   ];
 
   constructor() {
