@@ -13,7 +13,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:ci": "ng test --watch=false",
-    "check": "npm run format:check && npm run lint && npm run test:ci",
+    "check": "npm run format:check && npm run lint && npm run test:coverage",
     "test:coverage": "ng test --watch=false --coverage"
   },
   "private": true,

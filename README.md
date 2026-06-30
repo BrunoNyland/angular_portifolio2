@@ -1,5 +1,9 @@
 # Angular Portfólio 2
 
+[![CI](https://github.com/BrunoNyland/angular_portifolio2/actions/workflows/github-pages.yml/badge.svg)](https://github.com/BrunoNyland/angular_portifolio2/actions/workflows/github-pages.yml)
+[![Deploy](https://img.shields.io/badge/GitHub%20Pages-live-brightgreen)](https://brunonyland.github.io/angular_portifolio2/)
+[![Coverage](https://codecov.io/gh/BrunoNyland/angular_portifolio2/branch/main/graph/badge.svg)](https://codecov.io/gh/BrunoNyland/angular_portifolio2)
+
 Portfólio pessoal desenvolvido com Angular para apresentar perfil profissional, experiência, projetos selecionados, stack e formas de contato. A interface combina animações com GSAP, navegação suave com Lenis e uma cena de fundo em 3D.
 
 ## Destaques
@@ -44,7 +48,9 @@ Depois disso, abra `http://localhost:4200/`.
 
 ## CI/CD
 
-O repositório agora contém um workflow em `.github/workflows/github-pages.yml` que roda verificação de formatação, lint e testes em pull requests e faz deploy automático para GitHub Pages quando há push na branch `main`.
+O repositório agora contém um workflow em `.github/workflows/github-pages.yml` que roda verificação de formatação, lint, testes e cobertura em pull requests, envia a cobertura para o Codecov e faz deploy automático para GitHub Pages quando há push na branch `main`.
+
+Se o repositório for privado, é preciso configurar o `CODECOV_TOKEN` nas secrets do GitHub antes do upload funcionar.
 
 ## Estrutura
 
