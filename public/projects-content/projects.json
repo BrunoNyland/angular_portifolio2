@@ -44,6 +44,48 @@
     },
     {
       "slug": {
+        "pt": "qrcode-brunonyland",
+        "en": "qrcode-brunonyland"
+      },
+      "year": "2025",
+      "category": {
+        "pt": "Web App / Ferramenta",
+        "en": "Web App / Tool"
+      },
+      "tags": ["Angular", "TypeScript", "Three.js", "GSAP"],
+      "url": "https://qrcode.brunonyland.com",
+      "repo": "https://github.com/BrunoNyland/gerador_qrcode",
+      "blog": { "pt": "", "en": "" },
+      "client": {
+        "pt": "Projeto pessoal / Open source",
+        "en": "Personal project / Open source"
+      },
+      "role": {
+        "pt": "Desenvolvedor Fullstack · Autor da biblioteca qr-gen",
+        "en": "Fullstack Developer · Author of the qr-gen library"
+      },
+      "status": "live",
+      "image": "qrcode-brunonyland.svg",
+      "imageAlt": {
+        "pt": "Tela do gerador de QR Code em tempo real, com QR Code animado em 3D",
+        "en": "Real-time QR Code generator screen, with an animated 3D QR Code"
+      },
+      "featured": true,
+      "title": {
+        "pt": "Gerador de QR Code em tempo real",
+        "en": "Real-time QR Code Generator"
+      },
+      "excerpt": {
+        "pt": "Gerador de QR Codes em tempo real em Angular, com motor próprio (@brunonyland/qr-gen) e visual animado em Three.js + GSAP.",
+        "en": "Real-time QR Code generator in Angular, powered by a custom engine (@brunonyland/qr-gen) and animated visuals in Three.js + GSAP."
+      },
+      "description": {
+        "pt": "Aplicação web interativa para gerar QR Codes em tempo real, construída em Angular. O núcleo da geração é a biblioteca open source @brunonyland/qr-gen, de minha autoria, publicada no npm. A interface combina animações e renderização 3D com Three.js e GSAP, gerando QR Codes que se atualizam instantaneamente à medida que o usuário digita. Disponível online em qrcode.brunonyland.com.",
+        "en": "Interactive web app to generate real-time QR Codes, built in Angular. The generation core is the open-source @brunonyland/qr-gen library, which I authored and published to npm. The UI combines animations and 3D rendering with Three.js and GSAP, producing QR Codes that update instantly as the user types. Available online at qrcode.brunonyland.com."
+      }
+    },
+    {
+      "slug": {
         "pt": "mail-sintraffms",
         "en": "mail-sintraffms"
       },
