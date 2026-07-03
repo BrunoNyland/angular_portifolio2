@@ -258,7 +258,7 @@ export class App implements AfterViewInit, OnDestroy {
     // Delegação de eventos: funciona para conteúdo de qualquer rota (home, certificados),
     // inclusive elementos adicionados após a navegação.
     const isInteractive = (t: EventTarget | null) =>
-      t instanceof Element && t.closest('a, button, .project, .post, .cert-card');
+      t instanceof Element && t.closest('a, button, .project, .project-card, .post, .cert-card');
     this.mouseOverHandler = (e) => {
       if (isInteractive(e.target)) cursor.classList.add('is-hover');
     };

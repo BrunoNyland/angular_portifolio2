@@ -22,4 +22,7 @@ export class LayoutService {
    * idioma (/certificados ⇄ /certificates) via replaceState, sem renavegar.
    */
   readonly onCertificates = signal(false);
+
+  /** Verdadeiro enquanto a página de projetos está montada. */
+  readonly onProjects = signal(false);
 }

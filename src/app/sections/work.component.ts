@@ -1,11 +1,14 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { ContentService } from '../content/content.service';
+import { ProjectsService } from '../pages/projects/projects.service';
+import { Project } from '../pages/projects/project.types';
 import { AnimateInDirective, type AnimateInConfig } from '../shared/animate-in.directive';
 import { SectionFadeDirective } from '../shared/section-fade.directive';
 
 @Component({
   selector: 'app-work',
-  imports: [AnimateInDirective, SectionFadeDirective],
+  imports: [RouterLink, AnimateInDirective, SectionFadeDirective],
   template: `
     <section
       class="section"
@@ -18,38 +21,63 @@ import { SectionFadeDirective } from '../shared/section-fade.directive';
         <span class="num">{{ w().num }}</span>
         <span class="ttl">{{ w().title }}</span>
       </div>
-      <div class="projects">
-        @for (p of w().items; track p.t; let i = $index) {
-          <div class="project" (mouseenter)="cacheRect($event)" (mousemove)="tilt($event)">
-            <div class="project__head">
-              <span>{{ pad(i + 1) }} · {{ p.k }}</span>
-              <span class="yr">{{ p.y }}</span>
-            </div>
-            <div class="project__visual">
-              <span class="blob"></span>
-              <span class="ph">{{ p.ph }}</span>
-            </div>
-            <div>
-              <div class="project__title">
-                <span>{{ p.t }}</span
-                ><span class="arr">↗</span>
+
+      @if (featured().length) {
+        <div class="projects">
+          @for (p of featured(); track p.slug.pt) {
+            <a
+              class="project"
+              [href]="p.url"
+              target="_blank"
+              rel="noopener"
+              (mouseenter)="cacheRect($event)"
+              (mousemove)="tilt($event)"
+            >
+              <div class="project__head">
+                <span>{{ pad(index(p) + 1) }} · {{ p.category[lang()] }}</span>
+                <span class="yr">{{ p.year }}</span>
               </div>
-              <div class="project__tags">
-                @for (tag of p.tags; track tag) {
-                  <span>{{ tag }}</span>
-                }
+              <div class="project__visual">
+                <img
+                  [src]="imgHref(p)"
+                  [alt]="p.imageAlt[lang()]"
+                  loading="lazy"
+                  decoding="async"
+                />
               </div>
-            </div>
-          </div>
-        }
-      </div>
+              <div>
+                <div class="project__title">
+                  <span>{{ p.title[lang()] }}</span
+                  ><span class="arr">↗</span>
+                </div>
+                <div class="project__excerpt">{{ p.excerpt[lang()] }}</div>
+                <div class="project__tags">
+                  @for (tag of p.tags; track tag) {
+                    <span>{{ tag }}</span>
+                  }
+                </div>
+              </div>
+            </a>
+          }
+        </div>
+        <div class="projects__all">
+          <a routerLink="/projetos">{{ w().all }} <span class="arr">→</span></a>
+        </div>
+      } @else if (loaded()) {
+        <p class="projects__empty">{{ w().empty }}</p>
+      }
     </section>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WorkComponent {
   private readonly content = inject(ContentService);
+  private readonly projectsService = inject(ProjectsService);
+
   readonly w = () => this.content.dict().work;
+  readonly lang = this.content.lang;
+  readonly featured = this.projectsService.featured;
+  readonly loaded = this.projectsService.loaded;
 
   readonly anims: AnimateInConfig[] = [
     { target: '.section__head > *' },
@@ -66,7 +94,14 @@ export class WorkComponent {
     return String(n).padStart(2, '0');
   }
 
-  // Rect do card sob o cursor, medido uma vez no mouseenter para evitar reflow a cada mousemove.
+  index(p: Project): number {
+    return this.featured().indexOf(p);
+  }
+
+  imgHref(p: Project): string {
+    return `projects-content/${encodeURIComponent(p.image)}`;
+  }
+
   private rect?: DOMRect;
 
   cacheRect(e: MouseEvent): void {

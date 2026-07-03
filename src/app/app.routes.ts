@@ -25,5 +25,15 @@ export const routes: Routes = [
     path: 'blog/:slug',
     loadComponent: () => import('./pages/blog/blog-post.page').then((m) => m.BlogPostPage),
   },
+  // Mesma página em dois slugs localizados: 'projetos' (PT) e 'projects' (EN).
+  // A página mantém o slug em sincronia com o idioma selecionado.
+  {
+    path: 'projetos',
+    loadComponent: () => import('./pages/projects/projects.page').then((m) => m.ProjectsPage),
+  },
+  {
+    path: 'projects',
+    loadComponent: () => import('./pages/projects/projects.page').then((m) => m.ProjectsPage),
+  },
   { path: '**', redirectTo: '' },
 ];

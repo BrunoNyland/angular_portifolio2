@@ -37,12 +37,6 @@ const ACCENT_OPTIONS = ['#00e6a8', '#7c5cff', '#ff5b3a', '#3aa0ff', '#fc5bff', '
           >{{ dict().nav.skills }}</a
         >
         <a
-          href="#sec-work"
-          (click)="scrollTo($event, 'sec-work')"
-          [class.is-active]="active() === 'sec-work'"
-          >{{ dict().nav.work }}</a
-        >
-        <a
           href="#sec-xp"
           (click)="scrollTo($event, 'sec-xp')"
           [class.is-active]="active() === 'sec-xp'"
@@ -68,6 +62,9 @@ const ACCENT_OPTIONS = ['#00e6a8', '#7c5cff', '#ff5b3a', '#3aa0ff', '#fc5bff', '
         >
         <a [routerLink]="certsPath()" [class.is-active]="layout.onCertificates()">{{
           dict().nav.certs
+        }}</a>
+        <a [routerLink]="projectsPath()" [class.is-active]="layout.onProjects()">{{
+          dict().nav.projects
         }}</a>
       </div>
       <div class="nav__right">
@@ -119,7 +116,6 @@ const ACCENT_OPTIONS = ['#00e6a8', '#7c5cff', '#ff5b3a', '#3aa0ff', '#fc5bff', '
       <nav class="mobile-menu__nav">
         <a href="#sec-about" (click)="goSection($event, 'sec-about')">{{ dict().nav.about }}</a>
         <a href="#sec-skills" (click)="goSection($event, 'sec-skills')">{{ dict().nav.skills }}</a>
-        <a href="#sec-work" (click)="goSection($event, 'sec-work')">{{ dict().nav.work }}</a>
         <a href="#sec-xp" (click)="goSection($event, 'sec-xp')">{{ dict().nav.xp }}</a>
         <a href="#sec-edu" (click)="goSection($event, 'sec-edu')">{{ dict().nav.edu }}</a>
         <a href="#sec-blog" (click)="goSection($event, 'sec-blog')">{{ dict().nav.blog }}</a>
@@ -131,6 +127,12 @@ const ACCENT_OPTIONS = ['#00e6a8', '#7c5cff', '#ff5b3a', '#3aa0ff', '#fc5bff', '
           [class.is-active]="layout.onCertificates()"
           (click)="closeMenu()"
           >{{ dict().nav.certs }}</a
+        >
+        <a
+          [routerLink]="projectsPath()"
+          [class.is-active]="layout.onProjects()"
+          (click)="closeMenu()"
+          >{{ dict().nav.projects }}</a
         >
       </nav>
     </div>
@@ -146,12 +148,16 @@ export class NavComponent {
   readonly certsPath = computed(() =>
     this.content.lang() === 'en' ? '/certificates' : '/certificados',
   );
+  /** Slug localizado da página de projetos conforme o idioma atual. */
+  readonly projectsPath = computed(() =>
+    this.content.lang() === 'en' ? '/projects' : '/projetos',
+  );
   /**
    * Seção ativa na home (publicada pela HomeComponent via LayoutService). Fora da
    * home — ex.: na página de certificados — nenhuma seção deve ficar destacada.
    */
   readonly active = computed(() =>
-    this.layout.onCertificates() ? '' : this.layout.activeSection(),
+    this.layout.onCertificates() || this.layout.onProjects() ? '' : this.layout.activeSection(),
   );
   readonly navigate = output<string>();
   readonly langChange = output<Lang>();

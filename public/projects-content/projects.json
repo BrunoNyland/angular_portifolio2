@@ -1,0 +1,86 @@
+{
+  "projects": [
+    {
+      "slug": {
+        "pt": "sintraffms",
+        "en": "sintraffms"
+      },
+      "year": "2024",
+      "category": {
+        "pt": "Institucional / CMS",
+        "en": "Institutional / CMS"
+      },
+      "tags": ["Django", "Wagtail", "PostgreSQL", "Nginx"],
+      "url": "https://sintraffms.com",
+      "repo": "",
+      "client": {
+        "pt": "SEEBPPMS — Sindicato dos Bancários de Ponta Porã e Região",
+        "en": "SEEBPPMS — Bank Workers Union of Ponta Porã and Region"
+      },
+      "role": {
+        "pt": "Desenvolvedor Fullstack · Contrato de prestação de serviços",
+        "en": "Fullstack Developer · Service contract"
+      },
+      "status": "live",
+      "image": "sintraffms.svg",
+      "imageAlt": {
+        "pt": "Página inicial do site do SEEBPPMS com destaques de notícias sindicais",
+        "en": "Homepage of the SEEBPPMS website featuring union news highlights"
+      },
+      "featured": true,
+      "title": {
+        "pt": "SEEBPPMS — Portal do Sindicato dos Bancários",
+        "en": "SEEBPPMS — Bank Workers Union Portal"
+      },
+      "excerpt": {
+        "pt": "Site institucional e CMS do sindicato, em Django/Wagtail, com notícias, eventos, reservas, denúncias e filiação online.",
+        "en": "Union institutional site and CMS built on Django/Wagtail, with news, events, reservations, reports and online membership."
+      },
+      "description": {
+        "pt": "Portal completo do Sindicato dos Bancários de Ponta Porã e Região (SEEBPPMS), construído em Django + Wagtail. Reune notícias sindicais (com filtros por banco/cooperativa), agenda de eventos do mês, publicações e jornais em PDF, vídeos, convênios, salão de eventos, campo de futebol, piscina e hotel de trânsito (com reservas online), canal de denúncias, filiação digital, login de filiados, tema claro/escuro e integração com WhatsApp e redes sociais. Mantido continuamente sob contrato de prestação de serviços desde julho de 2024.",
+        "en": "Full portal for the Bank Workers Union of Ponta Porã and Region (SEEBPPMS), built on Django + Wagtail. It bundles union news (filterable by bank/cooperative), a monthly events calendar, PDF publications and journals, videos, partnerships, event hall, football field, pool and transit hotel (with online reservations), a whistleblower channel, digital membership, member login, light/dark theme and WhatsApp/social media integration. Continuously maintained under a service contract since July 2024."
+      }
+    },
+    {
+      "slug": {
+        "pt": "mail-sintraffms",
+        "en": "mail-sintraffms"
+      },
+      "year": "2026",
+      "category": {
+        "pt": "Infraestrutura / DevOps",
+        "en": "Infrastructure / DevOps"
+      },
+      "tags": ["Modoboa", "Nginx", "Postfix", "DNS", "TLS"],
+      "url": "https://mail.sintraffms.com",
+      "repo": "",
+      "client": {
+        "pt": "SEEBPPMS — Sindicato dos Bancários de Ponta Porã e Região",
+        "en": "SEEBPPMS — Bank Workers Union of Ponta Porã and Region"
+      },
+      "role": {
+        "pt": "Administração de sistemas · Deploy e operação",
+        "en": "Systems administration · Deploy and operations"
+      },
+      "status": "live",
+      "image": "mail-sintraffms.svg",
+      "imageAlt": {
+        "pt": "Tela de boas-vindas do Modoboa, webmail e painel de administração de email",
+        "en": "Welcome screen of Modoboa, webmail and mail administration panel"
+      },
+      "featured": true,
+      "title": {
+        "pt": "Servidor de Email Modoboa — mail.sintraffms.com",
+        "en": "Modoboa Mail Server — mail.sintraffms.com"
+      },
+      "excerpt": {
+        "pt": "Webmail e painel de administração do servidor de email do sindicato, baseado em Modoboa, com Nginx, TLS e DNS.",
+        "en": "Webmail and administration panel for the union's mail server, based on Modoboa, with Nginx, TLS and DNS."
+      },
+      "description": {
+        "pt": "Servidor de email do SEEBPPMS implantado e operado com Modoboa (webmail + painel de administração em SPA dark), servido por Nginx sobre HTTPS/TLS. Inclui gestão de domínios, contas, aliases, quotas, filtros e políticas anti-abuso, com registros DNS (MX, SPF, DKIM, DMARC) configurados para entregabilidade. Provê acesso individualizado aos filiados e equipe do sindicato, integrado ao domínio sintraffms.com.",
+        "en": "Mail server for SEEBPPMS deployed and operated with Modoboa (dark SPA webmail + admin panel), served by Nginx over HTTPS/TLS. Includes domain, account, alias, quota, filter and anti-abuse policy management, with DNS records (MX, SPF, DKIM, DMARC) configured for deliverability. Provides individualized access for union members and staff, integrated with the sintraffms.com domain."
+      }
+    }
+  ]
+}

@@ -5,12 +5,12 @@ export type FragPart = string | { em: string } | { outline: string };
 export interface NavDict {
   about: string;
   skills: string;
-  work: string;
   xp: string;
   edu: string;
   blog: string;
   contact: string;
   certs: string;
+  projects: string;
 }
 
 export interface HeroDict {
@@ -57,18 +57,15 @@ export interface SkillsDict {
   groups: SkillGroup[];
 }
 
-export interface WorkItem {
-  t: string;
-  y: string;
-  k: string;
-  tags: string[];
-  ph: string;
-}
-
 export interface WorkDict {
   num: string;
   title: string;
-  items: WorkItem[];
+  /** CTA de cada card ("Ver projeto"). */
+  cta: string;
+  /** CTA para a página geral de projetos ("Ver todos os projetos"). */
+  all: string;
+  /** Estado vazio (sem projetos em destaque). */
+  empty: string;
 }
 
 export interface XpRole {
@@ -161,6 +158,27 @@ export interface ContactDict {
   items: ContactItem[];
 }
 
+/** Textos da página geral de projetos (`/projetos`). */
+export interface ProjectsPageDict {
+  num: string;
+  title: string;
+  lead: string;
+  searchPlaceholder: string;
+  allCategories: string;
+  allTags: string;
+  results: string;
+  empty: string;
+  loading: string;
+  error: string;
+  visit: string;
+  repo: string;
+  client: string;
+  role: string;
+  statusLive: string;
+  statusArchived: string;
+  back: string;
+}
+
 export interface CertsDict {
   num: string;
   title: string;
@@ -204,6 +222,7 @@ export interface SeoDict {
   home: SeoEntry;
   certs: SeoEntry;
   blog: SeoEntry;
+  projects: SeoEntry;
 }
 
 export interface Dict {
@@ -218,6 +237,7 @@ export interface Dict {
   blogPage: BlogPageDict;
   contact: ContactDict;
   certs: CertsDict;
+  projectsPage: ProjectsPageDict;
   foot: FootDict;
   loader: LoaderDict;
   seo: SeoDict;
