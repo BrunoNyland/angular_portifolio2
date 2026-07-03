@@ -107,6 +107,11 @@
                     {{ t().repo }} ↗
                   </a>
                 }
+                @if (blogSlug(p); as slug) {
+                  <a class="project-card__link" [routerLink]="['/blog', slug]">
+                    {{ t().readArticle }} →
+                  </a>
+                }
               </footer>
             </div>
           </article>

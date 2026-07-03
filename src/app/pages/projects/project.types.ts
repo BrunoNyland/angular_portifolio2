@@ -20,6 +20,8 @@ export interface Project {
   url: string;
   /** URL do repositório (opcional). */
   repo?: string;
+  /** Slug da postagem do blog que descreve o projeto, por idioma (opcional). */
+  blog?: Localized;
   /** Cliente / para quem foi feito (opcional). */
   client?: Localized;
   /** Papel desempenhado (opcional). */

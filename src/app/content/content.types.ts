@@ -172,6 +172,7 @@ export interface ProjectsPageDict {
   error: string;
   visit: string;
   repo: string;
+  readArticle: string;
   client: string;
   role: string;
   statusLive: string;

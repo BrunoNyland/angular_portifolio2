@@ -129,6 +129,11 @@ export class ProjectsPage implements OnDestroy {
     return `projects-content/${encodeURIComponent(p.image)}`;
   }
 
+  /** Slug localizado do artigo do blog que descreve o projeto (ou ''). */
+  blogSlug(p: Project): string {
+    return p.blog?.[this.lang()] ?? '';
+  }
+
   onSearch(value: string): void {
     this.searchTerm.set(value);
     this.visibleCount.set(PAGE_SIZE);

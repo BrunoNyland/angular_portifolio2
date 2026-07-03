@@ -13,6 +13,7 @@
       "tags": ["Django", "Wagtail", "PostgreSQL", "Nginx"],
       "url": "https://sintraffms.com",
       "repo": "",
+      "blog": { "pt": "", "en": "" },
       "client": {
         "pt": "SEEBPPMS — Sindicato dos Bancários de Ponta Porã e Região",
         "en": "SEEBPPMS — Bank Workers Union of Ponta Porã and Region"
@@ -54,6 +55,7 @@
       "tags": ["Modoboa", "Nginx", "Postfix", "DNS", "TLS"],
       "url": "https://mail.sintraffms.com",
       "repo": "",
+      "blog": { "pt": "", "en": "" },
       "client": {
         "pt": "SEEBPPMS — Sindicato dos Bancários de Ponta Porã e Região",
         "en": "SEEBPPMS — Bank Workers Union of Ponta Porã and Region"
