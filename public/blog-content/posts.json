@@ -2,6 +2,23 @@
   "posts": [
     {
       "slug": {
+        "pt": "token-vale-ouro",
+        "en": "token-is-gold"
+      },
+      "date": "2026-07",
+      "featured": true,
+      "tag": { "pt": "IA", "en": "AI" },
+      "title": {
+        "pt": "Token vale Ouro: Como Economizar até 90% dos Tokens no Desenvolvimento com IA",
+        "en": "Token is Gold: How to Save up to 90% of Tokens in AI Development"
+      },
+      "excerpt": {
+        "pt": "Aprenda a instalar e configurar ferramentas como Graphify, RTK e GSD Core para acabar com a inflação de tokens e o apodrecimento do contexto.",
+        "en": "Learn how to install and configure tools like Graphify, RTK, and GSD Core to end token inflation and context rot."
+      }
+    },
+    {
+      "slug": {
         "pt": "o-grande-rollback-shopify-trocou-redis-pelo-mysql",
         "en": "the-great-rollback-shopify-swapped-redis-for-mysql"
       },
