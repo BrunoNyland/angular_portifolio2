@@ -1,6 +1,30 @@
 Options -MultiViews
 RewriteEngine On
 
+# --- Servir pré-comprimidos (brotli > gzip > original) ---
+# Arquivos `foo.js.br` / `foo.js.gz`: mod_mime usa o tipo de `foo.js`
+# e adiciona Content-Encoding a partir de `.br`/`.gz`.
+AddEncoding br .br
+AddEncoding gzip .gz
+
+AddType application/javascript .js
+AddType text/css .css
+AddType text/html .html
+AddType application/json .json
+AddType image/svg+xml .svg
+AddType application/wasm .wasm
+AddType text/cache-manifest .appcache
+
+<IfModule mod_rewrite.c>
+  RewriteCond %{HTTP:Accept-Encoding} br
+  RewriteCond %{REQUEST_FILENAME}\.br -f
+  RewriteRule ^(.*)$ $1\.br [L]
+
+  RewriteCond %{HTTP:Accept-Encoding} gzip
+  RewriteCond %{REQUEST_FILENAME}\.gz -f
+  RewriteRule ^(.*)$ $1\.gz [L]
+</IfModule>
+
 # Deixa arquivos e pastas reais serem servidos normalmente.
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
