@@ -2,6 +2,90 @@
   "projects": [
     {
       "slug": {
+        "pt": "rabeachtennis",
+        "en": "rabeachtennis"
+      },
+      "year": "2026",
+      "category": {
+        "pt": "Web App / PWA",
+        "en": "Web App / PWA"
+      },
+      "tags": ["Angular", "Django", "TypeScript", "PostgreSQL", "PWA", "Tailwind CSS", "Nginx"],
+      "url": "https://rabeachtennis.com",
+      "repo": "",
+      "blog": { "pt": "", "en": "" },
+      "client": {
+        "pt": "RA Beach Tennis — Arena de Beach Tennis",
+        "en": "RA Beach Tennis — Beach Tennis Arena"
+      },
+      "role": {
+        "pt": "Desenvolvedor Fullstack · Arquitetura, Backend, Frontend PWA e DevOps",
+        "en": "Fullstack Developer · Architecture, Backend, Frontend PWA and DevOps"
+      },
+      "status": "live",
+      "image": "rabeachtennis.svg",
+      "imageAlt": {
+        "pt": "Interface do aplicativo RA Beach Tennis com agendamento de quadras e gestão da arena",
+        "en": "RA Beach Tennis app interface featuring court booking and arena management"
+      },
+      "featured": true,
+      "title": {
+        "pt": "RA Beach Tennis — Plataforma de Reservas & PWA",
+        "en": "RA Beach Tennis — Court Booking Platform & PWA"
+      },
+      "excerpt": {
+        "pt": "Plataforma completa e PWA da arena RA Beach Tennis em Angular 22 e Django API, com agendamento de quadras, notificações WhatsApp e gestão.",
+        "en": "Full platform and PWA for RA Beach Tennis arena built with Angular 22 and Django API, featuring court booking, WhatsApp notifications, and management."
+      },
+      "description": {
+        "pt": "Sistema web e PWA para a arena RA Beach Tennis. Frontend moderno em Angular 22 (PWA com Service Worker, SSG e Tailwind CSS) integrado a backend RESTful em Django com PostgreSQL, Celery e Nginx. Inclui agendamento de quadras em tempo real, perfil de atletas, notificações e confirmações via WhatsApp (Evolution API), painel administrativo e navegação otimizada para dispositivos móveis e desktop.",
+        "en": "Web platform and PWA for the RA Beach Tennis arena. Modern frontend built with Angular 22 (PWA with Service Worker, SSG, and Tailwind CSS) integrated with a RESTful Django backend using PostgreSQL, Celery, and Nginx. Features real-time court scheduling, player profiles, WhatsApp notifications and confirmations (Evolution API), administrative dashboard, and optimized navigation for mobile and desktop."
+      }
+    },
+    {
+      "slug": {
+        "pt": "digita-senha",
+        "en": "digita-senha"
+      },
+      "year": "2026",
+      "category": {
+        "pt": "Desktop App / Automação",
+        "en": "Desktop App / Automation"
+      },
+      "tags": ["C#", ".NET", "WPF", "WPF-UI", "Windows", "GitHub Actions"],
+      "url": "https://github.com/BrunoNyland/digita_senha",
+      "repo": "https://github.com/BrunoNyland/digita_senha",
+      "blog": { "pt": "", "en": "" },
+      "client": {
+        "pt": "Projeto Pessoal / Open Source (Atendimento / Automação CAIXA)",
+        "en": "Personal Project / Open Source (Customer Service Automation)"
+      },
+      "role": {
+        "pt": "Desenvolvedor / Autor",
+        "en": "Developer / Author"
+      },
+      "status": "live",
+      "image": "digita-senha.svg",
+      "imageAlt": {
+        "pt": "Interface de configurações do DigitaSenha em tema escuro WPF-UI com suporte a atalhos globais",
+        "en": "DigitaSenha settings interface in WPF-UI dark theme featuring global hotkey support"
+      },
+      "featured": true,
+      "title": {
+        "pt": "DigitaSenha — Automação de Credenciais para Windows",
+        "en": "DigitaSenha — Windows Credential Automation Assistant"
+      },
+      "excerpt": {
+        "pt": "Assistente de automação para Windows em C# (.NET / WPF-UI) que preenche credenciais e PINs em sistemas via atalho global.",
+        "en": "Windows automation assistant built in C# (.NET / WPF-UI) to auto-fill credentials and security PINs via global hotkey."
+      },
+      "description": {
+        "pt": "Aplicação desktop de automação para Windows desenvolvida em C# (.NET 8/9/10 e WPF-UI). Projetada para agilizar logins e atendimentos repetitivos no trabalho, detecta janelas ativas e preenche credenciais e PINs automaticamente por meio de um único atalho global de teclado. Conta com mapeamento dinâmico de janelas em JSON, injeção assíncrona de teclas (InputSimulator), controle de instância única (Mutex), tema escuro moderno e menu de contexto na bandeja do sistema (Tray Icon), além de pipeline de CI/CD automatizado no GitHub Actions.",
+        "en": "Desktop automation app for Windows developed in C# (.NET 8/9/10 and WPF-UI). Designed to streamline login workflows and customer service desk efficiency, it detects active system windows and auto-fills credentials, IDs, and PINs via global keyboard hotkey. Features dynamic JSON window mapping, asynchronous key injection (InputSimulator), single-instance protection (Mutex), modern dark theme with system tray integration, and an automated GitHub Actions CI/CD pipeline."
+      }
+    },
+    {
+      "slug": {
         "pt": "sintraffms",
         "en": "sintraffms"
       },
