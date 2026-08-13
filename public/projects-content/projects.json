@@ -178,7 +178,7 @@
         "pt": "Infraestrutura / DevOps",
         "en": "Infrastructure / DevOps"
       },
-      "tags": ["Modoboa", "Nginx", "Postfix", "DNS", "TLS"],
+      "tags": ["Modoboa", "Vue", "Nginx", "Postfix", "DNS", "TLS"],
       "url": "https://mail.sintraffms.com",
       "repo": "",
       "blog": { "pt": "", "en": "" },

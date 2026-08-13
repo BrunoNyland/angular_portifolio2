@@ -85,14 +85,14 @@ export class SceneService {
       rim.position.set(4, -2, 2);
       scene.add(rim);
 
-      // 3D "B" mark
-      const bGeo = new THREE.ExtrudeGeometry(this.makeBShape(THREE), {
-        depth: 0.4,
+      // 3D "</>" code tag mark
+      const bGeo = new THREE.ExtrudeGeometry(this.makeCodeTagShapes(THREE), {
+        depth: 0.35,
         bevelEnabled: true,
         bevelThickness: 0.04,
         bevelSize: 0.04,
-        bevelSegments: 6,
-        curveSegments: 24,
+        bevelSegments: 4,
+        curveSegments: 16,
       });
       bGeo.center();
 
@@ -304,44 +304,36 @@ export class SceneService {
     this.rafId = requestAnimationFrame(this.tick);
   };
 
-  private makeBShape(THREE: ThreeModule): THREE.Shape {
-    const s = new THREE.Shape();
-    const w = 1.0,
-      h = 1.4;
-    s.moveTo(-w / 2, -h / 2);
-    s.lineTo(-w / 2, h / 2);
-    s.lineTo(w / 2 - 0.05, h / 2);
-    s.bezierCurveTo(w / 2 + 0.35, h / 2, w / 2 + 0.35, 0.08, w / 2 - 0.05, 0.08);
-    s.lineTo(-w / 2 + 0.25, 0.08);
-    s.lineTo(-w / 2 + 0.25, -0.08);
-    s.lineTo(w / 2 - 0.05, -0.08);
-    s.bezierCurveTo(w / 2 + 0.45, -0.08, w / 2 + 0.45, -h / 2, w / 2 - 0.05, -h / 2);
-    s.lineTo(-w / 2, -h / 2);
+  private makeCodeTagShapes(THREE: ThreeModule): THREE.Shape[] {
+    // 1. Left Bracket '<'
+    const left = new THREE.Shape();
+    left.moveTo(-0.6, 0.9);
+    left.lineTo(-1.3, 0.0);
+    left.lineTo(-0.6, -0.9);
+    left.lineTo(-0.38, -0.73);
+    left.lineTo(-0.96, 0.0);
+    left.lineTo(-0.38, 0.73);
+    left.closePath();
 
-    const top = new THREE.Path();
-    top.moveTo(-w / 2 + 0.25, 0.25);
-    top.lineTo(-w / 2 + 0.25, h / 2 - 0.18);
-    top.lineTo(w / 2 - 0.18, h / 2 - 0.18);
-    top.bezierCurveTo(w / 2 + 0.08, h / 2 - 0.18, w / 2 + 0.08, 0.25, w / 2 - 0.18, 0.25);
-    top.lineTo(-w / 2 + 0.25, 0.25);
-    s.holes.push(top);
+    // 2. Slash '/'
+    const slash = new THREE.Shape();
+    slash.moveTo(-0.25, -1.0);
+    slash.lineTo(-0.03, -1.0);
+    slash.lineTo(0.25, 1.0);
+    slash.lineTo(0.03, 1.0);
+    slash.closePath();
 
-    const bot = new THREE.Path();
-    bot.moveTo(-w / 2 + 0.25, -h / 2 + 0.18);
-    bot.lineTo(-w / 2 + 0.25, -0.25);
-    bot.lineTo(w / 2 - 0.18, -0.25);
-    bot.bezierCurveTo(
-      w / 2 + 0.18,
-      -0.25,
-      w / 2 + 0.18,
-      -h / 2 + 0.18,
-      w / 2 - 0.18,
-      -h / 2 + 0.18,
-    );
-    bot.lineTo(-w / 2 + 0.25, -h / 2 + 0.18);
-    s.holes.push(bot);
+    // 3. Right Bracket '>'
+    const right = new THREE.Shape();
+    right.moveTo(0.6, 0.9);
+    right.lineTo(1.3, 0.0);
+    right.lineTo(0.6, -0.9);
+    right.lineTo(0.38, -0.73);
+    right.lineTo(0.96, 0.0);
+    right.lineTo(0.38, 0.73);
+    right.closePath();
 
-    return s;
+    return [left, slash, right];
   }
 
   destroy(): void {
