@@ -39,7 +39,8 @@ To install the base tool on Mac/Linux:
 ```bash
 curl -sSL https://rtk-ai.app/install.sh | bash
 ```
-*(On Windows, download the binary and place it in your PATH, or use WSL for full hook support).*
+
+_(On Windows, download the binary and place it in your PATH, or use WSL for full hook support)._
 
 Once installed, configure it in your agent:
 
@@ -98,7 +99,7 @@ In addition to automated instructions, you can act manually throughout the sessi
 - **Compaction Command (`/compact`):** In Claude Code, whenever you feel the conversation has dragged on too long, you can run this command (e.g., `/compact preserve only architectural decisions`) for the AI to summarize the session up to that point and delete the rest.
 - **Clear Commands (`/clear` or `/new`):** Started a new feature? Don't continue in the same chat! Use `/clear` in Claude Code or `/new` in OpenCode to wipe the window and start with fresh memory. The GSD framework encourages that no session relies on a long chat history, keeping everything saved only in files on disk (like the `.md` files in the `.planning` folder).
 
-**Token impact:** The strategy of triggering compaction early (when context hits 50%) combined with *thinking tokens* limits cuts costs by about 60% without losing quality in tasks (as demonstrated by the Everything Claude Code system). Furthermore, the GSD documentation warns that the AI's maximum reasoning quality only occurs when the context is between 0 and 30%. Past 50%, the AI already starts cutting corners.
+**Token impact:** The strategy of triggering compaction early (when context hits 50%) combined with _thinking tokens_ limits cuts costs by about 60% without losing quality in tasks (as demonstrated by the Everything Claude Code system). Furthermore, the GSD documentation warns that the AI's maximum reasoning quality only occurs when the context is between 0 and 30%. Past 50%, the AI already starts cutting corners.
 
 ---
 

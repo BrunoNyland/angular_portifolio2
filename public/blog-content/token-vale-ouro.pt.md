@@ -1,6 +1,6 @@
 # Token vale Ouro: Como Economizar até 90% dos Tokens no Desenvolvimento com IA
 
-Se você utiliza assistentes de IA para programação de forma intensiva, já deve ter se deparado com dois grandes problemas: a "inflação" na conta de tokens e o "apodrecimento do contexto" (*context rot*), onde a IA começa a esquecer regras e alucinar após algumas interações.
+Se você utiliza assistentes de IA para programação de forma intensiva, já deve ter se deparado com dois grandes problemas: a "inflação" na conta de tokens e o "apodrecimento do contexto" (_context rot_), onde a IA começa a esquecer regras e alucinar após algumas interações.
 
 Para resolver isso, este guia vai te ensinar a instalar e configurar as três ferramentas mais poderosas do momento ([Graphify](https://pypi.org/project/graphifyy/), [RTK](https://rtk-ai.app/) e [GSD Core](https://www.npmjs.com/package/@opengsd/gsd-core)) em três ambientes diferentes (Claude Code, OpenCode e Antigravity CLI). Além disso, configuraremos regras globais para uso forçado de subagentes e compactação precoce do contexto.
 
@@ -39,7 +39,8 @@ Para instalar a ferramenta base no Mac/Linux:
 ```bash
 curl -sSL https://rtk-ai.app/install.sh | bash
 ```
-*(No Windows, baixe o binário e coloque no seu PATH, ou use WSL para suporte total aos hooks).*
+
+_(No Windows, baixe o binário e coloque no seu PATH, ou use WSL para suporte total aos hooks)._
 
 Depois de instalado, configure no seu agente:
 
@@ -98,7 +99,7 @@ Além das instruções automatizadas, você pode atuar manualmente ao longo da s
 - **Comando de Compactação (`/compact`):** No Claude Code, sempre que sentir que a conversa se estendeu demais, você pode rodar esse comando (ex: `/compact preserve somente as decisões de arquitetura`) para a IA fazer um resumo da sessão até ali e apagar o resto.
 - **Comandos de Limpeza (`/clear` ou `/new`):** Começou uma feature nova? Não continue no mesmo chat! Use `/clear` no Claude Code ou `/new` no OpenCode para zerar a janela e iniciar com a memória fresca. O framework GSD incentiva que nenhuma sessão dependa de histórico longo de chat, mantendo tudo salvo apenas nos arquivos no disco (como os arquivos `.md` na pasta `.planning`).
 
-**Impacto nos tokens:** A estratégia de acionar a compactação precocemente (quando o contexto bate em 50%) aliada a limites de *thinking tokens* corta os custos em cerca de 60% sem perder a qualidade nas tarefas (como demonstrado pelo sistema Everything Claude Code). Além disso, a documentação do GSD alerta que a qualidade máxima de raciocínio da IA só ocorre quando o contexto está entre 0 e 30%. Passou de 50%, a IA já começa a cortar caminhos.
+**Impacto nos tokens:** A estratégia de acionar a compactação precocemente (quando o contexto bate em 50%) aliada a limites de _thinking tokens_ corta os custos em cerca de 60% sem perder a qualidade nas tarefas (como demonstrado pelo sistema Everything Claude Code). Além disso, a documentação do GSD alerta que a qualidade máxima de raciocínio da IA só ocorre quando o contexto está entre 0 e 30%. Passou de 50%, a IA já começa a cortar caminhos.
 
 ---
 
